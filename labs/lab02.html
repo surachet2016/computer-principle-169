@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 2: Data Types &amp; Type Conversion - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html" class="active"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Data Types &amp; Type Conversion</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 2</div>
+        <h1>Data Types &amp; Type Conversion</h1>
+        <p>เรียนรู้ชนิดข้อมูลพื้นฐานใน Python และการแปลงระหว่างชนิดข้อมูล</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1: เข้าใจและใช้งานชนิดข้อมูลพื้นฐานได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>บอกชนิดข้อมูลพื้นฐานของ Python ได้ ได้แก่ <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code>, <code>None</code></li>
+          <li>ใช้ฟังก์ชัน <code>type()</code> ตรวจสอบชนิดข้อมูลได้</li>
+          <li>แปลงชนิดข้อมูลด้วย <code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code> ได้</li>
+          <li>รู้จักข้อผิดพลาดที่เกิดจากการแปลงชนิดข้อมูลที่ไม่ถูกต้อง</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: ชนิดข้อมูลพื้นฐาน</h2>
+      <div class="theory-box">
+        <p>Python มีชนิดข้อมูลพื้นฐาน 5 ชนิดหลัก ได้แก่ <strong>int</strong> (จำนวนเต็ม) เช่น 42, -10 — <strong>float</strong> (จำนวนทศนิยม) เช่น 3.14, -0.5 — <strong>str</strong> (ข้อความ) เช่น "สวัสดี" — <strong>bool</strong> (ค่าความจริง) คือ <code>True</code> หรือ <code>False</code> เท่านั้น — และ <strong>None</strong> (ค่าว่าง ไม่มีค่า) ใช้ฟังก์ชัน <code>type()</code> เพื่อตรวจสอบชนิดของตัวแปรได้</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ชนิดข้อมูลพื้นฐาน
+a = 42          # int
+b = 3.14        # float
+c = "สวัสดี"    # str
+d = True        # bool
+e = None        # NoneType
+
+# ตรวจสอบชนิดข้อมูลด้วย type()
+print(type(a))  # &lt;class 'int'&gt;
+print(type(b))  # &lt;class 'float'&gt;
+print(type(c))  # &lt;class 'str'&gt;
+print(type(d))  # &lt;class 'bool'&gt;
+print(type(e))  # &lt;class 'NoneType'&gt;
+
+# แสดงเฉพาะชื่อชนิด
+print(type(a).__name__)  # int</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: Type Conversion</h2>
+      <div class="theory-box">
+        <p>บางครั้งเราต้องการแปลงข้อมูลจากชนิดหนึ่งไปเป็นอีกชนิดหนึ่ง เรียกว่า <strong>Type Conversion</strong> Python มีฟังก์ชันสำหรับแปลงชนิดข้อมูลหลัก ได้แก่ <code>int()</code> แปลงเป็นจำนวนเต็ม, <code>float()</code> แปลงเป็นทศนิยม, <code>str()</code> แปลงเป็นข้อความ และ <code>bool()</code> แปลงเป็นค่าความจริง ข้อควรระวัง: <code>int(3.99)</code> จะได้ <code>3</code> ไม่ใช่ <code>4</code> เพราะ Python ตัดทศนิยมทิ้ง ไม่ปัดขึ้น</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># การแปลงชนิดข้อมูล (Type Conversion)
+x = 42
+y = 3.99
+z = "100"
+
+# int() — แปลงเป็นจำนวนเต็ม (ตัดทศนิยมทิ้ง ไม่ปัดขึ้น)
+print(int(y))         # 3 (ไม่ใช่ 4!)
+print(int(z))         # 100
+
+# float() — แปลงเป็นทศนิยม
+print(float(x))       # 42.0
+print(float("3.14"))  # 3.14
+
+# str() — แปลงเป็นข้อความ
+print(str(x))         # "42"
+print(str(y))         # "3.99"
+
+# bool() — 0, "" (ว่าง), None คือ False ส่วนที่เหลือคือ True
+print(bool(0))        # False
+print(bool(1))        # True
+print(bool(""))       # False
+print(bool("Hi"))     # True</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: ข้อควรระวัง</h2>
+      <div class="theory-box">
+        <p>การแปลงชนิดข้อมูลบางกรณีทำไม่ได้และจะเกิด <strong>ValueError</strong> ขึ้น เช่น <code>int("abc")</code> เพราะ "abc" ไม่ใช่ตัวเลข และ <code>int("3.14")</code> ก็ทำไม่ได้โดยตรง ต้องแปลงเป็น float ก่อน เราสามารถใช้ <code>try/except</code> จัดการ error ได้อย่างสวยงามแทนที่จะปล่อยให้โปรแกรมหยุดทำงาน</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># กรณีที่ทำได้ vs ทำไม่ได้
+print(float("3.14"))           # ได้: 3.14
+print(int(float("3.14")))      # ได้: 3 (แปลงสองขั้น)
+
+# จัดการ error ด้วย try/except
+try:
+    result = int("abc")
+    print(result)
+except ValueError as e:
+    print(f"เกิดข้อผิดพลาด: {e}")
+
+# ทดสอบอีกกรณี
+try:
+    result = int("3.14")       # ทำไม่ได้โดยตรง
+except ValueError:
+    print("int('3.14') ทำไม่ได้ — ต้องใช้ float() ก่อน")
+    print("วิธีถูกต้อง:", int(float("3.14")))</code></pre>
+      </div>
+
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Data Types &amp; Type Conversion</span>
+        </div>
+        <textarea>
+# ชนิดข้อมูลและการแปลง
+x = 42
+y = 3.14
+z = "100"
+flag = True
+
+print("ค่าและชนิดข้อมูล:")
+print(f"  x = {x}  ชนิด: {type(x).__name__}")
+print(f"  y = {y}  ชนิด: {type(y).__name__}")
+print(f"  z = {z}  ชนิด: {type(z).__name__}")
+print(f"  flag = {flag}  ชนิด: {type(flag).__name__}")
+
+print("\nการแปลงชนิดข้อมูล:")
+print(f"  int(y) = {int(y)}")
+print(f"  float(x) = {float(x)}")
+print(f"  str(x) = '{str(x)}'")
+print(f"  int(z) = {int(z)}")
+print(f"  bool(0) = {bool(0)}, bool(1) = {bool(1)}")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 2</div>
+        <ol>
+          <li>ประกาศ <code>gpa = 3.85</code> (float) แล้วแปลงเป็น <code>int</code> แสดงทั้งสองค่า — สังเกตว่าค่าต่างกันอย่างไร และทำไม?</li>
+          <li>ลองเขียน <code>int("hello")</code> แล้วสังเกตข้อผิดพลาดที่เกิดขึ้น จากนั้นใช้ <code>try/except ValueError</code> จัดการและแสดงข้อความว่า "ไม่สามารถแปลงได้" แทน</li>
+          <li><code>bool("")</code> และ <code>bool("0")</code> คืนค่าอะไร? ทำไมจึงต่างกัน? ลองทดสอบแล้วเขียน comment อธิบาย</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab01.html">← Lab 1: Hello World</a>
+        <a href="lab03.html" class="next">Lab 3: Operators &amp; I/O →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

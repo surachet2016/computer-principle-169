@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 6: Lists - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html" class="active"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Lists</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 6</div>
+        <h1>Lists</h1>
+        <p>ฝึกใช้ List ในการเก็บข้อมูลหลายค่า การเข้าถึง การแก้ไข และ List Comprehension</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถใช้ List จัดการชุดข้อมูลในโปรแกรมได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>สร้าง List และเข้าถึงสมาชิกด้วย index บวกและลบได้</li>
+          <li>ใช้เมธอด <code>append()</code>, <code>insert()</code>, <code>remove()</code>, <code>pop()</code>, <code>sort()</code>, <code>reverse()</code> ได้</li>
+          <li>วนซ้ำผ่าน List ด้วย <code>for</code> loop และ <code>enumerate()</code> ได้</li>
+          <li>เขียน List Comprehension เพื่อสร้าง List ใหม่อย่างกระชับได้</li>
+        </ul>
+      </div>
+
+      <!-- Step 1 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: การสร้างและเข้าถึง List</h2>
+      <div class="theory-box">
+        <p>List คือโครงสร้างข้อมูลที่เก็บหลายค่าในตัวแปรเดียว สร้างด้วยวงเล็บเหลี่ยม <code>[]</code> และคั่นด้วยเครื่องหมายจุลภาค การเข้าถึงสมาชิกใช้ index ซึ่งเริ่มจาก 0 หรือใช้ index ลบเพื่อนับจากท้าย เช่น <code>-1</code> คือสมาชิกสุดท้าย ฟังก์ชัน <code>len()</code> ใช้หาความยาวของ List</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง"]
+
+print(fruits[0])    # แอปเปิล  (index แรก)
+print(fruits[-1])   # มะม่วง  (index สุดท้าย)
+print(fruits[1:3])  # ['กล้วย', 'ส้ม']  (slicing)
+print(len(fruits))  # 4</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: การแก้ไข List</h2>
+      <div class="theory-box">
+        <p>List สามารถแก้ไขได้หลังสร้าง (mutable) โดยใช้เมธอดต่าง ๆ เช่น <code>append(x)</code> เพิ่มท้าย List, <code>insert(i, x)</code> แทรกที่ตำแหน่ง i, <code>remove(x)</code> ลบค่า x ตัวแรก, <code>pop(i)</code> ลบและคืนค่าที่ตำแหน่ง i (ถ้าไม่ระบุจะลบท้าย), <code>sort()</code> เรียงลำดับ, และ <code>reverse()</code> กลับด้าน</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">nums = [3, 1, 4, 1, 5, 9, 2, 6]
+
+nums.append(7)        # เพิ่ม 7 ท้าย List
+nums.insert(0, 0)     # แทรก 0 ที่ตำแหน่งแรก
+nums.remove(1)        # ลบ 1 ตัวแรก
+last = nums.pop()     # ลบและรับค่าท้ายสุด
+
+nums.sort()           # เรียงจากน้อยไปมาก
+print(nums)
+
+nums.sort(reverse=True)   # เรียงจากมากไปน้อย
+print(nums)</code></pre>
+      </div>
+
+      <!-- Step 3 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: วนซ้ำ List</h2>
+      <div class="theory-box">
+        <p>การวนซ้ำผ่าน List ทำได้ด้วย <code>for</code> loop โดยตรง หรือใช้ <code>enumerate()</code> เพื่อให้ได้ทั้ง index และค่าในเวลาเดียวกัน ซึ่งมีประโยชน์เมื่อต้องการทราบลำดับของสมาชิก</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">colors = ["แดง", "เขียว", "น้ำเงิน"]
+
+# วนซ้ำแบบธรรมดา
+for color in colors:
+    print(color)
+
+# วนซ้ำพร้อม index (เริ่มนับที่ 1)
+for i, color in enumerate(colors, 1):
+    print(f"{i}. {color}")</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: List Comprehension</h2>
+      <div class="theory-box">
+        <p>List Comprehension คือวิธีสร้าง List ใหม่จาก List เดิมในบรรทัดเดียวอย่างกระชับ มีรูปแบบ <code>[นิพจน์ for ตัวแปร in iterable]</code> และสามารถเพิ่มเงื่อนไขด้วย <code>if</code> ได้ เช่น <code>[x*2 for x in nums if x &gt; 0]</code></p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">nums = [1, -2, 3, -4, 5, -6]
+
+# คูณทุกค่าด้วย 2
+doubled = [x * 2 for x in nums]
+print(doubled)  # [2, -4, 6, -8, 10, -12]
+
+# กรองเฉพาะค่าบวก
+positives = [x for x in nums if x > 0]
+print(positives)  # [1, 3, 5]
+
+# สร้าง List กำลังสองของค่าบวก
+pos_squared = [x**2 for x in nums if x > 0]
+print(pos_squared)  # [1, 9, 25]</code></pre>
+      </div>
+
+      <!-- Runner -->
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Lists</span>
+        </div>
+        <textarea>
+# ระบบบันทึกคะแนนนักศึกษา
+students = ["สมชาย", "สมหญิง", "สมศักดิ์", "สมใจ", "สมพร"]
+scores   = [85, 72, 91, 68, 78]
+
+print("รายชื่อนักศึกษาและคะแนน:")
+print("-" * 30)
+for i, (name, score) in enumerate(zip(students, scores), 1):
+    print(f"{i}. {name:<10} {score} คะแนน")
+
+print("-" * 30)
+print(f"คะแนนสูงสุด:  {max(scores)}")
+print(f"คะแนนต่ำสุด:  {min(scores)}")
+print(f"คะแนนเฉลี่ย: {sum(scores)/len(scores):.2f}")
+
+# List Comprehension: เฉพาะที่ผ่าน (>= 70)
+passed = [students[i] for i, s in enumerate(scores) if s >= 70]
+print(f"\nนักศึกษาที่ผ่าน: {passed}")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Exercises -->
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 6</div>
+        <ol>
+          <li>เพิ่มนักศึกษา 2 คน (ชื่อและคะแนน) ลงใน List <code>students</code> และ <code>scores</code> แล้ว Run ดูผลที่อัปเดต</li>
+          <li>เขียน List Comprehension สร้าง List คะแนนที่ &gt;= 80 เท่านั้น แล้ว <code>print()</code> แสดงผล</li>
+          <li>ใช้ <code>sort()</code> เรียงคะแนนจากมากไปน้อย แล้วแสดง 3 อันดับแรก</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab05.html">← Lab 5: Loops</a>
+        <a href="lab07.html" class="next">Lab 7: Strings →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

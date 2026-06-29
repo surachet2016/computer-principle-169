@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 4: Conditions - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html" class="active"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Conditions</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 4</div>
+        <h1>Conditions</h1>
+        <p>ฝึกใช้คำสั่งเงื่อนไข if, if-else, if-elif-else และ nested if เพื่อควบคุมการทำงานของโปรแกรม</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1: เขียนโปรแกรมที่มีการตัดสินใจได้</span>
+          <span class="clo-badge clo3">CLO3: แก้ปัญหาด้วยการออกแบบเงื่อนไขได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>เขียน <code>if</code> statement พร้อมเข้าใจความสำคัญของ indentation ได้</li>
+          <li>ใช้ <code>if-else</code> เลือกทำงานสองทางตามเงื่อนไขได้</li>
+          <li>ใช้ <code>if-elif-else</code> จัดการเงื่อนไขหลายกรณีได้</li>
+          <li>เขียน nested if เพื่อตรวจสอบเงื่อนไขซ้อนกันได้</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: if statement</h2>
+      <div class="theory-box">
+        <p>คำสั่ง <code>if</code> เป็นคำสั่งพื้นฐานสำหรับการตัดสินใจ โค้ดที่อยู่ภายใน if จะทำงานก็ต่อเมื่อเงื่อนไขเป็น <code>True</code> เท่านั้น สิ่งสำคัญที่สุดในการเขียน Python คือ <strong>indentation</strong> (การเยื้องบรรทัด) ต้องใช้ช่องว่าง 4 ตัวอักษรอย่างสม่ำเสมอ ผิด indentation จะทำให้เกิด IndentationError</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">age = 20
+
+# รูปแบบ: if เงื่อนไข: แล้วเยื้องโค้ด 4 ช่อง
+if age >= 18:
+    print("บรรลุนิติภาวะแล้ว")
+    print("มีสิทธิ์เลือกตั้ง")
+
+print("บรรทัดนี้ทำงานเสมอ")  # อยู่นอก if</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: if-else</h2>
+      <div class="theory-box">
+        <p><code>if-else</code> ใช้เมื่อต้องการแยกสองเส้นทาง ถ้าเงื่อนไขเป็น True จะทำโค้ดใน if ถ้าเป็น False จะทำโค้ดใน else แทน ทั้งสองกรณีต้องเลือกทำอย่างหนึ่งเสมอ</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">number = 7
+
+# ตรวจว่าเลขคี่หรือคู่
+if number % 2 == 0:
+    print(f"{number} เป็นเลขคู่")
+else:
+    print(f"{number} เป็นเลขคี่")
+
+# อีกตัวอย่าง: ตรวจอุณหภูมิ
+temp = 35
+if temp > 30:
+    print("อากาศร้อน ควรดื่มน้ำมาก ๆ")
+else:
+    print("อากาศพอสบาย")</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: if-elif-else</h2>
+      <div class="theory-box">
+        <p>เมื่อมีมากกว่า 2 กรณี ใช้ <code>elif</code> (else if) เพิ่มเงื่อนไขได้ไม่จำกัด Python จะตรวจสอบเงื่อนไขจากบนลงล่าง และจะหยุดที่เงื่อนไขแรกที่เป็น True เท่านั้น ส่วน <code>else</code> ที่อยู่ท้ายสุดจะทำงานเมื่อไม่มีเงื่อนไขใดเป็น True</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">score = 75
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"คะแนน {score} → เกรด {grade}")</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: Nested if</h2>
+      <div class="theory-box">
+        <p>Nested if คือการเขียน if ซ้อนอยู่ภายใน if อีกชั้น ใช้ตรวจสอบเงื่อนไขหลายระดับ แต่ต้องระวัง indentation ให้ถูกต้อง และไม่ควร nested ลึกเกินไปเพราะทำให้โค้ดอ่านยาก</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ระบบตรวจสอบสิทธิ์เข้าใช้งาน
+is_member = True
+age = 20
+
+if is_member:
+    if age >= 18:
+        print("ยินดีต้อนรับ! เข้าใช้งานได้เต็มรูปแบบ")
+    else:
+        print("สมาชิก แต่อายุน้อยกว่า 18 ปี — เข้าได้บางส่วน")
+else:
+    print("กรุณาสมัครสมาชิกก่อน")</code></pre>
+      </div>
+
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — ระบบตัดเกรด</span>
+        </div>
+        <textarea>
+# ระบบตัดเกรดนักศึกษา
+score = 78   # เปลี่ยนค่านี้เพื่อทดสอบ
+
+if score >= 90:
+    grade = "A"
+    remark = "ดีเยี่ยม"
+elif score >= 80:
+    grade = "B"
+    remark = "ดี"
+elif score >= 70:
+    grade = "C"
+    remark = "ปานกลาง"
+elif score >= 60:
+    grade = "D"
+    remark = "ผ่าน"
+else:
+    grade = "F"
+    remark = "ไม่ผ่าน"
+
+print(f"คะแนน: {score}")
+print(f"เกรด:  {grade} ({remark})")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 4</div>
+        <ol>
+          <li>แก้ <code>score</code> เป็น 55, 70, 85, 95 ทดสอบทีละค่า แล้วตรวจว่าเกรดถูกต้องตามเกณฑ์</li>
+          <li>เพิ่มเงื่อนไขตรวจสอบความถูกต้องของคะแนน: ถ้า <code>score &lt; 0</code> หรือ <code>score &gt; 100</code> ให้พิมพ์ "คะแนนไม่ถูกต้อง" แทนการตัดเกรด</li>
+          <li>เขียน if-elif-else ตรวจว่า <code>year = 2024</code> เป็นปีอธิกสุรทิน (leap year) หรือไม่ (หลักการ: หารด้วย 400 ลงตัว หรือ หารด้วย 4 ลงตัวและหารด้วย 100 ไม่ลงตัว)</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab03.html">← Lab 3: Operators &amp; I/O</a>
+        <a href="lab05.html" class="next">Lab 5: Loops →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

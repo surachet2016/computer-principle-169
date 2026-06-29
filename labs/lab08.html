@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 8: Functions - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html" class="active"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Functions</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 8</div>
+        <h1>Functions</h1>
+        <p>ฝึกนิยามและเรียกใช้ฟังก์ชัน พารามิเตอร์ ค่าเริ่มต้น และการ return หลายค่า</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถออกแบบและใช้ฟังก์ชันแก้ปัญหาได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>นิยามฟังก์ชันด้วย <code>def</code> และเรียกใช้งานได้</li>
+          <li>ใช้ positional argument, keyword argument และ default value ได้</li>
+          <li>ใช้ <code>return</code> เพื่อส่งค่าหลายค่าออกจากฟังก์ชันได้</li>
+          <li>เรียกฟังก์ชันภายในฟังก์ชันอื่น (ฟังก์ชันซ้อนกัน) ได้</li>
+        </ul>
+      </div>
+
+      <!-- Step 1 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: นิยามและเรียกใช้ฟังก์ชัน</h2>
+      <div class="theory-box">
+        <p>ฟังก์ชันคือบล็อกโค้ดที่มีชื่อ สามารถเรียกใช้ซ้ำได้ นิยามด้วยคำสั่ง <code>def</code> ตามด้วยชื่อและวงเล็บ <code>()</code> เนื้อหาของฟังก์ชันต้องเยื้องเข้า (indent) และใช้ <code>return</code> เพื่อส่งค่ากลับ ถ้าไม่มี <code>return</code> ฟังก์ชันจะคืนค่า <code>None</code></p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">def greet(name):
+    """ทักทายผู้ใช้"""
+    message = f"สวัสดี, {name}!"
+    return message
+
+# เรียกใช้ฟังก์ชัน
+result = greet("สมชาย")
+print(result)       # สวัสดี, สมชาย!
+print(greet("ครู")) # สวัสดี, ครู!</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: Parameters vs Arguments</h2>
+      <div class="theory-box">
+        <p>Parameter คือตัวแปรในวงเล็บของ <code>def</code> ส่วน Argument คือค่าที่ส่งเข้าฟังก์ชันเมื่อเรียกใช้ สามารถส่งแบบ positional (ตามลำดับ) หรือ keyword (ระบุชื่อ) ก็ได้ นอกจากนี้ยังกำหนดค่าเริ่มต้น (default value) ให้ parameter ได้ ซึ่งจะใช้เมื่อไม่ได้ส่ง argument นั้นมา</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">def introduce(name, age, lang="Python"):
+    print(f"ฉันชื่อ {name} อายุ {age} ปี เขียน {lang}")
+
+# positional
+introduce("สมชาย", 20)           # ใช้ default lang
+
+# keyword
+introduce(age=22, name="สมหญิง")  # สลับลำดับได้
+
+# ส่งครบทุก argument
+introduce("สมศักดิ์", 21, "Java")</code></pre>
+      </div>
+
+      <!-- Step 3 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: Return หลายค่า</h2>
+      <div class="theory-box">
+        <p>Python ช่วยให้ฟังก์ชัน <code>return</code> หลายค่าพร้อมกันได้ด้วย tuple โดยเขียน <code>return a, b, c</code> ฝั่งผู้เรียกสามารถ unpack ค่าออกมาได้เลย เช่น <code>x, y, z = func()</code> หรือรับเป็น tuple ก้อนเดียว</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">def min_max_avg(numbers):
+    """คืน ค่าต่ำสุด สูงสุด และเฉลี่ย"""
+    return min(numbers), max(numbers), sum(numbers)/len(numbers)
+
+data = [4, 7, 2, 9, 1, 8]
+low, high, avg = min_max_avg(data)
+
+print(f"ต่ำสุด: {low}")
+print(f"สูงสุด: {high}")
+print(f"เฉลี่ย: {avg:.2f}")</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: ฟังก์ชันซ้อนกัน</h2>
+      <div class="theory-box">
+        <p>ฟังก์ชันสามารถเรียกฟังก์ชันอื่นภายในตัวเองได้ (function composition) ซึ่งช่วยให้โค้ดแบ่งหน้าที่ชัดเจนและนำกลับมาใช้ซ้ำได้ง่าย ตัวอย่างเช่น ฟังก์ชันแสดงรายงานที่เรียกฟังก์ชันคำนวณเกรดและสถิติอีกทีหนึ่ง</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">def get_grade(score):
+    if score >= 80: return "A"
+    elif score >= 70: return "B"
+    elif score >= 60: return "C"
+    else: return "F"
+
+def show_result(name, score):
+    grade = get_grade(score)   # เรียกฟังก์ชันอีกตัว
+    print(f"{name}: {score} คะแนน → เกรด {grade}")
+
+show_result("สมชาย", 85)
+show_result("สมหญิง", 65)</code></pre>
+      </div>
+
+      <!-- Runner -->
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Functions</span>
+        </div>
+        <textarea>
+# ระบบจัดการคะแนนด้วยฟังก์ชัน
+
+def get_grade(score):
+    """คืนเกรดจากคะแนน"""
+    if score >= 90: return "A"
+    elif score >= 80: return "B"
+    elif score >= 70: return "C"
+    elif score >= 60: return "D"
+    else: return "F"
+
+def calc_stats(scores):
+    """คำนวณสถิติ คืน (เฉลี่ย, สูงสุด, ต่ำสุด)"""
+    avg = sum(scores) / len(scores)
+    return avg, max(scores), min(scores)
+
+def print_report(students, scores):
+    """แสดงรายงานผลการเรียน"""
+    print("=" * 40)
+    print("      รายงานผลการเรียน")
+    print("=" * 40)
+    for name, score in zip(students, scores):
+        grade = get_grade(score)
+        print(f"  {name:<12} {score:3d} คะแนน  เกรด {grade}")
+
+    avg, high, low = calc_stats(scores)
+    print("-" * 40)
+    print(f"  เฉลี่ย: {avg:.2f}  สูงสุด: {high}  ต่ำสุด: {low}")
+    print("=" * 40)
+
+# ทดสอบฟังก์ชัน
+students = ["สมชาย", "สมหญิง", "สมศักดิ์", "สมใจ"]
+scores   = [85, 72, 91, 65]
+print_report(students, scores)
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Exercises -->
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 8</div>
+        <ol>
+          <li>เพิ่มฟังก์ชัน <code>is_pass(score)</code> ที่คืน <code>True</code> ถ้า score &gt;= 50 แล้วแสดงสถานะ "ผ่าน/ไม่ผ่าน" ในรายงาน</li>
+          <li>เขียนฟังก์ชัน <code>area_circle(r, pi=3.14159)</code> ที่คืนพื้นที่วงกลม แล้วทดสอบด้วย r = 5 และ r = 10</li>
+          <li>เขียนฟังก์ชัน <code>countdown(n)</code> ที่แสดงเลขจาก n ลงมาถึง 1 แล้วพิมพ์ "เสร็จ!" เรียกด้วย countdown(5)</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab07.html">← Lab 7: Strings</a>
+        <a href="lab09.html" class="next">Lab 9: File Handling →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

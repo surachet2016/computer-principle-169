@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 9: การจัดการไฟล์ - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="ch09-filehandling.html" class="active"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="../labs/lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="../labs/lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="../labs/lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="../labs/lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="../labs/lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="../labs/lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="../labs/lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="../labs/lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="../labs/lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="../labs/lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>การจัดการไฟล์</span></div>
+    </div>
+    <div class="content">
+
+      <!-- Chapter Header -->
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 9</div>
+        <h1>การจัดการไฟล์</h1>
+        <p>เรียนรู้การอ่านและเขียนไฟล์ด้วย Python ตั้งแต่การเปิดไฟล์ การอ่านข้อมูล การเขียนข้อมูล ไปจนถึงการจัดการข้อผิดพลาดที่อาจเกิดขึ้น — ทักษะพื้นฐานสำหรับโปรแกรมในชีวิตจริง</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถเขียนโปรแกรมอ่านและเขียนข้อมูลจากไฟล์ได้อย่างถูกต้องและปลอดภัย</span>
+        </div>
+      </div>
+
+      <!-- Section 1: การจัดการไฟล์คืออะไร -->
+      <h2 class="section-title">📁 1. การจัดการไฟล์คืออะไร?</h2>
+      <div class="theory-box">
+        <p><strong>การจัดการไฟล์ (File Handling)</strong> คือความสามารถของโปรแกรมในการอ่านและเขียนข้อมูลจากไฟล์บนดิสก์ ทำให้ข้อมูลคงอยู่ได้แม้ปิดโปรแกรมแล้ว</p>
+        <p>ในโปรแกรมจริงเราจำเป็นต้องใช้ไฟล์เสมอ เช่น:</p>
+        <ul>
+          <li>บันทึกคะแนนนักศึกษาลงไฟล์ CSV</li>
+          <li>อ่านการตั้งค่าจากไฟล์ config.txt</li>
+          <li>เก็บประวัติการทำรายการลงใน log file</li>
+          <li>นำเข้าข้อมูลจาก dataset ขนาดใหญ่</li>
+        </ul>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">Text File vs Binary File</div>
+        <table>
+          <thead>
+            <tr><th>ประเภท</th><th>เนื้อหา</th><th>ตัวอย่าง</th><th>mode ใน Python</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Text File</strong></td><td>ข้อความที่อ่านได้</td><td>.txt, .csv, .py, .html</td><td><code>'r'</code>, <code>'w'</code>, <code>'a'</code></td></tr>
+            <tr><td><strong>Binary File</strong></td><td>ข้อมูลดิบ (bytes)</td><td>.jpg, .pdf, .mp3, .zip</td><td><code>'rb'</code>, <code>'wb'</code></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:0.5rem;">บทนี้จะเน้น <strong>Text File</strong> ซึ่งใช้บ่อยที่สุดในการเขียนโปรแกรมระดับเริ่มต้น</p>
+      </div>
+
+      <!-- Section 2: การเปิดและปิดไฟล์ -->
+      <h2 class="section-title">🔓 2. การเปิดและปิดไฟล์</h2>
+      <div class="theory-box">
+        <p>ใช้ฟังก์ชัน <code>open(filename, mode)</code> เพื่อเปิดไฟล์ ซึ่งจะคืน <strong>file object</strong> กลับมา และต้อง <code>close()</code> ทุกครั้งหลังใช้งานเสร็จเพื่อปล่อยทรัพยากร</p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">ตาราง Mode สำหรับ open()</div>
+        <table>
+          <thead>
+            <tr><th>Mode</th><th>ความหมาย</th><th>ถ้าไฟล์ไม่มี</th><th>ถ้าไฟล์มีอยู่แล้ว</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>'r'</code></td><td>Read (อ่านอย่างเดียว)</td><td>เกิด Error</td><td>อ่านจากต้นไฟล์</td></tr>
+            <tr><td><code>'w'</code></td><td>Write (เขียนอย่างเดียว)</td><td>สร้างไฟล์ใหม่</td><td>ลบแล้วเขียนใหม่ทั้งหมด</td></tr>
+            <tr><td><code>'a'</code></td><td>Append (ต่อท้าย)</td><td>สร้างไฟล์ใหม่</td><td>เขียนต่อท้ายไฟล์เดิม</td></tr>
+            <tr><td><code>'r+'</code></td><td>Read + Write</td><td>เกิด Error</td><td>อ่านและเขียนได้</td></tr>
+            <tr><td><code>'w+'</code></td><td>Write + Read</td><td>สร้างไฟล์ใหม่</td><td>ลบแล้วเขียนใหม่</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># วิธีเปิดและปิดไฟล์แบบดั้งเดิม (ต้อง close() เอง)
+f = open("example.txt", "w")
+f.write("Hello, File!")
+f.close()   # สำคัญมาก — ถ้าลืมอาจทำให้ข้อมูลหาย
+
+# ตรวจสอบว่าปิดแล้วหรือยัง
+print(f.closed)   # True
+
+# เปิดพร้อมระบุ encoding สำหรับภาษาไทย
+f = open("thai.txt", "w", encoding="utf-8")
+f.write("สวัสดีครับ")
+f.close()</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">ข้อควรระวัง: อย่าลืม close()</div>
+        <p>ถ้าไม่ <code>close()</code> ไฟล์อาจเกิดปัญหาได้ เช่น ข้อมูลไม่ถูกบันทึกลงดิสก์ (ยังค้างใน buffer) หรือไฟล์ถูก lock ไม่ให้โปรแกรมอื่นใช้งาน ในทางปฏิบัติแนะนำให้ใช้ <code>with</code> statement แทน (ดูหัวข้อที่ 5)</p>
+      </div>
+
+      <!-- Section 3: การอ่านไฟล์ -->
+      <h2 class="section-title">📖 3. การอ่านไฟล์</h2>
+      <div class="theory-box">
+        <p>เมื่อเปิดไฟล์ด้วย mode <code>'r'</code> แล้ว สามารถอ่านข้อมูลได้หลายวิธี:</p>
+        <ul>
+          <li><code>read()</code> — อ่านทั้งไฟล์เป็น String เดียว</li>
+          <li><code>readline()</code> — อ่านทีละบรรทัด คืน String (รวม <code>\n</code>)</li>
+          <li><code>readlines()</code> — อ่านทุกบรรทัดคืนเป็น List of Strings</li>
+          <li><code>for line in file</code> — วนลูปอ่านทีละบรรทัด (ประหยัดหน่วยความจำ)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># สมมติมีไฟล์ students.txt มีเนื้อหา:
+# สมชาย,85
+# สมหญิง,92
+# สมศักดิ์,78
+
+# วิธีที่ 1: read() — อ่านทั้งหมดในครั้งเดียว
+with open("students.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+    print(content)
+
+# วิธีที่ 2: readline() — อ่านทีละบรรทัด
+with open("students.txt", "r", encoding="utf-8") as f:
+    line1 = f.readline()   # "สมชาย,85\n"
+    line2 = f.readline()   # "สมหญิง,92\n"
+    print(line1.strip())   # ลบ \n ออก
+
+# วิธีที่ 3: readlines() — ได้ List ของบรรทัด
+with open("students.txt", "r", encoding="utf-8") as f:
+    lines = f.readlines()
+    print(lines)           # ['สมชาย,85\n', 'สมหญิง,92\n', ...]
+
+# วิธีที่ 4: for loop — แนะนำสำหรับไฟล์ใหญ่
+with open("students.txt", "r", encoding="utf-8") as f:
+    for i, line in enumerate(f, 1):
+        name, score = line.strip().split(",")
+        print(f"{i}. {name}: {score} คะแนน")</code></pre>
+      </div>
+
+      <!-- Section 4: การเขียนไฟล์ -->
+      <h2 class="section-title">✏️ 4. การเขียนไฟล์</h2>
+      <div class="theory-box">
+        <p>เปิดไฟล์ด้วย mode <code>'w'</code> (เขียนใหม่ทั้งหมด) หรือ <code>'a'</code> (ต่อท้าย) แล้วใช้:</p>
+        <ul>
+          <li><code>write(string)</code> — เขียน string ลงไฟล์ (ไม่มี newline อัตโนมัติ ต้องใส่ <code>\n</code> เอง)</li>
+          <li><code>writelines(list)</code> — เขียนหลายบรรทัดจาก List (ยังต้องใส่ <code>\n</code> เองด้วย)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># write() — เขียนทีละบรรทัด
+with open("output.txt", "w", encoding="utf-8") as f:
+    f.write("บรรทัดที่ 1\n")
+    f.write("บรรทัดที่ 2\n")
+    f.write("บรรทัดที่ 3\n")
+
+# writelines() — เขียนจาก List (ต้องใส่ \n เอง!)
+lines = ["สมชาย,85\n", "สมหญิง,92\n", "สมศักดิ์,78\n"]
+with open("students.txt", "w", encoding="utf-8") as f:
+    f.writelines(lines)
+
+# mode 'a' — ต่อท้ายโดยไม่ลบเนื้อหาเดิม
+with open("students.txt", "a", encoding="utf-8") as f:
+    f.write("วิมล,96\n")    # เพิ่มนักศึกษาคนใหม่
+
+# เขียนข้อมูลที่คำนวณแล้ว
+students = [("สมชาย", 85), ("สมหญิง", 92), ("สมศักดิ์", 78)]
+with open("report.txt", "w", encoding="utf-8") as f:
+    f.write("=== รายงานคะแนน ===\n")
+    for name, score in students:
+        f.write(f"{name}: {score} คะแนน\n")
+    avg = sum(s for _, s in students) / len(students)
+    f.write(f"เฉลี่ย: {avg:.2f}\n")</code></pre>
+      </div>
+
+      <!-- Section 5: with Statement -->
+      <h2 class="section-title">🛡️ 5. with Statement (Context Manager)</h2>
+      <div class="theory-box">
+        <p><strong>with statement</strong> คือวิธีที่แนะนำที่สุดสำหรับการจัดการไฟล์ใน Python เพราะจะ <code>close()</code> ไฟล์ให้อัตโนมัติเมื่อออกจากบล็อก <code>with</code> ไม่ว่าจะเกิด exception หรือไม่ก็ตาม</p>
+        <p>รูปแบบ: <code>with open(filename, mode) as f:</code></p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">เปรียบเทียบ: แบบดั้งเดิม vs with statement</div>
+        <table>
+          <thead>
+            <tr><th></th><th>แบบดั้งเดิม</th><th>with statement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ปิดไฟล์</td><td>ต้อง close() เอง</td><td>อัตโนมัติ</td></tr>
+            <tr><td>Exception</td><td>close() อาจถูกข้ามหาก error</td><td>close() เสมอ</td></tr>
+            <tr><td>โค้ด</td><td>ยาวกว่า</td><td>กระชับ อ่านง่าย</td></tr>
+            <tr><td>แนะนำ</td><td>ไม่แนะนำ</td><td>แนะนำ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># รูปแบบที่แนะนำ: with statement
+with open("notes.txt", "w", encoding="utf-8") as f:
+    f.write("สร้างไฟล์ด้วย with statement\n")
+    f.write("ปิดไฟล์อัตโนมัติ\n")
+# ออกจาก with block → ไฟล์ถูกปิดทันที
+
+print(f.closed)   # True
+
+# เปิด 2 ไฟล์พร้อมกัน (อ่านและเขียน)
+with open("input.txt", "r", encoding="utf-8") as fin, \
+     open("output.txt", "w", encoding="utf-8") as fout:
+    for line in fin:
+        fout.write(line.upper())  # แปลงเป็นตัวพิมพ์ใหญ่
+
+# ตัวอย่างจริง: บันทึกคะแนนลงไฟล์
+students = [
+    ("สมชาย", 85),
+    ("สมหญิง", 92),
+    ("สมศักดิ์", 78),
+    ("วิมล", 96),
+]
+
+with open("scores.txt", "w", encoding="utf-8") as f:
+    f.write("ชื่อ,คะแนน,เกรด\n")
+    for name, score in students:
+        grade = "A" if score >= 90 else "B" if score >= 80 else "C"
+        f.write(f"{name},{score},{grade}\n")
+
+print("บันทึกข้อมูลสำเร็จ!")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — เขียนและอ่านไฟล์ด้วย with</span>
+        </div>
+        <textarea>
+# ใช้ Pyodide in-memory filesystem
+# เขียนไฟล์นักศึกษา
+students = [
+    ("สมชาย", 85),
+    ("สมหญิง", 92),
+    ("สมศักดิ์", 78),
+    ("วิมล", 96),
+    ("ประภา", 70),
+]
+
+# เขียนไฟล์
+with open("students.txt", "w", encoding="utf-8") as f:
+    f.write("ชื่อ,คะแนน,เกรด\n")
+    for name, score in students:
+        grade = "A" if score >= 90 else "B" if score >= 80 else "C"
+        f.write(f"{name},{score},{grade}\n")
+
+print("=== เขียนไฟล์ students.txt สำเร็จ ===\n")
+
+# อ่านไฟล์กลับมาแสดงผล
+print("=== เนื้อหาในไฟล์ ===")
+with open("students.txt", "r", encoding="utf-8") as f:
+    for line in f:
+        print(line.strip())
+
+# ต่อท้ายไฟล์
+print("\n=== ต่อท้ายนักศึกษาใหม่ ===")
+with open("students.txt", "a", encoding="utf-8") as f:
+    f.write("สมบัติ,88,B\n")
+
+with open("students.txt", "r", encoding="utf-8") as f:
+    lines = f.readlines()
+print(f"จำนวนแถวทั้งหมด (รวม header): {len(lines)}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 6: การจัดการข้อผิดพลาด -->
+      <h2 class="section-title">⚠️ 6. การจัดการข้อผิดพลาด</h2>
+      <div class="theory-box">
+        <p>การเปิดไฟล์อาจเกิดข้อผิดพลาดได้หลายสาเหตุ เช่น ไฟล์ไม่มีอยู่ ไม่มีสิทธิ์เข้าถึง หรือดิสก์เต็ม ควรใช้ <strong>try/except</strong> รับมือกับข้อผิดพลาดเหล่านี้เสมอ</p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">Exception ที่พบบ่อยเมื่อจัดการไฟล์</div>
+        <table>
+          <thead>
+            <tr><th>Exception</th><th>สาเหตุ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>FileNotFoundError</code></td><td>ไม่พบไฟล์ที่ระบุ (mode 'r')</td></tr>
+            <tr><td><code>PermissionError</code></td><td>ไม่มีสิทธิ์อ่านหรือเขียนไฟล์</td></tr>
+            <tr><td><code>IsADirectoryError</code></td><td>ระบุ path เป็นโฟลเดอร์แทน</td></tr>
+            <tr><td><code>OSError</code></td><td>ข้อผิดพลาดระดับระบบปฏิบัติการ (ครอบคลุมทั้งหมด)</td></tr>
+            <tr><td><code>UnicodeDecodeError</code></td><td>Encoding ไม่ตรงกับไฟล์จริง</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># จัดการ FileNotFoundError
+def read_file_safe(filename):
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            content = f.read()
+        return content
+    except FileNotFoundError:
+        print(f"ไม่พบไฟล์: {filename}")
+        return None
+    except PermissionError:
+        print(f"ไม่มีสิทธิ์อ่านไฟล์: {filename}")
+        return None
+    except UnicodeDecodeError:
+        print(f"Encoding ไม่ถูกต้อง ลองเปลี่ยน encoding")
+        return None
+
+result = read_file_safe("missing.txt")
+if result is None:
+    print("ไม่สามารถอ่านไฟล์ได้")
+
+# ตรวจสอบว่าไฟล์มีอยู่ก่อนเปิด
+import os
+
+filename = "data.txt"
+if os.path.exists(filename):
+    with open(filename, "r", encoding="utf-8") as f:
+        print(f.read())
+else:
+    print(f"ไฟล์ {filename} ยังไม่มีอยู่ กำลังสร้างใหม่...")
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("ข้อมูลเริ่มต้น\n")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — try/except กับการจัดการไฟล์</span>
+        </div>
+        <textarea>
+# ทดสอบ try/except กับ FileNotFoundError
+def read_scores(filename):
+    """อ่านคะแนนจากไฟล์ คืน list หรือ None ถ้าไม่สำเร็จ"""
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            scores = []
+            for line in f:
+                line = line.strip()
+                if line:
+                    name, score = line.split(",")
+                    scores.append((name, int(score)))
+        return scores
+    except FileNotFoundError:
+        print(f"ข้อผิดพลาด: ไม่พบไฟล์ '{filename}'")
+        return None
+    except ValueError as e:
+        print(f"ข้อผิดพลาด: รูปแบบข้อมูลไม่ถูกต้อง — {e}")
+        return None
+
+# ทดสอบ 1: อ่านไฟล์ที่ไม่มี
+print("=== ทดสอบไฟล์ที่ไม่มี ===")
+result = read_scores("nonexistent.txt")
+print(f"ผลลัพธ์: {result}\n")
+
+# ทดสอบ 2: สร้างไฟล์แล้วอ่าน
+print("=== ทดสอบไฟล์ที่มีข้อมูล ===")
+with open("test_scores.txt", "w", encoding="utf-8") as f:
+    f.write("สมชาย,85\n")
+    f.write("สมหญิง,92\n")
+    f.write("วิมล,78\n")
+
+data = read_scores("test_scores.txt")
+if data:
+    for name, score in data:
+        print(f"  {name}: {score} คะแนน")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <h2 class="section-title">❓ คำถามทบทวน</h2>
+      <div class="box box-warn">
+        <div class="box-title">คำถามทบทวนบทที่ 9</div>
+        <ol>
+          <li>อธิบายความแตกต่างระหว่าง mode <code>'w'</code> และ <code>'a'</code> เมื่อใช้กับ <code>open()</code> โดยเฉพาะกรณีที่ไฟล์มีอยู่แล้ว</li>
+          <li><code>read()</code>, <code>readline()</code> และ <code>readlines()</code> แตกต่างกันอย่างไร? ควรเลือกใช้แบบไหนในสถานการณ์ใด?</li>
+          <li>ทำไมจึงแนะนำให้ใช้ <code>with statement</code> แทนการเรียก <code>open()</code> และ <code>close()</code> โดยตรง?</li>
+          <li>เขียนโปรแกรมที่อ่านไฟล์ชื่อ <code>data.txt</code> และนับจำนวนบรรทัด จำนวนคำ และจำนวนอักขระทั้งหมด พร้อมจัดการ <code>FileNotFoundError</code></li>
+          <li>ถ้าต้องการบันทึก log ของโปรแกรมโดยไม่ให้ข้อมูลเก่าหายไปทุกครั้งที่รัน ควรใช้ mode ใด? เพราะอะไร?</li>
+        </ol>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-nav">
+        <a href="ch08-functions.html">← บทที่ 8: ฟังก์ชัน</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

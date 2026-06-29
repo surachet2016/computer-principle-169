@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 1: Hello World &amp; Variables - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html" class="active"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Hello World &amp; Variables</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 1</div>
+        <h1>Hello World &amp; Variables</h1>
+        <p>เริ่มต้นเขียนโปรแกรม Python ด้วยคำสั่ง print และการใช้ตัวแปรพื้นฐาน</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1: เขียนและอ่านโปรแกรม Python พื้นฐานได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>ใช้คำสั่ง <code>print()</code> แสดงผลข้อมูลออกทางหน้าจอได้</li>
+          <li>ประกาศและใช้งานตัวแปร (variable) ชนิดต่าง ๆ ได้</li>
+          <li>เขียน comment เพื่ออธิบายโค้ดได้ถูกต้อง</li>
+          <li>เขียนโปรแกรมแนะนำตัวอย่างง่ายได้</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: Hello World</h2>
+      <div class="theory-box">
+        <p>คำสั่งแรกที่นักเขียนโปรแกรมทุกคนเริ่มต้นคือการแสดงคำว่า "Hello, World!" ใน Python ใช้ฟังก์ชัน <code>print()</code> ซึ่งสามารถรับ argument ได้หลายตัว คั่นด้วยเครื่องหมายจุลภาค Python จะเว้นช่องว่างระหว่าง argument โดยอัตโนมัติ นอกจากนี้ยังสามารถกำหนด <code>sep</code> (ตัวคั่น) และ <code>end</code> (ตัวอักษรสุดท้าย) ได้อีกด้วย</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># แสดงผลพื้นฐาน
+print("Hello, World!")
+
+# print หลาย argument — Python ใส่ช่องว่างให้อัตโนมัติ
+print("ชื่อ:", "สมชาย", "อายุ:", 20)
+
+# กำหนด sep (ตัวคั่น) และ end (ตัวอักษรสุดท้าย)
+print("Python", "is", "fun", sep="-")
+print("บรรทัดนี้", end=" ")
+print("ต่อกันบรรทัดเดียว")</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: ตัวแปร (Variables)</h2>
+      <div class="theory-box">
+        <p>ตัวแปรใน Python ไม่ต้องประกาศชนิดข้อมูลล่วงหน้า แค่กำหนดค่าได้เลย Python จะกำหนดชนิดข้อมูลให้อัตโนมัติตามค่าที่กำหนด ชื่อตัวแปรควรสื่อความหมาย เริ่มต้นด้วยตัวอักษรหรือ underscore (_) และไม่ใช้ชื่อที่ Python ใช้งานอยู่แล้ว เช่น <code>print</code>, <code>if</code>, <code>for</code></p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ประกาศตัวแปรชนิดต่าง ๆ
+name = "สมชาย ใจดี"        # ข้อความ (str)
+age = 20                    # จำนวนเต็ม (int)
+gpa = 3.75                  # จำนวนทศนิยม (float)
+faculty = "วิศวกรรมศาสตร์"  # ข้อความ (str)
+student_id = "6500001"      # ข้อความ (str)
+
+# แสดงผลตัวแปร
+print("ชื่อ:", name)
+print("อายุ:", age, "ปี")
+print("GPA:", gpa)
+print("คณะ:", faculty)</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: Comments</h2>
+      <div class="theory-box">
+        <p>Comment คือข้อความที่ Python จะไม่นำไปประมวลผล ใช้เพื่ออธิบายโค้ดให้เข้าใจง่าย มี 2 รูปแบบหลัก คือ <strong>Single-line comment</strong> ใช้เครื่องหมาย <code>#</code> นำหน้า และ <strong>Multi-line comment</strong> ใช้ triple quotes <code>"""..."""</code> ครอบข้อความ การเขียน comment ที่ดีเป็นนิสัยสำคัญของโปรแกรมเมอร์</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># นี่คือ single-line comment
+# ทุกอย่างหลัง # จะถูก Python ข้าม
+
+x = 10  # comment ต่อท้ายโค้ดก็ได้
+
+"""
+นี่คือ multi-line comment หรือ docstring
+ใช้เครื่องหมาย triple quotes สามตัวครอบข้อความ
+สามารถขึ้นบรรทัดใหม่ได้ตามต้องการ
+"""
+
+print("โค้ดบรรทัดนี้ทำงานปกติ")
+print("x =", x)</code></pre>
+      </div>
+
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Hello World &amp; Variables</span>
+        </div>
+        <textarea>
+# โปรแกรมแนะนำตัว
+name = "สมชาย ใจดี"
+age = 20
+faculty = "วิศวกรรมศาสตร์"
+student_id = "6500001"
+
+print("=" * 30)
+print("ข้อมูลนักศึกษา")
+print("=" * 30)
+print("ชื่อ:", name)
+print("อายุ:", age, "ปี")
+print("คณะ:", faculty)
+print("รหัส:", student_id)
+print("=" * 30)
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 1</div>
+        <ol>
+          <li>แก้ตัวแปร <code>name</code>, <code>age</code>, <code>faculty</code> และ <code>student_id</code> ในโค้ดด้านบนให้เป็นข้อมูลของตัวเอง แล้วกด Run เพื่อดูผลลัพธ์</li>
+          <li>เพิ่มตัวแปร <code>gpa = 3.75</code> แล้วแสดงผลในกรอบข้อมูล เช่น <code>GPA: 3.75</code> (ลองเปลี่ยนค่า gpa เป็นของจริงด้วย)</li>
+          <li>เขียนโปรแกรมแสดงชื่อตัวเองในกรอบดาว เช่น <code>*** สมชาย ***</code> โดยใช้ตัวดำเนินการ <code>*</code> กับ string เพื่อทำซ้ำ</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <span class="disabled">← ไม่มี Lab ก่อนหน้า</span>
+        <a href="lab02.html" class="next">Lab 2: Data Types →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

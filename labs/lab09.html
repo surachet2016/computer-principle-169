@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 9: File Handling - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html" class="active"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>File Handling</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 9</div>
+        <h1>File Handling</h1>
+        <p>ฝึกเปิด เขียน และอ่านไฟล์ด้วย with statement และจัดการข้อผิดพลาดด้วย try/except</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถเขียนโปรแกรมอ่านเขียนไฟล์ได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>เปิดและปิดไฟล์ด้วย <code>open()</code> และระบุ mode (r/w/a) ได้อย่างถูกต้อง</li>
+          <li>เขียนข้อมูลลงไฟล์ด้วย <code>write()</code> และ <code>writelines()</code> ได้</li>
+          <li>อ่านข้อมูลจากไฟล์ด้วย <code>read()</code>, <code>readline()</code>, <code>readlines()</code> และ for loop ได้</li>
+          <li>ใช้ <code>with</code> statement เพื่อจัดการไฟล์อย่างปลอดภัยได้</li>
+          <li>ดักจับข้อผิดพลาด <code>FileNotFoundError</code> ด้วย <code>try/except</code> ได้</li>
+        </ul>
+      </div>
+
+      <!-- Step 1 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: การเปิดและปิดไฟล์</h2>
+      <div class="theory-box">
+        <p>ฟังก์ชัน <code>open(filename, mode)</code> ใช้เปิดไฟล์ โดย mode มีค่าหลักดังนี้: <code>"r"</code> อ่านอย่างเดียว (ต้องมีไฟล์อยู่แล้ว), <code>"w"</code> เขียนใหม่ (ล้างเนื้อหาเดิม), <code>"a"</code> ต่อท้าย (append) และ <code>"r+"</code> อ่านและเขียน หลังใช้งานต้องปิดไฟล์ด้วย <code>close()</code> เสมอ</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># เปิดแบบ manual — ต้องปิดเอง
+f = open("/tmp/demo.txt", "w", encoding="utf-8")
+f.write("สวัสดี Python!\n")
+f.close()   # อย่าลืมปิด!
+
+# mode ที่ใช้บ่อย
+# "r"  → อ่านอย่างเดียว
+# "w"  → เขียนใหม่ (ลบของเดิม)
+# "a"  → ต่อท้าย
+# "rb" → อ่าน binary</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: การเขียนไฟล์</h2>
+      <div class="theory-box">
+        <p><code>write(string)</code> เขียน string ลงไฟล์โดยไม่ขึ้นบรรทัดใหม่อัตโนมัติ ต้องเติม <code>\n</code> เอง ส่วน <code>writelines(list)</code> เขียน list ของ string ทีละรายการ ก็ต้องเติม <code>\n</code> ในแต่ละรายการด้วยเช่นกัน</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">lines = ["แอปเปิล\n", "กล้วย\n", "ส้ม\n"]
+
+f = open("/tmp/fruits.txt", "w", encoding="utf-8")
+f.write("รายการผลไม้\n")
+f.write("=" * 20 + "\n")
+f.writelines(lines)       # เขียนทั้ง list
+f.close()
+
+print("เขียนไฟล์เสร็จแล้ว")</code></pre>
+      </div>
+
+      <!-- Step 3 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: การอ่านไฟล์</h2>
+      <div class="theory-box">
+        <p>มีวิธีอ่านไฟล์หลายแบบ: <code>read()</code> อ่านทั้งหมดเป็น string เดียว, <code>readline()</code> อ่านทีละบรรทัด, <code>readlines()</code> อ่านทั้งหมดเป็น list ของ string, และการวนซ้ำด้วย <code>for line in f</code> ซึ่งประหยัดหน่วยความจำที่สุดสำหรับไฟล์ขนาดใหญ่</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">f = open("/tmp/fruits.txt", "r", encoding="utf-8")
+
+# อ่านทั้งหมด
+content = f.read()
+print(content)
+f.close()
+
+# อ่านทีละบรรทัด (ประหยัดหน่วยความจำ)
+f = open("/tmp/fruits.txt", "r", encoding="utf-8")
+for line in f:
+    print(line.strip())   # ตัด \n ออก
+f.close()</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: with Statement</h2>
+      <div class="theory-box">
+        <p><code>with open(...) as f:</code> คือวิธีที่แนะนำให้ใช้ (best practice) เพราะ Python จะปิดไฟล์ให้อัตโนมัติเมื่อออกจาก block ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่ก็ตาม ช่วยป้องกันปัญหาไฟล์ค้างเปิด</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># เขียนไฟล์ด้วย with
+with open("/tmp/note.txt", "w", encoding="utf-8") as f:
+    f.write("บันทึกด้วย with statement\n")
+# ไฟล์ปิดอัตโนมัติที่นี่
+
+# อ่านไฟล์ด้วย with
+with open("/tmp/note.txt", "r", encoding="utf-8") as f:
+    for i, line in enumerate(f, 1):
+        print(f"{i}: {line.strip()}")</code></pre>
+      </div>
+
+      <!-- Step 5 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 5: try/except — FileNotFoundError</h2>
+      <div class="theory-box">
+        <p>ถ้าพยายามอ่านไฟล์ที่ไม่มีอยู่จริง Python จะ raise <code>FileNotFoundError</code> ทำให้โปรแกรมหยุดทำงาน การใช้ <code>try/except</code> ดักจับข้อผิดพลาดนี้ทำให้โปรแกรมแสดงข้อความเตือนและทำงานต่อได้อย่างราบรื่น</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">filename = "/tmp/ไม่มีไฟล์นี้.txt"
+
+try:
+    with open(filename, "r", encoding="utf-8") as f:
+        content = f.read()
+        print(content)
+except FileNotFoundError:
+    print(f"ไม่พบไฟล์: {filename}")
+except PermissionError:
+    print("ไม่มีสิทธิ์เข้าถึงไฟล์นี้")
+finally:
+    print("จบการทำงาน")</code></pre>
+      </div>
+
+      <!-- Runner -->
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — File Handling</span>
+        </div>
+        <textarea>
+# การเขียนและอ่านไฟล์ด้วย with statement
+import os
+
+# เขียนไฟล์
+filename = "/tmp/students.txt"
+students = [
+    "สมชาย ใจดี, 85",
+    "สมหญิง รักเรียน, 72",
+    "สมศักดิ์ มานะ, 91",
+    "สมใจ ขยัน, 68",
+]
+
+with open(filename, "w", encoding="utf-8") as f:
+    for student in students:
+        f.write(student + "\n")
+
+print(f"บันทึกข้อมูล {len(students)} รายการลงไฟล์ '{filename}'")
+
+# อ่านไฟล์
+print("\nอ่านข้อมูลจากไฟล์:")
+print("-" * 30)
+with open(filename, "r", encoding="utf-8") as f:
+    for line_num, line in enumerate(f, 1):
+        print(f"{line_num}. {line.strip()}")
+
+# ตรวจสอบขนาดไฟล์
+size = os.path.getsize(filename)
+print(f"\nขนาดไฟล์: {size} bytes")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Exercises -->
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 9</div>
+        <ol>
+          <li>แก้ runner เพิ่มนักศึกษา 2 คน แล้วหลัง Run ให้อ่านไฟล์และนับจำนวนบรรทัดทั้งหมด</li>
+          <li>เปิดไฟล์ด้วย mode <code>"a"</code> เพิ่มนักศึกษาคนใหม่โดยไม่ลบข้อมูลของเดิม แล้วอ่านไฟล์มาแสดงทั้งหมด</li>
+          <li>เขียน <code>try/except FileNotFoundError</code> พยายามอ่านไฟล์ชื่อ <code>/tmp/missing.txt</code> และแสดงข้อความแจ้งเตือนที่เหมาะสม</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab08.html">← Lab 8: Functions</a>
+        <a href="lab10.html" class="next">Lab 10: Mini Project →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

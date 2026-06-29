@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 7: String - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="ch07-strings.html" class="active"><span class="icon">7</span> String</a>
+      <a href="ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="../labs/lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="../labs/lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="../labs/lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="../labs/lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="../labs/lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="../labs/lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="../labs/lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="../labs/lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="../labs/lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="../labs/lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>String</span></div>
+    </div>
+    <div class="content">
+
+      <!-- Chapter Header -->
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 7</div>
+        <h1>String</h1>
+        <p>เรียนรู้การทำงานกับข้อความใน Python ตั้งแต่การสร้าง String การเข้าถึงอักขระ การใช้ Method ต่าง ๆ ไปจนถึงการจัดรูปแบบข้อความ</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถใช้งาน String และ Method ที่เกี่ยวข้องในการแก้ปัญหาได้</span>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <h2 class="section-title">🔤 1. String คืออะไร?</h2>
+      <div class="theory-box">
+        <p><strong>String</strong> คือชนิดข้อมูลสำหรับเก็บข้อความใน Python โดยข้อความจะถูกล้อมรอบด้วยเครื่องหมายคำพูด สามารถใช้ได้ทั้ง single quote (<code>'</code>), double quote (<code>"</code>) และ triple quote (<code>'''</code> หรือ <code>"""</code>)</p>
+        <p>สิ่งสำคัญที่ต้องจำ: String ใน Python เป็น <strong>Immutable</strong> หมายความว่าเมื่อสร้างแล้วไม่สามารถเปลี่ยนแปลงอักขระภายในได้โดยตรง ต้องสร้าง String ใหม่เสมอ</p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">วิธีสร้าง String</div>
+        <ul>
+          <li><code>'Hello'</code> — single quote: เหมาะสำหรับข้อความทั่วไป</li>
+          <li><code>"World"</code> — double quote: เหมาะเมื่อข้อความมี apostrophe เช่น <code>"It's Python"</code></li>
+          <li><code>'''หลายบรรทัด'''</code> — triple quote: รองรับข้อความหลายบรรทัด (multiline string)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># การสร้าง String แบบต่าง ๆ
+s1 = 'สวัสดี'
+s2 = "Python"
+s3 = """นี่คือ
+String หลายบรรทัด
+ใช้ triple quote"""
+
+print(s1)
+print(s2)
+print(s3)
+
+# String เป็น Immutable
+name = "Python"
+# name[0] = "J"  # จะเกิด TypeError!
+name = "Jython"  # ต้องสร้างใหม่
+print(name)
+
+# ความยาวของ String
+print(len("Hello, World!"))  # 13</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — การสร้างและใช้งาน String</span>
+        </div>
+        <textarea>
+# ทดลองสร้าง String
+greeting = "สวัสดีครับ"
+name = 'Python'
+multiline = """บรรทัดที่ 1
+บรรทัดที่ 2
+บรรทัดที่ 3"""
+
+print(greeting)
+print(name)
+print(multiline)
+print("ความยาว:", len(greeting))
+print("ชนิดข้อมูล:", type(greeting))</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 2 -->
+      <h2 class="section-title">🔍 2. Indexing และ Slicing</h2>
+      <div class="theory-box">
+        <p>การเข้าถึงอักขระใน String ทำได้เหมือนกับ List โดยใช้ <strong>Index</strong> ที่เริ่มจาก 0 และรองรับ <strong>Negative Index</strong> สำหรับนับจากท้าย</p>
+        <p><strong>Slicing</strong> ใช้ไวยากรณ์ <code>s[start:stop:step]</code> เพื่อดึงส่วนของ String ออกมา</p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">ตาราง Index ของ String "Python"</div>
+        <table>
+          <thead>
+            <tr>
+              <th>อักขระ</th>
+              <th>P</th><th>y</th><th>t</th><th>h</th><th>o</th><th>n</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Positive Index</strong></td>
+              <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+            </tr>
+            <tr>
+              <td><strong>Negative Index</strong></td>
+              <td>-6</td><td>-5</td><td>-4</td><td>-3</td><td>-2</td><td>-1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">s = "Python"
+
+# Indexing
+print(s[0])    # P — ตัวแรก
+print(s[-1])   # n — ตัวสุดท้าย
+print(s[2])    # t
+
+# Slicing
+print(s[1:4])  # yth — index 1 ถึง 3
+print(s[:3])   # Pyt — ตั้งแต่ต้นถึง index 2
+print(s[3:])   # hon — ตั้งแต่ index 3 จนจบ
+print(s[::2])  # Pto — ข้ามทีละ 2
+print(s[::-1]) # nohtyP — กลับด้าน String</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">เคล็ดลับ: การกลับด้าน String</div>
+        <p>ใช้ <code>s[::-1]</code> เพื่อกลับด้าน String ได้ทันที เป็นเทคนิคที่นิยมใช้ตรวจสอบ Palindrome (คำที่อ่านหน้าหลังเหมือนกัน)</p>
+      </div>
+
+      <!-- Section 3 -->
+      <h2 class="section-title">🔧 3. String Methods</h2>
+      <div class="theory-box">
+        <p>Python มี <strong>Built-in Methods</strong> สำหรับ String จำนวนมาก ช่วยให้จัดการข้อความได้สะดวก เรียกใช้ด้วยไวยากรณ์ <code>string.method()</code></p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">ตารางสรุป String Methods ที่ใช้บ่อย</div>
+        <table>
+          <thead>
+            <tr><th>Method</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>upper()</code></td><td>แปลงเป็นตัวพิมพ์ใหญ่</td><td><code>"hello".upper()</code> → <code>"HELLO"</code></td></tr>
+            <tr><td><code>lower()</code></td><td>แปลงเป็นตัวพิมพ์เล็ก</td><td><code>"HELLO".lower()</code> → <code>"hello"</code></td></tr>
+            <tr><td><code>strip()</code></td><td>ลบช่องว่างหน้า-หลัง</td><td><code>"  hi  ".strip()</code> → <code>"hi"</code></td></tr>
+            <tr><td><code>split(sep)</code></td><td>แยก String เป็น List</td><td><code>"a,b,c".split(",")</code> → <code>["a","b","c"]</code></td></tr>
+            <tr><td><code>join(iterable)</code></td><td>รวม List เป็น String</td><td><code>"-".join(["a","b"])</code> → <code>"a-b"</code></td></tr>
+            <tr><td><code>replace(old, new)</code></td><td>แทนที่ข้อความ</td><td><code>"abc".replace("b","X")</code> → <code>"aXc"</code></td></tr>
+            <tr><td><code>find(sub)</code></td><td>หาตำแหน่ง (-1 ถ้าไม่พบ)</td><td><code>"hello".find("ll")</code> → <code>2</code></td></tr>
+            <tr><td><code>count(sub)</code></td><td>นับจำนวนที่ปรากฏ</td><td><code>"banana".count("a")</code> → <code>3</code></td></tr>
+            <tr><td><code>startswith(prefix)</code></td><td>ตรวจสอบตัวขึ้นต้น</td><td><code>"Hello".startswith("He")</code> → <code>True</code></td></tr>
+            <tr><td><code>endswith(suffix)</code></td><td>ตรวจสอบตัวลงท้าย</td><td><code>"Hello".endswith("lo")</code> → <code>True</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">text = "  Hello, Python World!  "
+
+print(text.strip())            # ลบช่องว่าง
+print(text.strip().upper())    # ตัวพิมพ์ใหญ่
+print(text.strip().lower())    # ตัวพิมพ์เล็ก
+
+s = "apple,banana,cherry"
+fruits = s.split(",")          # แยกด้วย ,
+print(fruits)                  # ['apple', 'banana', 'cherry']
+print(" | ".join(fruits))      # รวมด้วย |
+
+sentence = "the quick brown fox"
+print(sentence.replace("fox", "cat"))  # แทนที่คำ
+print(sentence.find("quick"))          # หาตำแหน่ง -> 4
+print(sentence.count("o"))             # นับตัว o -> 2
+print(sentence.startswith("the"))      # True
+print(sentence.endswith("dog"))        # False</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — String Methods</span>
+        </div>
+        <textarea>
+# ทดลอง String Methods
+email = "  Student@CMU.AC.TH  "
+print("ต้นฉบับ:", repr(email))
+print("strip:", email.strip())
+print("lower:", email.strip().lower())
+print("upper:", email.strip().upper())
+
+# แยกส่วนของ email
+clean_email = email.strip().lower()
+parts = clean_email.split("@")
+print("ชื่อผู้ใช้:", parts[0])
+print("โดเมน:", parts[1])
+
+# ตรวจสอบ
+print("เป็น cmu?", clean_email.endswith("cmu.ac.th"))</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 4 -->
+      <h2 class="section-title">✨ 4. การจัดรูปแบบ String (f-string &amp; format)</h2>
+      <div class="theory-box">
+        <p>Python มีหลายวิธีในการนำค่าตัวแปรแทรกลงใน String วิธีที่แนะนำในปัจจุบันคือ <strong>f-string</strong> (Python 3.6+) ซึ่งอ่านง่ายและมีประสิทธิภาพสูง</p>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">วิธีการจัดรูปแบบ String</div>
+        <ul>
+          <li><strong>f-string</strong>: <code>f"Hello {name}"</code> — วิธีที่แนะนำ</li>
+          <li><strong>.format()</strong>: <code>"Hello {}".format(name)</code> — รองรับ Python เก่า</li>
+          <li><strong>% operator</strong>: <code>"Hello %s" % name</code> — รูปแบบเก่า (ไม่แนะนำ)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">name = "สมชาย"
+age = 20
+score = 88.567
+
+# f-string (แนะนำ)
+print(f"สวัสดี {name} อายุ {age} ปี")
+print(f"คะแนน: {score:.2f}")        # ทศนิยม 2 ตำแหน่ง
+print(f"คะแนน: {score:.0f}")        # ปัดเป็นจำนวนเต็ม
+print(f"{'Python':>10}")             # จัดชิดขวา 10 ตำแหน่ง
+print(f"{'Python':<10}|")           # จัดชิดซ้าย 10 ตำแหน่ง
+print(f"{'Python':^10}")             # จัดกึ่งกลาง 10 ตำแหน่ง
+
+# .format()
+print("สวัสดี {} อายุ {} ปี".format(name, age))
+print("ผล: {score:.2f}".format(score=score))
+
+# คำนวณใน f-string ได้เลย
+print(f"10 + 5 = {10 + 5}")
+print(f"ชื่อตัวพิมพ์ใหญ่: {name.upper()}")</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">Format Specifiers ที่ใช้บ่อย</div>
+        <table>
+          <thead><tr><th>รูปแบบ</th><th>ความหมาย</th><th>ตัวอย่าง</th></tr></thead>
+          <tbody>
+            <tr><td><code>:.2f</code></td><td>ทศนิยม 2 ตำแหน่ง</td><td><code>f"{3.14159:.2f}"</code> → <code>3.14</code></td></tr>
+            <tr><td><code>:d</code></td><td>จำนวนเต็ม</td><td><code>f"{42:d}"</code> → <code>42</code></td></tr>
+            <tr><td><code>:,</code></td><td>ใส่ comma คั่นพัน</td><td><code>f"{1000000:,}"</code> → <code>1,000,000</code></td></tr>
+            <tr><td><code>:10s</code></td><td>ความกว้าง 10 ตัว</td><td><code>f"{'hi':10s}"</code> → <code>"hi        "</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 5 -->
+      <h2 class="section-title">🔗 5. การเชื่อมต่อและทำซ้ำ</h2>
+      <div class="theory-box">
+        <p>String สามารถนำมาต่อกัน (Concatenation) ด้วยเครื่องหมาย <code>+</code> และทำซ้ำด้วย <code>*</code> นอกจากนี้ยังมีตัวดำเนินการ <code>in</code> ใช้ตรวจสอบว่ามีอักขระหรือข้อความย่อยอยู่ใน String หรือไม่</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Concatenation — เชื่อมต่อ String
+first = "Hello"
+second = "World"
+result = first + ", " + second + "!"
+print(result)  # Hello, World!
+
+# Repetition — ทำซ้ำ String
+line = "-" * 30
+print(line)            # พิมพ์ --- 30 ตัว
+print("Ha" * 3)        # HaHaHa
+
+# in operator — ตรวจสอบการมีอยู่
+text = "Python is awesome"
+print("Python" in text)    # True
+print("Java" in text)      # False
+print("is" not in text)    # False
+
+# วนลูปผ่านอักขระใน String
+for ch in "Hello":
+    print(ch, end=" ")     # H e l l o</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-3">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — Concatenation, Repetition &amp; in operator</span>
+        </div>
+        <textarea>
+# ทดลองเชื่อมต่อและทำซ้ำ String
+first_name = "สมชาย"
+last_name = "ใจดี"
+full_name = first_name + " " + last_name
+print("ชื่อเต็ม:", full_name)
+
+# ทำซ้ำ
+print("=" * 40)
+print(f"  ยินดีต้อนรับ {full_name}!")
+print("=" * 40)
+
+# ตรวจสอบด้วย in
+sentence = "การเขียนโปรแกรม Python เป็นเรื่องสนุก"
+print("Python อยู่ใน sentence?", "Python" in sentence)
+print("Java อยู่ใน sentence?", "Java" in sentence)
+
+# นับอักขระพิเศษ
+password = "P@ssw0rd!"
+special = sum(1 for c in password if not c.isalnum())
+print(f"จำนวนอักขระพิเศษ: {special}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-3')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-3')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <h2 class="section-title">❓ คำถามทบทวน</h2>
+      <div class="box box-warn">
+        <div class="box-title">คำถามทบทวนบทที่ 7</div>
+        <ol>
+          <li>String ใน Python หมายความว่าอะไร และทำไมจึงเป็น Immutable? ให้ยกตัวอย่างปัญหาที่อาจเกิดขึ้นหากไม่รู้เรื่องนี้</li>
+          <li>จาก String <code>s = "Programming"</code> จงเขียนโค้ดเพื่อดึงคำว่า <code>"gram"</code> ออกมาโดยใช้ Slicing</li>
+          <li>อธิบายความแตกต่างระหว่าง <code>split()</code> และ <code>join()</code> พร้อมตัวอย่างการใช้งานทั้งสองอย่าง</li>
+          <li>เขียนโปรแกรมรับชื่อจากผู้ใช้ แล้วตรวจสอบว่าชื่อเป็น Palindrome (อ่านหน้าหลังเหมือนกัน) หรือไม่</li>
+          <li>f-string ต่างจาก <code>.format()</code> อย่างไร และควรเลือกใช้แบบไหนในโค้ด Python สมัยใหม่? เพราะอะไร?</li>
+        </ol>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-nav">
+        <a href="ch06-lists.html">← บทที่ 6: List / Array</a>
+        <a href="ch08-functions.html" class="next">บทที่ 8: ฟังก์ชัน →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

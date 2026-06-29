@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 7: Strings - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html" class="active"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Strings</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 7</div>
+        <h1>Strings</h1>
+        <p>ฝึกใช้ String: การ index, slice, เมธอดต่าง ๆ และ f-string formatting</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถประมวลผลข้อความด้วย String methods ได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>เข้าถึงตัวอักษรใน String ด้วย index และตัดส่วนด้วย slicing ได้</li>
+          <li>ใช้เมธอด <code>upper()</code>, <code>lower()</code>, <code>strip()</code>, <code>split()</code>, <code>join()</code>, <code>replace()</code> ได้</li>
+          <li>ตรวจสอบเนื้อหาของ String ด้วย <code>startswith()</code>, <code>endswith()</code>, <code>in</code>, <code>find()</code>, <code>count()</code> ได้</li>
+          <li>จัดรูปแบบผลลัพธ์ด้วย f-string ได้</li>
+        </ul>
+      </div>
+
+      <!-- Step 1 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: Indexing และ Slicing</h2>
+      <div class="theory-box">
+        <p>String ใน Python ทำงานคล้าย List ของตัวอักษร สามารถเข้าถึงทีละตัวด้วย index โดย <code>s[0]</code> คือตัวแรก และ <code>s[-1]</code> คือตัวสุดท้าย การ slicing ด้วย <code>s[start:end]</code> จะตัดส่วนของ String ออกมา และ <code>s[::-1]</code> จะกลับลำดับตัวอักษรทั้งหมด</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">s = "Hello, Python!"
+
+print(s[0])      # H  (ตัวแรก)
+print(s[-1])     # !  (ตัวสุดท้าย)
+print(s[7:13])   # Python  (slice)
+print(s[:5])     # Hello
+print(s[::-1])   # !nohtyP ,olleH  (กลับด้าน)</code></pre>
+      </div>
+
+      <!-- Step 2 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: String Methods ที่ใช้บ่อย</h2>
+      <div class="theory-box">
+        <p>Python มีเมธอดสำหรับจัดการ String มากมาย ที่ใช้บ่อยได้แก่ <code>upper()</code> / <code>lower()</code> แปลงตัวพิมพ์, <code>strip()</code> ตัดช่องว่างหัวท้าย, <code>split(sep)</code> แยก String เป็น List, <code>join(list)</code> รวม List เป็น String, และ <code>replace(old, new)</code> แทนที่ข้อความ</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">text = "  Hello World  "
+
+print(text.strip())          # "Hello World"
+print(text.strip().upper())  # "HELLO WORLD"
+print(text.strip().lower())  # "hello world"
+
+words = text.strip().split()      # ['Hello', 'World']
+joined = "-".join(words)           # "Hello-World"
+print(joined)
+
+new_text = text.strip().replace("World", "Python")
+print(new_text)  # "Hello Python"</code></pre>
+      </div>
+
+      <!-- Step 3 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: การตรวจสอบ String</h2>
+      <div class="theory-box">
+        <p>Python มีเมธอดและตัวดำเนินการสำหรับตรวจสอบเนื้อหาของ String เช่น <code>startswith(prefix)</code> และ <code>endswith(suffix)</code> ตรวจสอบจุดเริ่มและจุดสิ้นสุด, <code>in</code> ตรวจว่า substring อยู่ใน String หรือไม่, <code>find(sub)</code> คืน index ที่พบ (คืน -1 ถ้าไม่พบ), และ <code>count(sub)</code> นับจำนวนครั้งที่ปรากฏ</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">email = "student@pnu.ac.th"
+
+print(email.startswith("student"))    # True
+print(email.endswith(".th"))          # True
+print("pnu" in email)                 # True
+print(email.find("@"))               # 7  (index ของ @)
+print(email.count("."))              # 2  (จำนวน .)</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: f-string Formatting</h2>
+      <div class="theory-box">
+        <p>f-string (Formatted String Literals) คือวิธีแทรกค่าตัวแปรลงใน String อย่างกระชับ ใช้ <code>f"..."</code> และใส่ตัวแปรหรือนิพจน์ในวงเล็บปีกกา <code>{}</code> สามารถกำหนดรูปแบบตัวเลขได้ด้วย format spec เช่น <code>{x:.2f}</code> ทศนิยม 2 ตำแหน่ง, <code>{n:05d}</code> เติมศูนย์ให้ครบ 5 หลัก, และ <code>{s:&lt;10}</code> จัดชิดซ้ายใน 10 ช่อง</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">name  = "สมชาย"
+score = 87.5
+num   = 42
+
+print(f"ชื่อ: {name}")
+print(f"คะแนน: {score:.2f}")     # 87.50
+print(f"รหัส: {num:05d}")        # 00042
+print(f"{'ซ้าย':<10}|{'ขวา':>10}")   # จัดตำแหน่ง</code></pre>
+      </div>
+
+      <!-- Runner -->
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Strings</span>
+        </div>
+        <textarea>
+# ประมวลผลข้อมูลนักศึกษา
+full_name = "  สมชาย ใจดี  "
+email = "somchai@pnu.ac.th"
+sentence = "Python เป็นภาษาโปรแกรมที่นิยมมากที่สุด"
+
+# จัดการชื่อ
+clean_name = full_name.strip()
+parts = clean_name.split()
+print(f"ชื่อเต็ม:    '{clean_name}'")
+print(f"ชื่อ:        {parts[0]}")
+print(f"นามสกุล:    {parts[1]}")
+print(f"ตัวพิมพ์ใหญ่: {clean_name.upper()}")
+print(f"จำนวนตัวอักษร (รวมช่องว่าง): {len(clean_name)}")
+
+# จัดการ email
+print(f"\nEmail: {email}")
+print(f"เป็น PNU: {email.endswith('@pnu.ac.th')}")
+domain = email.split('@')[1]
+print(f"Domain: {domain}")
+
+# จัดการประโยค
+print(f"\nประโยค: {sentence}")
+print(f"นับ 'า': {sentence.count('า')}")
+new_sentence = sentence.replace("Python", "ไพทอน")
+print(f"แปลแล้ว: {new_sentence}")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Exercises -->
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 7</div>
+        <ol>
+          <li>แก้ <code>full_name</code> เป็นชื่อ-นามสกุลของตัวเอง แล้ว Run ดูผล</li>
+          <li>เขียนโค้ดกลับตัวอักษร (reverse) ของชื่อตัวเอง โดยใช้ slicing <code>[::-1]</code></li>
+          <li>ตรวจสอบว่าคำว่า <code>"PNU"</code> อยู่ใน email หรือไม่ (case-insensitive โดยใช้ <code>upper()</code> ก่อน)</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab06.html">← Lab 6: Lists</a>
+        <a href="lab08.html" class="next">Lab 8: Functions →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

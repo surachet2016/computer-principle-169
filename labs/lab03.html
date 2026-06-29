@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 3: Operators &amp; I/O - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html" class="active"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Operators &amp; I/O</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 3</div>
+        <h1>Operators &amp; I/O</h1>
+        <p>ฝึกใช้ตัวดำเนินการทางคณิตศาสตร์ การเปรียบเทียบ ตรรกศาสตร์ และการแสดงผลด้วย f-string</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1: ใช้ตัวดำเนินการและแสดงผลข้อมูลได้</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🎯 วัตถุประสงค์</h2>
+      <div class="box box-info">
+        <div class="box-title">นักศึกษาจะสามารถ...</div>
+        <ul>
+          <li>ใช้ตัวดำเนินการทางคณิตศาสตร์ <code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>//</code> <code>%</code> <code>**</code> ได้</li>
+          <li>ใช้ตัวดำเนินการเปรียบเทียบและตรรกศาสตร์ได้</li>
+          <li>แสดงผลด้วย f-string พร้อมกำหนดรูปแบบทศนิยมและการจัดตำแหน่งได้</li>
+          <li>เขียนโปรแกรมคำนวณอย่างง่ายได้</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 1: ตัวดำเนินการทางคณิตศาสตร์</h2>
+      <div class="theory-box">
+        <p>Python มีตัวดำเนินการทางคณิตศาสตร์ครบถ้วน ที่ต้องระวังเป็นพิเศษคือความต่างระหว่าง <code>/</code> (หารได้ทศนิยม) กับ <code>//</code> (หารปัดทิ้งทศนิยม) และ <code>%</code> (เศษจากการหาร) ซึ่งนิยมใช้ตรวจเลขคี่/คู่ ส่วน <code>**</code> คือยกกำลัง</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">a = 17
+b = 5
+
+print(a + b)   # บวก → 22
+print(a - b)   # ลบ → 12
+print(a * b)   # คูณ → 85
+print(a / b)   # หาร → 3.4 (ได้ทศนิยม)
+print(a // b)  # หารปัดทิ้ง → 3
+print(a % b)   # เศษ → 2
+print(a ** 2)  # ยกกำลัง → 289</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 2: ตัวดำเนินการเปรียบเทียบ</h2>
+      <div class="theory-box">
+        <p>ตัวดำเนินการเปรียบเทียบ ได้แก่ <code>==</code> (เท่ากัน), <code>!=</code> (ไม่เท่ากัน), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> ผลลัพธ์จะเป็น <code>bool</code> เสมอ คือ <code>True</code> หรือ <code>False</code> เท่านั้น ตัวดำเนินการเหล่านี้มักใช้ร่วมกับ if statement</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">x = 10
+y = 20
+
+print(x == y)   # False — ไม่เท่ากัน
+print(x != y)   # True  — ไม่เท่ากัน
+print(x &lt; y)    # True  — น้อยกว่า
+print(x &gt; y)    # False — ไม่มากกว่า
+print(x &lt;= 10)  # True  — น้อยกว่าหรือเท่ากับ
+print(x &gt;= 10)  # True  — มากกว่าหรือเท่ากับ</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 3: ตัวดำเนินการตรรกศาสตร์</h2>
+      <div class="theory-box">
+        <p>ตัวดำเนินการตรรกศาสตร์ใช้รวมเงื่อนไขหลายข้อเข้าด้วยกัน ได้แก่ <code>and</code> (และ — ทั้งสองต้องจริง), <code>or</code> (หรือ — อย่างน้อยหนึ่งต้องจริง) และ <code>not</code> (ไม่ — กลับค่า) นิยมใช้กับ if เพื่อตรวจสอบหลายเงื่อนไขพร้อมกัน</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">age = 20
+has_id = True
+
+# and — ทั้งสองเงื่อนไขต้องเป็น True
+print(age >= 18 and has_id)   # True
+
+# or — อย่างน้อยหนึ่งเงื่อนไขเป็น True
+print(age >= 18 or has_id)    # True
+print(age &lt; 18 or has_id)     # True
+
+# not — กลับค่า
+print(not has_id)             # False
+print(not (age &lt; 18))         # True
+
+# Truth table สรุป
+print(True and False)   # False
+print(True or False)    # True
+print(not True)         # False</code></pre>
+      </div>
+
+      <h2 class="section-title">📋 ขั้นตอนที่ 4: การแสดงผลด้วย f-string</h2>
+      <div class="theory-box">
+        <p>f-string (Formatted String Literals) เป็นวิธีที่สะดวกที่สุดในการแทรกค่าตัวแปรลงในข้อความ เริ่มต้น string ด้วย <code>f"..."</code> แล้วใส่ตัวแปรในวงเล็บปีกกา <code>{}</code> นอกจากนี้ยังกำหนดรูปแบบได้ เช่น <code>{value:.2f}</code> แสดงทศนิยม 2 ตำแหน่ง และ <code>{name:&gt;10}</code> จัดชิดขวาในความกว้าง 10 ตัวอักษร</p>
+      </div>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">name = "สมชาย"
+score = 87.3456
+pi = 3.14159265
+
+# แทรกตัวแปรพื้นฐาน
+print(f"ชื่อ: {name}")
+
+# กำหนดจำนวนทศนิยม
+print(f"คะแนน: {score:.2f}")   # 87.35
+print(f"Pi: {pi:.4f}")         # 3.1416
+
+# จัดตำแหน่งข้อความ
+print(f"{'รายการ':&lt;10} {'ราคา':&gt;8}")
+print(f"{'ข้าวผัด':&lt;10} {45:&gt;8.2f}")
+print(f"{'ต้มยำ':&lt;10} {120:&gt;8.2f}")</code></pre>
+      </div>
+
+      <h2 class="section-title">💻 ทดลองเขียนโค้ด</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — คำนวณ BMI</span>
+        </div>
+        <textarea>
+# คำนวณ BMI (Body Mass Index)
+weight = 65.0    # น้ำหนัก (กิโลกรัม)
+height = 1.70    # ส่วนสูง (เมตร)
+
+bmi = weight / (height ** 2)
+
+print(f"น้ำหนัก:  {weight} กก.")
+print(f"ส่วนสูง:  {height} เมตร")
+print(f"BMI:      {bmi:.2f}")
+print()
+
+if bmi < 18.5:
+    category = "น้ำหนักน้อยกว่าเกณฑ์"
+elif bmi < 25.0:
+    category = "น้ำหนักปกติ"
+elif bmi < 30.0:
+    category = "น้ำหนักเกิน"
+else:
+    category = "โรคอ้วน"
+
+print(f"ผล: {category}")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <h2 class="section-title">❓ โจทย์ฝึกหัด</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 3</div>
+        <ol>
+          <li>แก้ <code>weight</code> และ <code>height</code> ให้เป็นค่าของตัวเอง แล้วดูว่า BMI ของคุณอยู่ในเกณฑ์ใด</li>
+          <li>คำนวณพื้นที่วงกลม <code>r = 7</code> โดยใช้ <code>pi = 3.14159</code> แล้วแสดงผลทศนิยม 4 ตำแหน่ง (สูตร: พื้นที่ = pi × r²)</li>
+          <li>กำหนด <code>n = 17</code> แล้วใช้ตัวดำเนินการแสดงผลให้ครบ: หาร 2 ลงตัวไหม? (<code>n % 2 == 0</code>), มากกว่า 10 ไหม?, เป็นเลขคี่ไหม?</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab02.html">← Lab 2: Data Types</a>
+        <a href="lab04.html" class="next">Lab 4: Conditions →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

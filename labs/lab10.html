@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 10: Mini Project - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        rel="stylesheet"
+        integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+        crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="../chapters/ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="../chapters/ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="../chapters/ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="../chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="../chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="../chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="../chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="../chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="../chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="lab10.html" class="active"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">Lab › <span>Mini Project</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">Lab 10</div>
+        <h1>Mini Project</h1>
+        <p>รวมทักษะทั้งหมด: List, String, ฟังก์ชัน และไฟล์ เพื่อสร้างระบบบันทึกคะแนนนักศึกษา</p>
+        <div class="clo-list">
+          <span class="clo-badge clo2">CLO2: วิเคราะห์และออกแบบโปรแกรมจากโจทย์ได้</span>
+          <span class="clo-badge clo3">CLO3: เขียนโปรแกรมครบวงจรด้วย Python ได้</span>
+          <span class="clo-badge clo4">CLO4: ทดสอบและแก้ไขโปรแกรมได้</span>
+        </div>
+      </div>
+
+      <!-- Project Brief -->
+      <h2 class="section-title">📌 โจทย์โครงงาน</h2>
+      <div class="box box-info">
+        <div class="box-title">ระบบบันทึกคะแนนนักศึกษา (Student Score System)</div>
+        <p>สร้างโปรแกรม Python ที่ทำงานได้ครบตามข้อกำหนดต่อไปนี้:</p>
+        <ul>
+          <li>เก็บชื่อและคะแนนนักศึกษาใน <strong>List</strong></li>
+          <li>มี <strong>ฟังก์ชัน</strong> หาค่าเฉลี่ย ค่าสูงสุด และค่าต่ำสุด</li>
+          <li>ตัดเกรด (A/B/C/D/F) และตรวจสอบสถานะ ผ่าน/ไม่ผ่าน</li>
+          <li>แสดง <strong>รายงาน</strong> แบบตารางที่อ่านง่าย</li>
+          <li><strong>บันทึกผล</strong> ลงไฟล์ <code>/tmp/report.txt</code></li>
+        </ul>
+      </div>
+
+      <!-- Flowchart -->
+      <h2 class="section-title">🗺️ ผังงานโปรแกรม</h2>
+      <div class="theory-box">
+        <p>โปรแกรมทำงานตามลำดับขั้นตอนดังนี้:</p>
+        <pre style="background:transparent;padding:0;margin:0.5rem 0;font-family:monospace;font-size:0.9rem;line-height:1.8">
+  ┌─────────────┐
+  │   เริ่มต้น   │
+  └──────┬──────┘
+         │
+         ▼
+  ┌──────────────────────────┐
+  │  กำหนดข้อมูลนักศึกษา    │
+  │  (students[], scores[])  │
+  └──────────┬───────────────┘
+             │
+             ▼
+  ┌──────────────────────────┐
+  │  เรียก generate_report() │
+  │  → ตัดเกรด get_grade()   │
+  │  → คำนวณสถิติ calc_stats()│
+  └──────────┬───────────────┘
+             │
+             ▼
+  ┌──────────────────────────┐
+  │   แสดงรายงานบนหน้าจอ    │
+  └──────────┬───────────────┘
+             │
+             ▼
+  ┌──────────────────────────┐
+  │   บันทึกลงไฟล์ .txt      │
+  └──────────┬───────────────┘
+             │
+             ▼
+  ┌─────────────┐
+  │     จบ      │
+  └─────────────┘</pre>
+      </div>
+
+      <!-- Runner -->
+      <h2 class="section-title">💻 โค้ดโครงงาน</h2>
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ทดลองโค้ด — Mini Project</span>
+        </div>
+        <textarea>
+# ===================================
+# Mini Project: ระบบบันทึกคะแนนนักศึกษา
+# ===================================
+
+# ---- ข้อมูลนักศึกษา ----
+students = ["สมชาย ใจดี", "สมหญิง รักเรียน", "สมศักดิ์ มานะ",
+            "สมใจ ขยัน", "สมพร ตั้งใจ"]
+scores   = [85, 72, 91, 65, 78]
+
+# ---- ฟังก์ชัน ----
+def get_grade(score):
+    if score >= 90: return "A"
+    elif score >= 80: return "B"
+    elif score >= 70: return "C"
+    elif score >= 60: return "D"
+    else: return "F"
+
+def calc_stats(scores):
+    return sum(scores)/len(scores), max(scores), min(scores)
+
+def generate_report(students, scores):
+    lines = []
+    lines.append("=" * 45)
+    lines.append("      รายงานผลการเรียน 07-034-205")
+    lines.append("=" * 45)
+    for name, score in zip(students, scores):
+        grade = get_grade(score)
+        passed = "ผ่าน" if score >= 50 else "ไม่ผ่าน"
+        lines.append(f"  {name:<16} {score:3d} คะแนน  {grade}  {passed}")
+    avg, high, low = calc_stats(scores)
+    lines.append("-" * 45)
+    lines.append(f"  เฉลี่ย: {avg:.2f}  สูงสุด: {high}  ต่ำสุด: {low}")
+    passed_count = sum(1 for s in scores if s >= 50)
+    lines.append(f"  ผ่าน: {passed_count}/{len(scores)} คน")
+    lines.append("=" * 45)
+    return lines
+
+# ---- แสดงรายงาน ----
+report = generate_report(students, scores)
+for line in report:
+    print(line)
+
+# ---- บันทึกไฟล์ ----
+with open("/tmp/report.txt", "w", encoding="utf-8") as f:
+    for line in report:
+        f.write(line + "\n")
+
+print("\nบันทึกรายงานลงไฟล์ /tmp/report.txt เรียบร้อย")
+</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Submission -->
+      <h2 class="section-title">📝 รายงานผล</h2>
+      <div class="box box-warn">
+        <div class="box-title">แบบฝึกหัด Lab 10 — ส่งงาน</div>
+        <ol>
+          <li>อธิบายการทำงานของโปรแกรมในภาษาของตัวเอง (5-10 ประโยค) โดยครอบคลุมหน้าที่ของแต่ละฟังก์ชัน</li>
+          <li>วาดผังงาน (Flowchart) ของโปรแกรมลงกระดาษ ถ่ายรูปและส่งพร้อมรายงาน</li>
+          <li>แก้โปรแกรมให้แสดงค่าเฉลี่ย GPA ทศนิยม 2 ตำแหน่ง (ปัจจุบันใช้ระบบ 4.0: A=4, B=3, C=2, D=1, F=0)</li>
+          <li>เพิ่ม feature: แสดงจำนวนนักศึกษาที่ได้แต่ละเกรด (A/B/C/D/F) ในส่วนท้ายรายงาน</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="lab09.html">← Lab 9: File Handling</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+          integrity="sha256-nHnJmZmZsV3nWHqiIMYdBqoU52urt13FDC+HOqgmrU0="
+          crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

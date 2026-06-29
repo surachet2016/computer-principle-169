@@ -12,7 +12,7 @@
     .clo-card .clo-id { font-size: 12px; font-weight: 700; color: #2563eb; margin-bottom: 4px; }
     .clo-card p { font-size: 14px; color: #475569; }
     .syllabus-table td:first-child { font-weight: 600; color: #1e3a5f; white-space: nowrap; }
-    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
     .stat-box { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center; }
     .stat-box .num { font-size: 28px; font-weight: 700; color: #1e3a5f; }
     .stat-box .label { font-size: 12px; color: #64748b; margin-top: 4px; }
@@ -38,6 +38,20 @@
       <a href="chapters/ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
       <a href="chapters/ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
       <a href="chapters/ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="chapters/ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="chapters/ch08-functions.html"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="chapters/ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="labs/lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="labs/lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="labs/lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="labs/lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="labs/lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="labs/lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="labs/lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="labs/lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="labs/lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="labs/lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
 
     </nav>
   </aside>
@@ -77,12 +91,16 @@
       <!-- Stats -->
       <div class="stat-grid">
         <div class="stat-box">
-          <div class="num">6</div>
+          <div class="num">9</div>
           <div class="label">บทเรียน</div>
         </div>
         <div class="stat-box">
           <div class="num">5</div>
           <div class="label">CLOs</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">10</div>
+          <div class="label">Lab ปฏิบัติ</div>
         </div>
       </div>
 
@@ -148,6 +166,89 @@
           <div class="card-num">บทที่ 6</div>
           <h3>List / Array</h3>
           <p>สร้าง, เข้าถึง, แก้ไข, วนซ้ำ</p>
+        </a>
+        <a class="card" href="chapters/ch07-strings.html">
+          <div class="card-icon">📝</div>
+          <div class="card-num">บทที่ 7</div>
+          <h3>String</h3>
+          <p>slicing, methods, format</p>
+        </a>
+        <a class="card" href="chapters/ch08-functions.html">
+          <div class="card-icon">⚙️</div>
+          <div class="card-num">บทที่ 8</div>
+          <h3>ฟังก์ชัน</h3>
+          <p>def, return, parameters, scope</p>
+        </a>
+        <a class="card" href="chapters/ch09-filehandling.html">
+          <div class="card-icon">📁</div>
+          <div class="card-num">บทที่ 9</div>
+          <h3>การจัดการไฟล์</h3>
+          <p>open, read, write, append</p>
+        </a>
+      </div>
+
+      <!-- Labs -->
+      <div class="section-title">🔬 Lab ปฏิบัติ (LAB 1–10)</div>
+      <div class="card-grid">
+        <a class="card lab-card" href="labs/lab01.html">
+          <div class="card-icon">🐍</div>
+          <div class="card-num">Lab 1</div>
+          <h3>Hello World & Variables</h3>
+          <p>CLO1</p>
+        </a>
+        <a class="card lab-card" href="labs/lab02.html">
+          <div class="card-icon">🔢</div>
+          <div class="card-num">Lab 2</div>
+          <h3>Data Types</h3>
+          <p>CLO1</p>
+        </a>
+        <a class="card lab-card" href="labs/lab03.html">
+          <div class="card-icon">➕</div>
+          <div class="card-num">Lab 3</div>
+          <h3>Operators & I/O</h3>
+          <p>CLO1</p>
+        </a>
+        <a class="card lab-card" href="labs/lab04.html">
+          <div class="card-icon">🔀</div>
+          <div class="card-num">Lab 4</div>
+          <h3>Conditions</h3>
+          <p>CLO1, CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab05.html">
+          <div class="card-icon">🔄</div>
+          <div class="card-num">Lab 5</div>
+          <h3>Loops</h3>
+          <p>CLO1, CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab06.html">
+          <div class="card-icon">📋</div>
+          <div class="card-num">Lab 6</div>
+          <h3>Lists</h3>
+          <p>CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab07.html">
+          <div class="card-icon">📝</div>
+          <div class="card-num">Lab 7</div>
+          <h3>Strings</h3>
+          <p>CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab08.html">
+          <div class="card-icon">⚙️</div>
+          <div class="card-num">Lab 8</div>
+          <h3>Functions</h3>
+          <p>CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab09.html">
+          <div class="card-icon">📁</div>
+          <div class="card-num">Lab 9</div>
+          <h3>File Handling</h3>
+          <p>CLO3</p>
+        </a>
+        <a class="card lab-card" href="labs/lab10.html">
+          <div class="card-icon">🏆</div>
+          <div class="card-num">Lab 10</div>
+          <h3>Mini Project</h3>
+          <p>CLO2, CLO3, CLO4</p>
         </a>
       </div>
 

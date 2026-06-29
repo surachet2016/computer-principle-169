@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 8: ฟังก์ชัน - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+      <a href="ch07-strings.html"><span class="icon">7</span> String</a>
+      <a href="ch08-functions.html" class="active"><span class="icon">8</span> ฟังก์ชัน</a>
+      <a href="ch09-filehandling.html"><span class="icon">9</span> การจัดการไฟล์</a>
+      <div class="nav-section">Lab</div>
+      <a href="../labs/lab01.html"><span class="icon">🔬</span> Lab 1: Hello World</a>
+      <a href="../labs/lab02.html"><span class="icon">🔬</span> Lab 2: Data Types</a>
+      <a href="../labs/lab03.html"><span class="icon">🔬</span> Lab 3: Operators &amp; I/O</a>
+      <a href="../labs/lab04.html"><span class="icon">🔬</span> Lab 4: Conditions</a>
+      <a href="../labs/lab05.html"><span class="icon">🔬</span> Lab 5: Loops</a>
+      <a href="../labs/lab06.html"><span class="icon">🔬</span> Lab 6: Lists</a>
+      <a href="../labs/lab07.html"><span class="icon">🔬</span> Lab 7: Strings</a>
+      <a href="../labs/lab08.html"><span class="icon">🔬</span> Lab 8: Functions</a>
+      <a href="../labs/lab09.html"><span class="icon">🔬</span> Lab 9: File Handling</a>
+      <a href="../labs/lab10.html"><span class="icon">🏆</span> Lab 10: Mini Project</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>ฟังก์ชัน</span></div>
+    </div>
+    <div class="content">
+
+      <!-- Chapter Header -->
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 8</div>
+        <h1>ฟังก์ชัน</h1>
+        <p>เรียนรู้การจัดระเบียบโค้ดด้วยฟังก์ชัน ตั้งแต่การนิยาม การส่งพารามิเตอร์ การคืนค่า ไปจนถึงขอบเขตของตัวแปร — เครื่องมือที่ขาดไม่ได้ในการเขียนโปรแกรมสมัยใหม่</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: สามารถออกแบบและนำฟังก์ชันมาใช้แก้ปัญหาได้อย่างถูกต้อง</span>
+        </div>
+      </div>
+
+      <!-- Section 1: ฟังก์ชันคืออะไร -->
+      <h2 class="section-title">⚙️ 1. ฟังก์ชันคืออะไร?</h2>
+      <div class="theory-box">
+        <p><strong>ฟังก์ชัน (Function)</strong> คือกลุ่มของคำสั่งที่ถูกจัดรวมกันไว้เพื่อทำงานอย่างใดอย่างหนึ่ง สามารถเรียกใช้ซ้ำได้หลายครั้งโดยไม่ต้องเขียนโค้ดซ้ำ</p>
+        <p>หลักการสำคัญที่ฟังก์ชันช่วยแก้คือ <strong>DRY (Don't Repeat Yourself)</strong> — ถ้าต้องเขียนโค้ดเดิมซ้ำกันมากกว่า 2 ครั้ง ให้พิจารณาสร้างเป็นฟังก์ชัน</p>
+        <ul>
+          <li><strong>ใช้ซ้ำได้</strong> (Reusability) — เขียนครั้งเดียว เรียกได้หลายที่</li>
+          <li><strong>อ่านง่ายขึ้น</strong> — แยกโค้ดซับซ้อนออกเป็นส่วนย่อย ๆ ที่มีชื่อ</li>
+          <li><strong>แก้ไขง่าย</strong> — เปลี่ยนการทำงานในที่เดียว มีผลทุกที่ที่เรียกใช้</li>
+          <li><strong>ทดสอบได้</strong> — ทดสอบแต่ละฟังก์ชันแยกกันได้</li>
+        </ul>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">โครงสร้างของฟังก์ชัน Python</div>
+        <ul>
+          <li><code>def</code> — keyword สำหรับนิยามฟังก์ชัน</li>
+          <li><code>function_name</code> — ชื่อฟังก์ชัน (ใช้ snake_case)</li>
+          <li><code>(parameters)</code> — รายการพารามิเตอร์ (ถ้าไม่มีให้ว่างไว้)</li>
+          <li><code>:</code> — จบบรรทัด def ด้วยเครื่องหมาย colon เสมอ</li>
+          <li>Body — ถัดบรรทัดถัดไปต้องย่อหน้าเข้า (indent) 4 ช่องว่าง</li>
+          <li><code>return</code> — คืนค่ากลับ (ถ้าไม่มี จะคืน <code>None</code>)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># โครงสร้างฟังก์ชันพื้นฐาน
+def greet():
+    print("สวัสดีครับ!")
+    print("ยินดีต้อนรับสู่บทเรียน Python")
+
+# การเรียกใช้ฟังก์ชัน
+greet()      # เรียกครั้งที่ 1
+greet()      # เรียกครั้งที่ 2 — ไม่ต้องเขียนโค้ดซ้ำ
+
+# เปรียบเทียบ: โค้ดแบบไม่มีฟังก์ชัน (ไม่ดี)
+# print("สวัสดีครับ!")
+# print("ยินดีต้อนรับสู่บทเรียน Python")
+# print("สวัสดีครับ!")
+# print("ยินดีต้อนรับสู่บทเรียน Python")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — ฟังก์ชันพื้นฐาน</span>
+        </div>
+        <textarea>
+# นิยามฟังก์ชัน
+def print_separator():
+    print("=" * 40)
+
+def show_header(title):
+    print_separator()
+    print(f"  {title}")
+    print_separator()
+
+# เรียกใช้
+show_header("ยินดีต้อนรับ!")
+print("เนื้อหาบทเรียนที่นี่")
+print_separator()
+show_header("สรุปผล")
+print("ฟังก์ชันช่วยลดการเขียนโค้ดซ้ำ")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 2: Parameters และ Arguments -->
+      <h2 class="section-title">📥 2. Parameters และ Arguments</h2>
+      <div class="theory-box">
+        <p>ฟังก์ชันรับข้อมูลจากภายนอกผ่าน <strong>พารามิเตอร์ (Parameter)</strong> และ <strong>อาร์กิวเมนต์ (Argument)</strong></p>
+        <ul>
+          <li><strong>Parameter</strong> — ชื่อตัวแปรในวงเล็บตอนนิยามฟังก์ชัน เช่น <code>def add(a, b)</code> → a และ b คือ parameter</li>
+          <li><strong>Argument</strong> — ค่าจริงที่ส่งไปตอนเรียกใช้ เช่น <code>add(3, 5)</code> → 3 และ 5 คือ argument</li>
+        </ul>
+        <p>การส่ง argument มี 2 แบบหลัก:</p>
+        <ul>
+          <li><strong>Positional Arguments</strong> — ส่งตามลำดับ เช่น <code>add(3, 5)</code></li>
+          <li><strong>Keyword Arguments</strong> — ระบุชื่อพารามิเตอร์ เช่น <code>add(b=5, a=3)</code> — ลำดับไม่สำคัญ</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ฟังก์ชันที่มี parameters
+def greet(name, greeting):
+    print(f"{greeting}, {name}!")
+
+# Positional arguments — ส่งตามลำดับ
+greet("สมชาย", "สวัสดี")
+greet("Python", "Hello")
+
+# Keyword arguments — ระบุชื่อ, ลำดับไม่สำคัญ
+greet(greeting="Hi", name="World")
+
+# ฟังก์ชันคำนวณ
+def calculate_area(width, height):
+    area = width * height
+    print(f"พื้นที่ = {width} x {height} = {area}")
+
+calculate_area(5, 3)
+calculate_area(height=10, width=4)  # keyword args</code></pre>
+      </div>
+
+      <!-- Section 3: Return Values -->
+      <h2 class="section-title">📤 3. Return Values (การคืนค่า)</h2>
+      <div class="theory-box">
+        <p>ฟังก์ชันสามารถคืนค่ากลับไปให้ผู้เรียกใช้ด้วยคำสั่ง <strong>return</strong> ซึ่งทำให้สามารถนำผลลัพธ์ไปใช้ต่อได้</p>
+        <ul>
+          <li>ถ้าไม่มี <code>return</code> หรือ <code>return</code> โดยไม่มีค่า — ฟังก์ชันคืนค่า <code>None</code></li>
+          <li>คืนค่าได้หลายค่าพร้อมกันโดยใช้ Tuple <code>return a, b</code></li>
+          <li>เมื่อโปรแกรมถึง <code>return</code> จะหยุดทำงานและออกจากฟังก์ชันทันที</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ฟังก์ชันที่คืนค่าเดียว
+def square(n):
+    return n ** 2
+
+result = square(5)
+print(f"5^2 = {result}")       # 25
+print(f"7^2 = {square(7)}")    # 49
+
+# ฟังก์ชันคืนหลายค่า (Tuple)
+def min_max(numbers):
+    return min(numbers), max(numbers)
+
+low, high = min_max([85, 42, 98, 67, 73])
+print(f"ต่ำสุด: {low}, สูงสุด: {high}")
+
+# ฟังก์ชันที่ไม่มี return (คืน None)
+def say_hello(name):
+    print(f"Hello, {name}!")
+
+val = say_hello("World")
+print(f"ค่าที่ได้กลับมา: {val}")  # None
+
+# ใช้ return เพื่อออกจากฟังก์ชันเร็ว
+def check_positive(n):
+    if n <= 0:
+        return "ต้องเป็นจำนวนบวก"
+    return f"{n} เป็นจำนวนบวก"
+
+print(check_positive(5))
+print(check_positive(-3))</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — Parameters, Arguments &amp; Return</span>
+        </div>
+        <textarea>
+# ฟังก์ชันคำนวณเกรด
+def calculate_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
+
+# ฟังก์ชันสรุปคะแนน
+def summarize_scores(names, scores):
+    total = sum(scores)
+    avg = total / len(scores)
+    return avg, min(scores), max(scores)
+
+students = ["สมชาย", "สมหญิง", "สมศักดิ์", "วิมล", "ประภา"]
+scores   = [85, 92, 78, 96, 70]
+
+print("=== ผลการเรียน ===")
+for name, score in zip(students, scores):
+    grade = calculate_grade(score)
+    print(f"  {name}: {score} คะแนน → เกรด {grade}")
+
+avg, lo, hi = summarize_scores(students, scores)
+print(f"\nเฉลี่ย: {avg:.2f}  ต่ำสุด: {lo}  สูงสุด: {hi}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 4: Scope -->
+      <h2 class="section-title">🌐 4. Scope (ขอบเขตตัวแปร)</h2>
+      <div class="theory-box">
+        <p><strong>Scope</strong> คือขอบเขตที่ตัวแปรสามารถถูกเข้าถึงได้ Python มีกฎ <strong>LEGB</strong> ในการค้นหาตัวแปร</p>
+        <ul>
+          <li><strong>Local</strong> — ตัวแปรที่สร้างในฟังก์ชัน ใช้ได้เฉพาะในฟังก์ชันนั้น</li>
+          <li><strong>Enclosing</strong> — ตัวแปรในฟังก์ชันที่ครอบอยู่ (nested function)</li>
+          <li><strong>Global</strong> — ตัวแปรที่สร้างนอกฟังก์ชันทั้งหมด</li>
+          <li><strong>Built-in</strong> — ชื่อที่ Python กำหนดไว้แล้ว เช่น <code>print</code>, <code>len</code></li>
+        </ul>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">Local vs Global Variable</div>
+        <table>
+          <thead>
+            <tr><th>ประเภท</th><th>ที่ประกาศ</th><th>ใช้ได้ที่ไหน</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Local</strong></td><td>ในฟังก์ชัน</td><td>เฉพาะในฟังก์ชันนั้น</td></tr>
+            <tr><td><strong>Global</strong></td><td>นอกฟังก์ชัน</td><td>ทุกที่ในไฟล์</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">x = 10  # Global variable
+
+def show_scope():
+    y = 20  # Local variable
+    print(f"ในฟังก์ชัน: x = {x}")  # อ่าน global ได้
+    print(f"ในฟังก์ชัน: y = {y}")  # อ่าน local ได้
+
+show_scope()
+print(f"นอกฟังก์ชัน: x = {x}")   # ใช้ได้
+# print(y)  # NameError! y อยู่ใน scope ของฟังก์ชันเท่านั้น
+
+# ใช้ global keyword เพื่อแก้ไข global variable ในฟังก์ชัน
+count = 0
+
+def increment():
+    global count    # บอก Python ว่าจะใช้ count ระดับ global
+    count += 1
+    print(f"count = {count}")
+
+increment()  # count = 1
+increment()  # count = 2
+increment()  # count = 3
+print(f"ค่าสุดท้าย: {count}")</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">แนวทางที่ดีกว่าการใช้ global</div>
+        <p>การใช้ <code>global</code> มากเกินไปทำให้โค้ดติดตามยาก ควรใช้ return value แทนเมื่อทำได้:</p>
+        <pre style="margin:0;background:#1e1e2e;color:#cdd6f4;padding:0.8rem;border-radius:6px;font-size:0.85rem;"><code># แบบแนะนำ: ใช้ return แทน global
+def increment(count):
+    return count + 1
+
+count = 0
+count = increment(count)  # count = 1
+count = increment(count)  # count = 2</code></pre>
+      </div>
+
+      <!-- Section 5: Default Arguments -->
+      <h2 class="section-title">🎛️ 5. Default Arguments (ค่าเริ่มต้น)</h2>
+      <div class="theory-box">
+        <p><strong>Default Arguments</strong> คือค่าที่กำหนดไว้ล่วงหน้าสำหรับพารามิเตอร์ ถ้าผู้เรียกไม่ส่งค่ามา ฟังก์ชันจะใช้ค่า default แทน</p>
+        <p>รูปแบบ: <code>def func(param=default_value):</code></p>
+        <p><strong>ข้อควรระวัง:</strong> พารามิเตอร์ที่มีค่า default ต้องอยู่ <em>หลัง</em> พารามิเตอร์ที่ไม่มีค่า default เสมอ</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Default argument
+def greet(name, greeting="สวัสดี", punctuation="!"):
+    print(f"{greeting}, {name}{punctuation}")
+
+greet("สมชาย")                        # ใช้ค่า default ทั้งหมด
+greet("วิมล", "หวัดดี")               # เปลี่ยน greeting
+greet("Python", "Hello", ".")          # เปลี่ยนทั้งหมด
+
+# ฟังก์ชัน power พร้อม default exponent
+def power(base, exponent=2):
+    return base ** exponent
+
+print(power(5))      # 5^2 = 25 (ใช้ค่า default)
+print(power(2, 10))  # 2^10 = 1024
+
+# ระวัง: ห้ามใช้ mutable object เป็น default argument!
+# def add_item(item, lst=[]):  # ไม่ดี! ใช้ร่วมกันทุก call
+#     lst.append(item)
+#     return lst
+
+# วิธีที่ถูกต้อง: ใช้ None แล้วสร้าง list ใหม่ในฟังก์ชัน
+def add_item(item, lst=None):
+    if lst is None:
+        lst = []
+    lst.append(item)
+    return lst
+
+print(add_item("แอปเปิล"))       # ['แอปเปิล']
+print(add_item("กล้วย"))          # ['กล้วย'] — list ใหม่ ไม่ปนกัน</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-3">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — Default Arguments &amp; Scope</span>
+        </div>
+        <textarea>
+# ฟังก์ชันคำนวณดอกเบี้ย
+def calculate_interest(principal, rate=0.05, years=1):
+    """คำนวณดอกเบี้ยแบบง่าย"""
+    interest = principal * rate * years
+    total = principal + interest
+    return interest, total
+
+# ใช้ค่า default
+i, t = calculate_interest(10000)
+print(f"เงินต้น: 10,000 บาท, อัตรา: 5%, 1 ปี")
+print(f"  ดอกเบี้ย: {i:,.2f} บาท")
+print(f"  รวมทั้งหมด: {t:,.2f} บาท\n")
+
+# ระบุ keyword argument
+i, t = calculate_interest(50000, years=3, rate=0.07)
+print(f"เงินต้น: 50,000 บาท, อัตรา: 7%, 3 ปี")
+print(f"  ดอกเบี้ย: {i:,.2f} บาท")
+print(f"  รวมทั้งหมด: {t:,.2f} บาท")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-3')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-3')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <h2 class="section-title">❓ คำถามทบทวน</h2>
+      <div class="box box-warn">
+        <div class="box-title">คำถามทบทวนบทที่ 8</div>
+        <ol>
+          <li>หลักการ DRY (Don't Repeat Yourself) คืออะไร และฟังก์ชันช่วยแก้ปัญหานี้ได้อย่างไร?</li>
+          <li>อธิบายความแตกต่างระหว่าง Parameter และ Argument พร้อมยกตัวอย่าง</li>
+          <li>ถ้าฟังก์ชันไม่มีคำสั่ง <code>return</code> จะเกิดอะไรขึ้น? และจะได้ค่าอะไรกลับมา?</li>
+          <li>ตัวแปร Local และ Global ต่างกันอย่างไร? เมื่อไรควรใช้ <code>global</code> keyword?</li>
+          <li>ทำไมจึงไม่ควรใช้ List หรือ Dictionary เป็น Default Argument? จงเขียนโค้ดที่ถูกต้องแทน</li>
+        </ol>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-nav">
+        <a href="ch07-strings.html">← บทที่ 7: String</a>
+        <a href="ch09-filehandling.html" class="next">บทที่ 9: การจัดการไฟล์ →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>
