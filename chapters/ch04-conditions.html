@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 4: คำสั่งเงื่อนไข - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html" class="active"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>คำสั่งเงื่อนไข</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 4</div>
+        <h1>คำสั่งเงื่อนไข</h1>
+        <p>เรียนรู้การควบคุมการทำงานของโปรแกรมด้วยคำสั่งเงื่อนไข if, if-else, if-elif-else รวมถึง Nested if, Ternary Operator และค่า Truthy/Falsy เพื่อให้โปรแกรมตัดสินใจได้อย่างชาญฉลาด</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1</span>
+          <span class="clo-badge clo3">CLO3</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Control Structures Overview -->
+      <div class="section-title">🔹 โครงสร้างควบคุม (Control Structures)</div>
+
+      <div class="theory-box">
+        <h3>โครงสร้างควบคุมโปรแกรม 3 ประเภท</h3>
+        <p>โปรแกรมคอมพิวเตอร์ทำงานโดยอาศัยโครงสร้างควบคุม 3 ประเภทหลัก ซึ่งรวมกันได้ทุกอัลกอริทึมในโลก:</p>
+        <ul>
+          <li><strong>Sequential (ตามลำดับ):</strong> ทำงานทีละคำสั่งตามลำดับจากบนลงล่าง เป็นค่าเริ่มต้นของโปรแกรม</li>
+          <li><strong>Selection (การเลือก):</strong> ตัดสินใจว่าจะทำงานส่วนไหน โดยอาศัยเงื่อนไข (if, if-else, if-elif-else)</li>
+          <li><strong>Repetition (การวนซ้ำ):</strong> ทำงานซ้ำๆ จนกว่าเงื่อนไขจะหยุด (for, while) — ศึกษาในบทที่ 5</li>
+        </ul>
+      </div>
+
+      <!-- Section 2: if -->
+      <div class="section-title">🔹 คำสั่ง if</div>
+
+      <div class="theory-box">
+        <h3>Syntax ของ if</h3>
+        <p>คำสั่ง <code>if</code> ใช้ตรวจสอบเงื่อนไข ถ้าเงื่อนไขเป็น True จะทำงานในบล็อกนั้น ถ้าเป็น False จะข้ามไป</p>
+        <pre style="background:#1e293b;color:#e2e8f0;padding:12px;border-radius:6px;font-family:monospace">if เงื่อนไข:
+    คำสั่งที่จะทำเมื่อเงื่อนไขเป็น True
+    (อาจมีหลายบรรทัด)</pre>
+      </div>
+
+      <div class="box box-warn">
+        <div class="box-title">⚠️ Indentation สำคัญมากใน Python!</div>
+        Python ใช้การเยื้อง (Indentation) เพื่อกำหนดขอบเขตของบล็อกโค้ด ต่างจากภาษาอื่นที่ใช้วงเล็บปีกกา <code>{ }</code> โดยมาตรฐานคือเยื้อง 4 ช่องว่าง (4 spaces) ต้องเยื้องให้เท่ากันทุกบรรทัดในบล็อกเดียวกัน มิฉะนั้นจะเกิด <code>IndentationError</code>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># คำสั่ง if พื้นฐาน
+age = 18
+
+if age >= 18:
+    print("คุณมีสิทธิ์ลงคะแนนเสียงเลือกตั้ง")
+    print("กรุณาไปใช้สิทธิ์ของคุณ")
+
+# ถ้า age < 18 บรรทัดข้างในจะไม่ถูกรัน
+print("โปรแกรมทำงานต่อไป")  # บรรทัดนี้รันเสมอ
+
+# ตัวอย่าง: ตรวจสอบคะแนนผ่าน/ไม่ผ่าน
+score = 72
+if score >= 50:
+    print(f"คะแนน {score}: ผ่าน")</code></pre>
+      </div>
+
+      <!-- Section 3: if-else -->
+      <div class="section-title">🔹 คำสั่ง if-else</div>
+
+      <div class="theory-box">
+        <h3>Syntax ของ if-else</h3>
+        <p><code>if-else</code> เพิ่มทางเลือกที่สอง: ถ้าเงื่อนไขเป็น False จะทำงานในบล็อก <code>else</code></p>
+        <pre style="background:#1e293b;color:#e2e8f0;padding:12px;border-radius:6px;font-family:monospace">if เงื่อนไข:
+    คำสั่งเมื่อเงื่อนไขเป็น True
+else:
+    คำสั่งเมื่อเงื่อนไขเป็น False</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># if-else: ตรวจสอบเลขคู่/คี่
+number = 7
+
+if number % 2 == 0:
+    print(f"{number} เป็นเลขคู่")
+else:
+    print(f"{number} เป็นเลขคี่")
+
+# if-else: ตรวจสอบสิทธิ์
+age = 15
+
+if age >= 18:
+    print("อนุญาตให้เข้าชม")
+else:
+    print(f"ขออภัย อายุ {age} ปี ยังไม่ถึงเกณฑ์")
+
+# if-else: หาค่าสูงสุด
+a, b = 42, 37
+if a > b:
+    maximum = a
+else:
+    maximum = b
+print(f"ค่าสูงสุดระหว่าง {a} และ {b} คือ {maximum}")</code></pre>
+      </div>
+
+      <!-- Flowchart for if-else -->
+      <p>ผังงาน if-else สำหรับตรวจสอบเลขคู่/คี่:</p>
+
+      <div class="flowchart-container">
+        <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr4" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+            </marker>
+          </defs>
+          <ellipse cx="150" cy="30" rx="55" ry="20" fill="#1e3a5f"/>
+          <text x="150" y="35" text-anchor="middle" fill="white" font-size="12" font-family="Sarabun">เริ่มต้น</text>
+          <line x1="150" y1="50" x2="150" y2="72" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <polygon points="75,72 225,72 155,115 25,115" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="125" y="97" text-anchor="middle" fill="#1e3a5f" font-size="11" font-family="Sarabun">รับค่า number</text>
+          <line x1="125" y1="115" x2="125" y2="138" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <polygon points="125,138 215,175 125,212 35,175" fill="white" stroke="#e67e22" stroke-width="2"/>
+          <text x="125" y="179" text-anchor="middle" fill="#e67e22" font-size="11" font-family="Sarabun">n % 2 == 0?</text>
+          <text x="55" y="205" fill="#27ae60" font-size="10" font-family="Sarabun">ใช่</text>
+          <text x="185" y="205" fill="#e74c3c" font-size="10" font-family="Sarabun">ไม่ใช่</text>
+          <line x1="35" y1="175" x2="5" y2="175" stroke="#64748b" stroke-width="2"/>
+          <line x1="5" y1="175" x2="5" y2="240" stroke="#64748b" stroke-width="2"/>
+          <line x1="5" y1="240" x2="38" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <polygon points="35,226 130,226 120,256 45,256" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="80" y="245" text-anchor="middle" fill="#1e3a5f" font-size="10" font-family="Sarabun">แสดง "เลขคู่"</text>
+          <line x1="215" y1="175" x2="295" y2="175" stroke="#64748b" stroke-width="2"/>
+          <line x1="295" y1="175" x2="295" y2="240" stroke="#64748b" stroke-width="2"/>
+          <line x1="295" y1="240" x2="262" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <polygon points="170,226 265,226 255,256 180,256" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="218" y="245" text-anchor="middle" fill="#1e3a5f" font-size="10" font-family="Sarabun">แสดง "เลขคี่"</text>
+          <line x1="80" y1="256" x2="80" y2="278" stroke="#64748b" stroke-width="2"/>
+          <line x1="80" y1="278" x2="138" y2="278" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <line x1="218" y1="256" x2="218" y2="278" stroke="#64748b" stroke-width="2"/>
+          <line x1="218" y1="278" x2="162" y2="278" stroke="#64748b" stroke-width="2" marker-end="url(#arr4)"/>
+          <ellipse cx="150" cy="288" rx="45" ry="12" fill="#1e3a5f"/>
+          <text x="150" y="293" text-anchor="middle" fill="white" font-size="11" font-family="Sarabun">สิ้นสุด</text>
+        </svg>
+      </div>
+
+      <!-- Section 4: if-elif-else -->
+      <div class="section-title">🔹 คำสั่ง if-elif-else</div>
+
+      <div class="theory-box">
+        <h3>Syntax ของ if-elif-else</h3>
+        <p>เมื่อมีเงื่อนไขมากกว่า 2 ทางเลือก ใช้ <code>elif</code> (ย่อจาก else if) เพื่อเพิ่มเงื่อนไขได้ไม่จำกัด Python จะตรวจสอบตามลำดับจากบนลงล่าง และหยุดที่เงื่อนไขแรกที่เป็น True เท่านั้น</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตรวจสอบเกรด A/B/C/D/F
+score = 85
+
+if score >= 80:
+    grade = "A"
+elif score >= 70:
+    grade = "B"
+elif score >= 60:
+    grade = "C"
+elif score >= 50:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"คะแนน {score} ได้เกรด {grade}")
+
+# ตรวจสอบหมู่เลือด (ตัวอย่างหลายเงื่อนไข)
+blood_type = "A"
+
+if blood_type == "A":
+    compatible = "A, O"
+elif blood_type == "B":
+    compatible = "B, O"
+elif blood_type == "AB":
+    compatible = "A, B, AB, O"
+elif blood_type == "O":
+    compatible = "O"
+else:
+    compatible = "ไม่ทราบ"
+
+print(f"หมู่เลือด {blood_type} รับเลือดจากหมู่: {compatible}")</code></pre>
+      </div>
+
+      <!-- Section 5: Nested if -->
+      <div class="section-title">🔹 การซ้อน if (Nested if)</div>
+
+      <div class="theory-box">
+        <h3>Nested if คืออะไร?</h3>
+        <p>การซ้อน if หมายถึงการมีคำสั่ง if ซ้อนอยู่ภายในบล็อกของ if อีกชั้นหนึ่ง ใช้เมื่อต้องการตรวจสอบเงื่อนไขหลายระดับ แต่ควรระวังไม่ให้ซ้อนกันหลายชั้นเกินไป เพราะจะทำให้อ่านโค้ดยากขึ้น</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Nested if: ระบบสมัครงาน
+age = 25
+has_degree = True
+years_experience = 3
+
+if age >= 22:
+    print("ผ่านเกณฑ์อายุ")
+    if has_degree:
+        print("ผ่านเกณฑ์วุฒิการศึกษา")
+        if years_experience >= 2:
+            print("ผ่านเกณฑ์ประสบการณ์")
+            print("=> ยินดีรับเข้าทำงาน!")
+        else:
+            print(f"ประสบการณ์ไม่พอ ต้องการอย่างน้อย 2 ปี (มี {years_experience} ปี)")
+    else:
+        print("ต้องมีวุฒิการศึกษาระดับปริญญาตรี")
+else:
+    print(f"อายุน้อยเกินไป ต้องอายุ 22 ปีขึ้นไป (ปัจจุบัน {age} ปี)")</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 เคล็ดลับ: หลีกเลี่ยง Nested if ลึกเกินไป</div>
+        ถ้า nested if ลึกเกิน 3 ชั้น โค้ดจะอ่านยากมาก ลองใช้ <code>and</code> รวมเงื่อนไข หรือแยกเป็นฟังก์ชัน เช่น แทนที่จะซ้อน 3 ชั้น ใช้ <code>if age >= 22 and has_degree and years_experience >= 2:</code> แทน
+      </div>
+
+      <!-- Section 6: Ternary -->
+      <div class="section-title">🔹 Ternary Operator (Conditional Expression)</div>
+
+      <div class="theory-box">
+        <h3>Ternary Operator</h3>
+        <p>Python มีวิธีเขียน if-else แบบสั้นในบรรทัดเดียว เรียกว่า Ternary Operator หรือ Conditional Expression ใช้เมื่อต้องการกำหนดค่าให้ตัวแปรโดยขึ้นกับเงื่อนไข</p>
+        <pre style="background:#1e293b;color:#e2e8f0;padding:12px;border-radius:6px;font-family:monospace">ตัวแปร = ค่าถ้า_True  if  เงื่อนไข  else  ค่าถ้า_False</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Ternary Operator
+x = 10
+result = "บวก" if x > 0 else "ลบหรือศูนย์"
+print(result)    # บวก
+
+# เทียบกับ if-else ปกติ (ผลเหมือนกัน)
+if x > 0:
+    result2 = "บวก"
+else:
+    result2 = "ลบหรือศูนย์"
+print(result2)   # บวก
+
+# ตัวอย่างเพิ่มเติม
+age = 20
+status = "ผู้ใหญ่" if age >= 18 else "เยาวชน"
+print(f"อายุ {age}: {status}")
+
+score = 55
+passed = "ผ่าน" if score >= 50 else "ไม่ผ่าน"
+print(f"คะแนน {score}: {passed}")
+
+# Ternary ใน f-string
+n = 7
+print(f"{n} เป็นเลข{'คู่' if n % 2 == 0 else 'คี่'}")</code></pre>
+      </div>
+
+      <!-- Section 7: Truthy/Falsy -->
+      <div class="section-title">🔹 ค่า Truthy และ Falsy</div>
+
+      <div class="theory-box">
+        <h3>Truthy / Falsy ใน Python</h3>
+        <p>ใน Python ค่าทุกค่าสามารถใช้ในเงื่อนไข if ได้ โดยถูกแปลงเป็น bool โดยอัตโนมัติ</p>
+        <p><strong>ค่า Falsy</strong> (ถือว่าเป็น False) ได้แก่:</p>
+        <ul>
+          <li><code>False</code></li>
+          <li><code>0</code> (ศูนย์ทุกรูปแบบ: 0, 0.0, 0j)</li>
+          <li><code>None</code></li>
+          <li><code>""</code> (string ว่าง)</li>
+          <li><code>[]</code> (list ว่าง), <code>()</code> (tuple ว่าง), <code>{}</code> (dict/set ว่าง)</li>
+        </ul>
+        <p><strong>ค่า Truthy</strong>: ทุกค่าที่ไม่ใช่ค่า Falsy ข้างต้น</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Truthy / Falsy
+values = [0, 1, -1, "", "hello", None, [], [1, 2], 0.0, 3.14]
+
+for v in values:
+    if v:
+        print(f"{repr(v):15} → Truthy")
+    else:
+        print(f"{repr(v):15} → Falsy")
+
+# ประยุกต์ใช้งาน
+name = ""    # สมมุติ input จากผู้ใช้
+
+if name:     # ตรวจสอบว่ามีค่าหรือไม่ (ง่ายกว่า name != "")
+    print(f"สวัสดี คุณ{name}")
+else:
+    print("กรุณากรอกชื่อ")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ระบบตรวจสอบเกรด</span>
+        </div>
+        <textarea># ลองเปลี่ยนค่า score แล้วรันดูผล
+score = 85
+
+if score >= 80:
+    grade = "A"
+    gpa = 4.0
+elif score >= 75:
+    grade = "B+"
+    gpa = 3.5
+elif score >= 70:
+    grade = "B"
+    gpa = 3.0
+elif score >= 65:
+    grade = "C+"
+    gpa = 2.5
+elif score >= 60:
+    grade = "C"
+    gpa = 2.0
+elif score >= 55:
+    grade = "D+"
+    gpa = 1.5
+elif score >= 50:
+    grade = "D"
+    gpa = 1.0
+else:
+    grade = "F"
+    gpa = 0.0
+
+print(f"คะแนน: {score}")
+print(f"เกรด : {grade}")
+print(f"GPA  : {gpa:.1f}")
+passed = "ผ่าน" if gpa > 0 else "ไม่ผ่าน"
+print(f"ผล   : {passed}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 8: Real Examples -->
+      <div class="section-title">🔹 ตัวอย่างโปรแกรมจริง: ตรวจสอบปีอธิกสุรทิน</div>
+
+      <div class="theory-box">
+        <h3>เงื่อนไขปีอธิกสุรทิน (Leap Year)</h3>
+        <p>ปีอธิกสุรทิน (Leap Year) คือปีที่มี 366 วัน โดยมีเงื่อนไข ดังนี้:</p>
+        <ul>
+          <li>หารด้วย 4 ลงตัว <strong>และ</strong> ไม่หารด้วย 100 ลงตัว <strong>หรือ</strong></li>
+          <li>หารด้วย 400 ลงตัว</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตรวจสอบปีอธิกสุรทิน
+year = 2024
+
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print(f"ปี {year} เป็นปีอธิกสุรทิน (366 วัน)")
+else:
+    print(f"ปี {year} ไม่ใช่ปีอธิกสุรทิน (365 วัน)")
+
+# ทดสอบหลายปี
+test_years = [2000, 1900, 2024, 2023, 2100, 2400]
+print("\nตรวจสอบหลายปี:")
+for y in test_years:
+    is_leap = (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+    result = "อธิกสุรทิน" if is_leap else "ปกติ"
+    print(f"ปี {y}: {result}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ปีอธิกสุรทิน</span>
+        </div>
+        <textarea># ทดสอบตรวจสอบปีอธิกสุรทิน
+# ลองเปลี่ยนปีต่างๆ ดู
+
+test_years = [2000, 1900, 2024, 2023, 2100, 2400, 1800, 2000]
+
+print("ปี".ljust(8), "ผลการตรวจสอบ")
+print("-" * 30)
+for year in test_years:
+    is_leap = (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
+    result = "อธิกสุรทิน (366 วัน)" if is_leap else "ปกติ (365 วัน)"
+    print(str(year).ljust(8), result)</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <div class="section-title">🔹 คำถามทบทวน</div>
+
+      <div class="theory-box">
+        <h3>คำถามทบทวนบทที่ 4</h3>
+        <ol>
+          <li>ทำไม Indentation (การเยื้อง) จึงสำคัญมากใน Python? จงอธิบายและยกตัวอย่างโค้ดที่ถูกต้องและผิดพลาดเรื่อง Indentation</li>
+          <li>อธิบายความแตกต่างระหว่าง <code>if-else</code> และ <code>if-elif-else</code> พร้อมยกตัวอย่างสถานการณ์ที่เหมาะกับแต่ละรูปแบบ</li>
+          <li>จงเขียนโปรแกรม Python ที่รับคะแนน (0-100) แล้วแสดงเกรดตามระบบ A, B+, B, C+, C, D+, D, F โดยกำหนดเกณฑ์เองอย่างสมเหตุสมผล</li>
+          <li>จงอธิบายแนวคิด Truthy และ Falsy ใน Python พร้อมยกตัวอย่างค่า Falsy อย่างน้อย 5 ค่า และบอกว่าสามารถนำมาใช้ประโยชน์อย่างไรในการเขียนโค้ด</li>
+          <li>จงเขียน Ternary Operator สำหรับโปรแกรมที่รับตัวเลขแล้วบอกว่าเป็นเลขคู่หรือเลขคี่ และอธิบายว่า Ternary Operator เหมาะกับสถานการณ์ใดบ้าง</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="ch03-operators-io.html">
+          <span>← บทก่อนหน้า</span>
+          <strong>ตัวดำเนินการและ Input/Output</strong>
+        </a>
+        <a href="ch05-loops.html" class="next">
+          <span>บทถัดไป →</span>
+          <strong>การวนซ้ำ</strong>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" integrity="sha384-b4IZetZNE8bVncsQqlcH4ZZFC58BslGU2LVj47xUtIMOw72axMESbPe8spBylXnd" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

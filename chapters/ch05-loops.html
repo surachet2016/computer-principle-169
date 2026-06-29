@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 5: การวนซ้ำ - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html" class="active"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>การวนซ้ำ</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 5</div>
+        <h1>การวนซ้ำ (Loops)</h1>
+        <p>เรียนรู้การวนซ้ำด้วย for loop และ while loop การควบคุม loop ด้วย break และ continue การใช้ else กับ loop การวนซ้ำซ้อน (Nested Loop) พร้อมตัวอย่างโปรแกรมจริง</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1</span>
+          <span class="clo-badge clo3">CLO3</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Why Loops -->
+      <div class="section-title">🔹 การวนซ้ำคืออะไร และทำไมต้องใช้?</div>
+
+      <div class="theory-box">
+        <h3>ทำไมต้องใช้การวนซ้ำ (Loop)?</h3>
+        <p>ลองนึกภาพว่าถ้าต้องการพิมพ์ตัวเลข 1 ถึง 100 โดยไม่ใช้ loop เราต้องเขียน <code>print(1)</code>, <code>print(2)</code>, ... ไปถึง <code>print(100)</code> นั่นคือ 100 บรรทัด! แต่ด้วย loop เราสามารถเขียนได้ใน 2-3 บรรทัดเท่านั้น</p>
+        <p><strong>การวนซ้ำ (Loop)</strong> ใช้ทำงานซ้ำๆ โดยไม่ต้องเขียนโค้ดซ้ำ ประหยัดเวลา ลดข้อผิดพลาด และทำให้โค้ดสั้นและอ่านง่าย Python มี loop 2 ชนิดหลัก คือ <strong>for loop</strong> และ <strong>while loop</strong></p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ไม่ใช้ loop (ซ้ำซาก และผิดพลาดง่าย)
+print(1)
+print(2)
+print(3)
+# ... ต้องเขียนถึง print(100) !!
+
+# ใช้ loop (กระชับ)
+for i in range(1, 101):
+    print(i)</code></pre>
+      </div>
+
+      <!-- Section 2: for loop -->
+      <div class="section-title">🔹 for loop</div>
+
+      <div class="theory-box">
+        <h3>for loop ใน Python</h3>
+        <p><strong>for loop</strong> ใช้วนซ้ำตามจำนวนครั้งที่กำหนด หรือวนผ่านสมาชิกใน sequence (เช่น list, string, range) โดยอัตโนมัติ</p>
+        <pre style="background:#1e293b;color:#e2e8f0;padding:12px;border-radius:6px;font-family:monospace">for ตัวแปร in sequence:
+    คำสั่งที่จะทำในแต่ละรอบ</pre>
+      </div>
+
+      <!-- for loop flowchart -->
+      <p>ผังงาน for loop:</p>
+      <div class="flowchart-container">
+        <svg width="260" height="310" viewBox="0 0 260 310" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr5" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+            </marker>
+          </defs>
+          <ellipse cx="130" cy="28" rx="55" ry="20" fill="#1e3a5f"/>
+          <text x="130" y="33" text-anchor="middle" fill="white" font-size="12" font-family="Sarabun">เริ่มต้น</text>
+          <line x1="130" y1="48" x2="130" y2="68" stroke="#64748b" stroke-width="2" marker-end="url(#arr5)"/>
+          <rect x="50" y="68" width="160" height="38" rx="4" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="130" y="88" text-anchor="middle" fill="#1e3a5f" font-size="11" font-family="Sarabun">กำหนดช่วง (range)</text>
+          <line x1="130" y1="106" x2="130" y2="126" stroke="#64748b" stroke-width="2" marker-end="url(#arr5)"/>
+          <polygon points="130,126 220,162 130,198 40,162" fill="white" stroke="#e67e22" stroke-width="2"/>
+          <text x="130" y="157" text-anchor="middle" fill="#e67e22" font-size="11" font-family="Sarabun">ยังมีสมาชิก</text>
+          <text x="130" y="172" text-anchor="middle" fill="#e67e22" font-size="10" font-family="Sarabun">เหลืออยู่?</text>
+          <text x="52" y="192" fill="#27ae60" font-size="10" font-family="Sarabun">ใช่</text>
+          <text x="200" y="192" fill="#e74c3c" font-size="10" font-family="Sarabun">ไม่ใช่</text>
+          <line x1="40" y1="162" x2="10" y2="162" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="162" x2="10" y2="240" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="240" x2="45" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arr5)"/>
+          <rect x="42" y="222" width="155" height="36" rx="4" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="120" y="244" text-anchor="middle" fill="#1e3a5f" font-size="11" font-family="Sarabun">ทำงานในบล็อก</text>
+          <line x1="120" y1="258" x2="120" y2="272" stroke="#64748b" stroke-width="2"/>
+          <line x1="120" y1="272" x2="10" y2="272" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="272" x2="10" y2="162" stroke="#64748b" stroke-width="2" marker-end="url(#arr5)"/>
+          <line x1="220" y1="162" x2="250" y2="162" stroke="#64748b" stroke-width="2"/>
+          <line x1="250" y1="162" x2="250" y2="290" stroke="#64748b" stroke-width="2"/>
+          <line x1="250" y1="290" x2="182" y2="290" stroke="#64748b" stroke-width="2" marker-end="url(#arr5)"/>
+          <ellipse cx="150" cy="295" rx="45" ry="14" fill="#1e3a5f"/>
+          <text x="150" y="300" text-anchor="middle" fill="white" font-size="11" font-family="Sarabun">สิ้นสุด</text>
+        </svg>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># for loop พื้นฐาน
+for i in range(1, 6):
+    print(f"รอบที่ {i}")
+
+# range() มีรูปแบบต่างๆ
+print("\n--- range(5) ---")
+for i in range(5):          # 0, 1, 2, 3, 4
+    print(i, end=" ")
+
+print("\n\n--- range(1, 10, 2) ---")
+for i in range(1, 10, 2):  # 1, 3, 5, 7, 9 (step=2)
+    print(i, end=" ")
+
+print("\n\n--- range(10, 0, -1) ---")
+for i in range(10, 0, -1): # นับถอยหลัง
+    print(i, end=" ")
+print()
+
+# วนผ่านสมาชิกใน list
+fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง"]
+print("\nรายการผลไม้:")
+for fruit in fruits:
+    print(f"  - {fruit}")</code></pre>
+      </div>
+
+      <div class="theory-box">
+        <h3>enumerate() — วนพร้อมดึง index</h3>
+        <p>ฟังก์ชัน <code>enumerate()</code> ช่วยให้ดึงทั้ง index และค่าออกมาพร้อมกันในการวนซ้ำ</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># enumerate() ดึง index + ค่าพร้อมกัน
+subjects = ["คณิตศาสตร์", "ภาษาอังกฤษ", "วิทยาศาสตร์", "ประวัติศาสตร์"]
+
+for index, subject in enumerate(subjects, start=1):
+    print(f"{index}. {subject}")
+
+# แทนที่จะเขียนแบบเก่า:
+# for i in range(len(subjects)):
+#     print(f"{i+1}. {subjects[i]}")</code></pre>
+      </div>
+
+      <!-- Section 3: while loop -->
+      <div class="section-title">🔹 while loop</div>
+
+      <div class="theory-box">
+        <h3>while loop</h3>
+        <p><strong>while loop</strong> วนซ้ำตราบเท่าที่เงื่อนไขยังเป็น True ต่างจาก for loop ที่รู้จำนวนรอบล่วงหน้า while loop เหมาะเมื่อไม่รู้ว่าจะต้องวนกี่รอบ ต้องระวังไม่ให้เกิด Infinite Loop (วนไม่หยุด)</p>
+        <pre style="background:#1e293b;color:#e2e8f0;padding:12px;border-radius:6px;font-family:monospace">while เงื่อนไข:
+    คำสั่งที่จะทำซ้ำ
+    (ต้องมีบางอย่างที่ทำให้เงื่อนไขเป็น False ในที่สุด)</pre>
+      </div>
+
+      <!-- while loop flowchart -->
+      <p>ผังงาน while loop:</p>
+      <div class="flowchart-container">
+        <svg width="260" height="280" viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr6" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+            </marker>
+          </defs>
+          <ellipse cx="130" cy="25" rx="55" ry="18" fill="#1e3a5f"/>
+          <text x="130" y="30" text-anchor="middle" fill="white" font-size="12" font-family="Sarabun">เริ่มต้น</text>
+          <line x1="130" y1="43" x2="130" y2="63" stroke="#64748b" stroke-width="2" marker-end="url(#arr6)"/>
+          <polygon points="130,63 220,100 130,137 40,100" fill="white" stroke="#e67e22" stroke-width="2"/>
+          <text x="130" y="96" text-anchor="middle" fill="#e67e22" font-size="11" font-family="Sarabun">เงื่อนไข</text>
+          <text x="130" y="110" text-anchor="middle" fill="#e67e22" font-size="11" font-family="Sarabun">เป็น True?</text>
+          <text x="48" y="133" fill="#27ae60" font-size="10" font-family="Sarabun">ใช่</text>
+          <text x="200" y="133" fill="#e74c3c" font-size="10" font-family="Sarabun">ไม่ใช่</text>
+          <line x1="40" y1="100" x2="10" y2="100" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="100" x2="10" y2="200" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="200" x2="40" y2="200" stroke="#64748b" stroke-width="2" marker-end="url(#arr6)"/>
+          <rect x="38" y="180" width="165" height="38" rx="4" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="120" y="196" text-anchor="middle" fill="#1e3a5f" font-size="11" font-family="Sarabun">ทำงานในบล็อก</text>
+          <text x="120" y="210" text-anchor="middle" fill="#1e3a5f" font-size="10" font-family="Sarabun">(อัปเดตตัวแปรด้วย)</text>
+          <line x1="120" y1="218" x2="120" y2="240" stroke="#64748b" stroke-width="2"/>
+          <line x1="120" y1="240" x2="10" y2="240" stroke="#64748b" stroke-width="2"/>
+          <line x1="10" y1="240" x2="10" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arr6)"/>
+          <line x1="220" y1="100" x2="250" y2="100" stroke="#64748b" stroke-width="2"/>
+          <line x1="250" y1="100" x2="250" y2="262" stroke="#64748b" stroke-width="2"/>
+          <line x1="250" y1="262" x2="182" y2="262" stroke="#64748b" stroke-width="2" marker-end="url(#arr6)"/>
+          <ellipse cx="150" cy="267" rx="45" ry="13" fill="#1e3a5f"/>
+          <text x="150" y="272" text-anchor="middle" fill="white" font-size="11" font-family="Sarabun">สิ้นสุด</text>
+        </svg>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># while loop พื้นฐาน
+count = 0
+while count < 5:
+    print(f"นับ: {count}")
+    count += 1   # สำคัญ! ต้องอัปเดต count มิฉะนั้นจะ loop ไม่หยุด
+print("จบการนับ")
+
+# while loop: ถามซ้ำจนกว่าจะกรอกถูก (จำลอง)
+attempts = 0
+max_attempts = 3
+correct_pin = "1234"
+guesses = ["0000", "9999", "1234"]  # จำลอง input
+
+while attempts < max_attempts:
+    guess = guesses[attempts]
+    attempts += 1
+    print(f"พยายามครั้งที่ {attempts}: กรอก {guess}")
+    if guess == correct_pin:
+        print("รหัสถูกต้อง! เข้าสู่ระบบสำเร็จ")
+        break
+    else:
+        remaining = max_attempts - attempts
+        if remaining > 0:
+            print(f"รหัสผิด เหลืออีก {remaining} ครั้ง")
+        else:
+            print("ล็อกบัญชีชั่วคราว")</code></pre>
+      </div>
+
+      <div class="box box-warn">
+        <div class="box-title">⚠️ ระวัง Infinite Loop!</div>
+        ถ้าลืมอัปเดตตัวแปรในเงื่อนไข while loop จะวนไม่หยุด เช่น <code>while count &lt; 5:</code> แต่ไม่มี <code>count += 1</code> จะวนไปตลอด หากเกิดเหตุการณ์นี้ให้กด Ctrl+C เพื่อหยุดโปรแกรม
+      </div>
+
+      <!-- Section 4: break -->
+      <div class="section-title">🔹 break — หยุด loop</div>
+
+      <div class="theory-box">
+        <h3>คำสั่ง break</h3>
+        <p>คำสั่ง <code>break</code> ใช้หยุด loop ทันทีและออกจาก loop เมื่อพบเงื่อนไขที่ต้องการ แม้ว่าเงื่อนไขของ loop ยังเป็น True อยู่ก็ตาม</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># break: ค้นหาสินค้า
+products = ["ดินสอ", "ปากกา", "สมุด", "ไม้บรรทัด", "กระดาษ"]
+target = "สมุด"
+found = False
+
+for product in products:
+    print(f"ตรวจสอบ: {product}")
+    if product == target:
+        found = True
+        break   # พบแล้ว หยุดค้นหา
+
+if found:
+    print(f"พบ '{target}' ในรายการ!")
+else:
+    print(f"ไม่พบ '{target}'")
+
+# break ใน while loop
+print("\nหาตัวเลขหารด้วย 7 ลงตัวตัวแรกใน range 1-50:")
+for n in range(1, 51):
+    if n % 7 == 0:
+        print(f"พบ: {n}")
+        break</code></pre>
+      </div>
+
+      <!-- Section 5: continue -->
+      <div class="section-title">🔹 continue — ข้ามรอบ</div>
+
+      <div class="theory-box">
+        <h3>คำสั่ง continue</h3>
+        <p>คำสั่ง <code>continue</code> ใช้ข้ามไปยังรอบถัดไปทันที โดยไม่ทำคำสั่งที่เหลือในรอบนั้น (ต่างจาก break ที่หยุด loop ทั้งหมด)</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># continue: แสดงเฉพาะเลขคี่ใน 1-10
+print("เลขคี่ 1-10:")
+for n in range(1, 11):
+    if n % 2 == 0:
+        continue    # ข้ามเลขคู่ ไปรอบถัดไป
+    print(n, end=" ")
+print()
+
+# continue: แสดงเฉพาะเลขที่หาร 3 ไม่ลงตัว
+print("\nเลข 1-20 ที่ไม่ใช่ผลคูณของ 3:")
+for n in range(1, 21):
+    if n % 3 == 0:
+        continue    # ข้ามผลคูณของ 3
+    print(n, end=" ")
+print()
+
+# ใช้ break และ continue ร่วมกัน
+print("\nเลขใน 1-20 ที่เป็นเลขคี่และหาร 5 ไม่ลงตัว (หยุดถ้า > 15):")
+for n in range(1, 21):
+    if n > 15:
+        break
+    if n % 2 == 0 or n % 5 == 0:
+        continue
+    print(n, end=" ")
+print()</code></pre>
+      </div>
+
+      <!-- Section 6: else with loops -->
+      <div class="section-title">🔹 else กับ loop</div>
+
+      <div class="theory-box">
+        <h3>else ใน for/while loop</h3>
+        <p>Python มีฟีเจอร์พิเศษที่ภาษาอื่นไม่ค่อยมี คือ <code>else</code> ใน loop บล็อก else จะทำงานเมื่อ loop สิ้นสุดตามปกติ (ไม่ถูกหยุดด้วย <code>break</code>) มีประโยชน์มากในการค้นหาข้อมูล</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># else กับ for loop: ค้นหาจำนวนเฉพาะ
+def is_prime_check(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            # พบตัวหาร แสดงว่าไม่ใช่จำนวนเฉพาะ
+            break
+    else:
+        # loop จบโดยไม่ถูก break = หาตัวหารไม่ได้ = จำนวนเฉพาะ
+        return True
+    return False
+
+# ทดสอบ
+test_nums = [2, 3, 4, 7, 9, 11, 15, 17]
+for num in test_nums:
+    result = "จำนวนเฉพาะ" if is_prime_check(num) else "ไม่ใช่จำนวนเฉพาะ"
+    print(f"{num:3d}: {result}")</code></pre>
+      </div>
+
+      <!-- Section 7: Nested loops -->
+      <div class="section-title">🔹 Nested Loop (การวนซ้ำซ้อน)</div>
+
+      <div class="theory-box">
+        <h3>การวนซ้ำซ้อน</h3>
+        <p>เราสามารถมี loop ซ้อนอยู่ภายใน loop ได้ เรียกว่า <strong>Nested Loop</strong> สำหรับทุกรอบของ loop นอก loop ในจะทำงานครบทุกรอบ จำนวนรอบทั้งหมดคือผลคูณของจำนวนรอบแต่ละชั้น</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตารางสูตรคูณ 1-3
+print("ตารางสูตรคูณ 1-3:")
+print("-" * 35)
+for i in range(1, 4):
+    for j in range(1, 11):
+        print(f"{i} × {j:2d} = {i*j:3d}", end="   ")
+    print()  # ขึ้นบรรทัดใหม่หลังจบแต่ละแถว
+print("-" * 35)
+
+# วาดรูปสามเหลี่ยม
+print("\nสามเหลี่ยมดาว:")
+rows = 5
+for i in range(1, rows + 1):
+    for j in range(i):
+        print("*", end=" ")
+    print()
+
+# วาดรูปสี่เหลี่ยม
+print("\nสี่เหลี่ยมดาว 4×5:")
+for i in range(4):
+    for j in range(5):
+        print("*", end=" ")
+    print()</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - for loop และ while loop</span>
+        </div>
+        <textarea># ทดลอง for loop
+print("=== ผลรวม 1 ถึง 100 ===")
+total = 0
+for i in range(1, 101):
+    total += i
+print(f"ผลรวม = {total}")
+
+print("\n=== เลขคี่ 1-20 ===")
+for n in range(1, 21):
+    if n % 2 != 0:
+        print(n, end=" ")
+print()
+
+print("\n=== while loop นับถอยหลัง ===")
+count = 10
+while count >= 0:
+    print(count, end=" ")
+    count -= 1
+print("\nหมดเวลา!")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 8: Real examples -->
+      <div class="section-title">🔹 ตัวอย่างโปรแกรมจริง</div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่างที่ 1: หาผลรวม 1-100
+total = 0
+for i in range(1, 101):
+    total += i
+print(f"ผลรวมของ 1 ถึง 100 = {total}")   # 5050
+
+# ตัวอย่างที่ 2: หาจำนวนเฉพาะ 1-50
+print("\nจำนวนเฉพาะที่น้อยกว่าหรือเท่ากับ 50:")
+primes = []
+for n in range(2, 51):
+    is_prime = True
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        primes.append(n)
+print(primes)
+print(f"จำนวนทั้งหมด: {len(primes)} จำนวน")
+
+# ตัวอย่างที่ 3: ตารางสูตรคูณแม่ 7
+print("\nสูตรคูณแม่ 7:")
+for j in range(1, 13):
+    print(f"7 × {j:2d} = {7*j:3d}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ตารางสูตรคูณและจำนวนเฉพาะ</span>
+        </div>
+        <textarea># ตารางสูตรคูณ (แก้ไข multiplier ได้)
+multiplier = 7
+print(f"=== ตารางสูตรคูณแม่ {multiplier} ===")
+for j in range(1, 13):
+    print(f"{multiplier} × {j:2d} = {multiplier * j:3d}")
+
+# หาจำนวนเฉพาะ
+print("\n=== จำนวนเฉพาะ 1-50 ===")
+primes = []
+for n in range(2, 51):
+    is_prime = True
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        primes.append(n)
+print(primes)
+print(f"พบ {len(primes)} จำนวน")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 เมื่อไรใช้ for? เมื่อไรใช้ while?</div>
+        <ul>
+          <li><strong>for loop:</strong> ใช้เมื่อรู้จำนวนรอบล่วงหน้า หรือต้องการวนผ่านสมาชิกใน sequence เช่น list, string, range</li>
+          <li><strong>while loop:</strong> ใช้เมื่อไม่รู้จำนวนรอบ แต่มีเงื่อนไขหยุด เช่น รอผู้ใช้กรอกค่าถูก รอการเชื่อมต่อ ฯลฯ</li>
+        </ul>
+      </div>
+
+      <!-- Review Questions -->
+      <div class="section-title">🔹 คำถามทบทวน</div>
+
+      <div class="theory-box">
+        <h3>คำถามทบทวนบทที่ 5</h3>
+        <ol>
+          <li>อธิบายความแตกต่างระหว่าง <code>for loop</code> และ <code>while loop</code> ใน Python พร้อมยกตัวอย่างสถานการณ์ที่เหมาะกับแต่ละชนิด และเขียนโค้ดตัวอย่างสำหรับแต่ละชนิด</li>
+          <li>อธิบายความแตกต่างระหว่าง <code>break</code> และ <code>continue</code> จงเขียนโค้ดที่แสดงผลลัพธ์ที่ต่างกันเมื่อใช้ break กับเมื่อใช้ continue ในลูปเดียวกัน</li>
+          <li>จงเขียนโปรแกรม Python ที่หาผลคูณของเลข 1 ถึง 10 (10 factorial = 10!) โดยใช้ for loop และแสดงค่าทีละขั้นตอน</li>
+          <li>อธิบายว่า <code>else</code> ของ loop ทำงานอย่างไร และแตกต่างจาก <code>else</code> ของ if อย่างไร พร้อมยกตัวอย่างที่มีประโยชน์</li>
+          <li>จงเขียนโปรแกรม Nested Loop ที่แสดงตาราง ดังนี้: แถว 1: * | แถว 2: * * | แถว 3: * * * | ... | แถว 5: * * * * * (รูปสามเหลี่ยม) และอธิบายว่า loop แต่ละชั้นทำหน้าที่อะไร</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="ch04-conditions.html">
+          <span>← บทก่อนหน้า</span>
+          <strong>คำสั่งเงื่อนไข</strong>
+        </a>
+        <a href="ch06-lists.html" class="next">
+          <span>บทถัดไป →</span>
+          <strong>List / Array</strong>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" integrity="sha384-b4IZetZNE8bVncsQqlcH4ZZFC58BslGU2LVj47xUtIMOw72axMESbPe8spBylXnd" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

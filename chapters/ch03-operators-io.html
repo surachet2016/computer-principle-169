@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 3: ตัวดำเนินการและ I/O - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html" class="active"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>ตัวดำเนินการและ I/O</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 3</div>
+        <h1>ตัวดำเนินการและ Input/Output</h1>
+        <p>เรียนรู้ตัวดำเนินการทางคณิตศาสตร์ การเปรียบเทียบ ตรรกะ และการกำหนดค่า รวมถึงการรับข้อมูล input() การแสดงผล print() และการจัดรูปแบบข้อความด้วย f-string</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Arithmetic Operators -->
+      <div class="section-title">🔹 ตัวดำเนินการทางคณิตศาสตร์ (Arithmetic Operators)</div>
+
+      <p>ตัวดำเนินการทางคณิตศาสตร์ใช้สำหรับการคำนวณตัวเลข Python รองรับการดำเนินการพื้นฐานครบทุกรูปแบบ ดังตาราง:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ตัวดำเนินการ</th>
+            <th>ชื่อ</th>
+            <th>ตัวอย่าง</th>
+            <th>ผลลัพธ์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>บวก (Addition)</td><td><code>10 + 3</code></td><td><code>13</code></td></tr>
+          <tr><td><code>-</code></td><td>ลบ (Subtraction)</td><td><code>10 - 3</code></td><td><code>7</code></td></tr>
+          <tr><td><code>*</code></td><td>คูณ (Multiplication)</td><td><code>10 * 3</code></td><td><code>30</code></td></tr>
+          <tr><td><code>/</code></td><td>หาร (Division)</td><td><code>10 / 3</code></td><td><code>3.3333...</code></td></tr>
+          <tr><td><code>//</code></td><td>หารเอาจำนวนเต็ม (Floor Division)</td><td><code>10 // 3</code></td><td><code>3</code></td></tr>
+          <tr><td><code>%</code></td><td>หารเอาเศษ (Modulo)</td><td><code>10 % 3</code></td><td><code>1</code></td></tr>
+          <tr><td><code>**</code></td><td>ยกกำลัง (Exponentiation)</td><td><code>10 ** 3</code></td><td><code>1000</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวดำเนินการทางคณิตศาสตร์
+a, b = 10, 3
+
+print(f"{a} + {b} = {a + b}")    # 13
+print(f"{a} - {b} = {a - b}")    # 7
+print(f"{a} * {b} = {a * b}")    # 30
+print(f"{a} / {b} = {a / b:.4f}")  # 3.3333
+print(f"{a} // {b} = {a // b}")  # 3  (หารเอาจำนวนเต็ม)
+print(f"{a} % {b} = {a % b}")    # 1  (เศษ)
+print(f"{a} ** {b} = {a ** b}")  # 1000 (ยกกำลัง)
+
+# ตัวอย่างการใช้งานจริง
+# หาว่า 100 หารด้วย 7 ได้กี่ครั้ง และเหลือเศษเท่าไร
+dividend = 100
+divisor = 7
+quotient = dividend // divisor
+remainder = dividend % divisor
+print(f"{dividend} ÷ {divisor} = {quotient} เหลือเศษ {remainder}")</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 การใช้งาน Modulo (%)</div>
+        Modulo มีประโยชน์มากในการเขียนโปรแกรม เช่น ตรวจสอบว่าตัวเลขเป็นเลขคู่หรือเลขคี่ (<code>n % 2 == 0</code> หมายถึงเลขคู่) หรือหาว่าตัวเลขหารลงตัวหรือไม่
+      </div>
+
+      <!-- Section 2: Comparison Operators -->
+      <div class="section-title">🔹 ตัวดำเนินการเปรียบเทียบ (Comparison Operators)</div>
+
+      <p>ตัวดำเนินการเปรียบเทียบใช้เปรียบเทียบค่าสองค่า และให้ผลลัพธ์เป็น <code>bool</code> (True หรือ False) เสมอ</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ตัวดำเนินการ</th>
+            <th>ความหมาย</th>
+            <th>ตัวอย่าง (a=5, b=3)</th>
+            <th>ผลลัพธ์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>เท่ากับ (Equal to)</td><td><code>a == b</code></td><td><code>False</code></td></tr>
+          <tr><td><code>!=</code></td><td>ไม่เท่ากับ (Not equal to)</td><td><code>a != b</code></td><td><code>True</code></td></tr>
+          <tr><td><code>&lt;</code></td><td>น้อยกว่า (Less than)</td><td><code>a &lt; b</code></td><td><code>False</code></td></tr>
+          <tr><td><code>&gt;</code></td><td>มากกว่า (Greater than)</td><td><code>a &gt; b</code></td><td><code>True</code></td></tr>
+          <tr><td><code>&lt;=</code></td><td>น้อยกว่าหรือเท่ากับ</td><td><code>a &lt;= b</code></td><td><code>False</code></td></tr>
+          <tr><td><code>&gt;=</code></td><td>มากกว่าหรือเท่ากับ</td><td><code>a &gt;= b</code></td><td><code>True</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวดำเนินการเปรียบเทียบ
+a, b = 5, 3
+
+print(a == b)   # False
+print(a != b)   # True
+print(a > b)    # True
+print(a < b)    # False
+print(a >= 5)   # True
+print(b <= 3)   # True
+
+# Python รองรับการเปรียบเทียบต่อเนื่อง (Chained Comparison)
+score = 75
+print(60 <= score < 80)    # True (เกรด C)
+print(0 <= score <= 100)   # True (คะแนนถูกต้อง)</code></pre>
+      </div>
+
+      <!-- Section 3: Logical Operators -->
+      <div class="section-title">🔹 ตัวดำเนินการตรรกะ (Logical Operators)</div>
+
+      <div class="theory-box">
+        <h3>ตัวดำเนินการตรรกะ</h3>
+        <p>ใช้รวมเงื่อนไขหลายๆ เงื่อนไขเข้าด้วยกัน มี 3 ตัว ได้แก่ <code>and</code>, <code>or</code>, <code>not</code></p>
+        <ul>
+          <li><strong>and:</strong> จริงก็ต่อเมื่อทั้งสองเงื่อนไขเป็นจริง</li>
+          <li><strong>or:</strong> จริงเมื่ออย่างน้อยหนึ่งเงื่อนไขเป็นจริง</li>
+          <li><strong>not:</strong> กลับค่าความจริง (True → False, False → True)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวดำเนินการตรรกะ
+age = 20
+has_id = True
+is_member = False
+
+# and — ต้องจริงทั้งคู่
+print(age >= 18 and has_id)     # True
+print(age >= 18 and is_member)  # False
+
+# or — จริงอย่างน้อยหนึ่งอย่าง
+print(age >= 18 or is_member)   # True
+print(age < 18 or is_member)    # False
+
+# not — กลับค่า
+print(not is_member)            # True
+print(not has_id)               # False
+
+# ตัวอย่างจริง: ตรวจสอบสิทธิ์เข้าใช้
+username = "admin"
+password = "1234"
+
+if username == "admin" and password == "1234":
+    print("เข้าสู่ระบบสำเร็จ")
+else:
+    print("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")</code></pre>
+      </div>
+
+      <!-- Section 4: Assignment Operators -->
+      <div class="section-title">🔹 ตัวดำเนินการกำหนดค่า (Assignment Operators)</div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ตัวดำเนินการ</th>
+            <th>ตัวอย่าง</th>
+            <th>เทียบเท่ากับ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>=</code></td><td><code>x = 5</code></td><td>กำหนดค่า 5 ให้ x</td></tr>
+          <tr><td><code>+=</code></td><td><code>x += 3</code></td><td><code>x = x + 3</code></td></tr>
+          <tr><td><code>-=</code></td><td><code>x -= 3</code></td><td><code>x = x - 3</code></td></tr>
+          <tr><td><code>*=</code></td><td><code>x *= 3</code></td><td><code>x = x * 3</code></td></tr>
+          <tr><td><code>/=</code></td><td><code>x /= 3</code></td><td><code>x = x / 3</code></td></tr>
+          <tr><td><code>//=</code></td><td><code>x //= 3</code></td><td><code>x = x // 3</code></td></tr>
+          <tr><td><code>%=</code></td><td><code>x %= 3</code></td><td><code>x = x % 3</code></td></tr>
+          <tr><td><code>**=</code></td><td><code>x **= 3</code></td><td><code>x = x ** 3</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวดำเนินการกำหนดค่าแบบย่อ
+score = 0
+print(f"เริ่มต้น: {score}")
+
+score += 10   # เพิ่ม 10
+print(f"หลัง += 10: {score}")
+
+score *= 2    # คูณ 2
+print(f"หลัง *= 2: {score}")
+
+score -= 5    # ลด 5
+print(f"หลัง -= 5: {score}")
+
+score //= 3   # หารเอาจำนวนเต็ม
+print(f"หลัง //= 3: {score}")</code></pre>
+      </div>
+
+      <!-- Section 5: Precedence -->
+      <div class="section-title">🔹 ลำดับความสำคัญของตัวดำเนินการ (Operator Precedence)</div>
+
+      <div class="theory-box">
+        <h3>ลำดับความสำคัญ (PEMDAS)</h3>
+        <p>เมื่อมีตัวดำเนินการหลายตัวในนิพจน์เดียวกัน Python จะคำนวณตามลำดับความสำคัญ ดังนี้ (จากสูงไปต่ำ)</p>
+        <ol>
+          <li><strong>( )</strong> — วงเล็บ (Parentheses) สูงสุด</li>
+          <li><strong>**</strong> — ยกกำลัง (Exponentiation)</li>
+          <li><strong>+x, -x</strong> — เครื่องหมายบวก/ลบหน้าตัวเลข (Unary)</li>
+          <li><strong>*, /, //, %</strong> — คูณ หาร (Multiplication / Division)</li>
+          <li><strong>+, -</strong> — บวก ลบ (Addition / Subtraction)</li>
+          <li><strong>==, !=, &lt;, &gt;, &lt;=, &gt;=</strong> — การเปรียบเทียบ</li>
+          <li><strong>not</strong> — ตรรกะ not</li>
+          <li><strong>and</strong> — ตรรกะ and</li>
+          <li><strong>or</strong> — ตรรกะ or (ต่ำสุด)</li>
+        </ol>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ลำดับความสำคัญ
+print(2 + 3 * 4)       # 14 (คูณก่อนบวก)
+print((2 + 3) * 4)     # 20 (วงเล็บก่อน)
+print(2 ** 3 ** 2)     # 512 (** คำนวณจากขวาไปซ้าย: 3**2=9, 2**9=512)
+print(10 - 4 / 2)      # 8.0 (หารก่อน: 4/2=2.0, 10-2=8.0)
+print(10 - (4 / 2))    # 8.0 (ใช้วงเล็บให้ชัดเจน ผลเหมือนกัน)
+
+# แนะนำให้ใช้วงเล็บเสมอเพื่อความชัดเจน
+a, b, c = 2, 3, 4
+result = (a + b) * c - a ** 2
+print(f"({a} + {b}) * {c} - {a}² = {result}")</code></pre>
+      </div>
+
+      <!-- Section 6: print() -->
+      <div class="section-title">🔹 การแสดงผล — print()</div>
+
+      <div class="theory-box">
+        <h3>ฟังก์ชัน print()</h3>
+        <p>ฟังก์ชัน <code>print()</code> ใช้แสดงผลลัพธ์ออกหน้าจอ มี parameter พิเศษที่มีประโยชน์ คือ</p>
+        <ul>
+          <li><code>sep</code> — ตัวคั่นระหว่างค่าต่างๆ (ค่าเริ่มต้นคือ " " เว้นวรรค)</li>
+          <li><code>end</code> — ตัวอักษรที่ต่อท้าย (ค่าเริ่มต้นคือ "\n" ขึ้นบรรทัดใหม่)</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># การใช้ print() แบบต่างๆ
+print("A", "B", "C")               # A B C (คั่นด้วยเว้นวรรค)
+print("A", "B", "C", sep="-")      # A-B-C (คั่นด้วย -)
+print("A", "B", "C", sep="")       # ABC (ไม่มีตัวคั่น)
+print("A", "B", "C", sep="\n")     # A B C คนละบรรทัด
+
+print("บรรทัดที่ 1", end=" ")      # ไม่ขึ้นบรรทัดใหม่
+print("บรรทัดที่ 2")               # ต่อท้ายบรรทัดเดิม
+
+# พิมพ์ตัวเลข
+print(42, 3.14, True)              # 42 3.14 True</code></pre>
+      </div>
+
+      <!-- Section 7: f-string -->
+      <div class="section-title">🔹 การจัดรูปแบบข้อความ — f-string</div>
+
+      <div class="theory-box">
+        <h3>f-string (Formatted String Literals)</h3>
+        <p>f-string เป็นวิธีการจัดรูปแบบข้อความที่ทันสมัยและนิยมใช้ใน Python 3.6+ โดยขึ้นต้นสตริงด้วยตัวอักษร <code>f</code> หรือ <code>F</code> และใส่ตัวแปรหรือนิพจน์ไว้ในวงเล็บปีกกา <code>{ }</code></p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># f-string พื้นฐาน
+name = "สมชาย"
+age = 20
+gpa = 3.75
+
+print(f"ชื่อ: {name}")
+print(f"อายุ: {age} ปี")
+print(f"เกรดเฉลี่ย: {gpa}")
+
+# นิพจน์ใน f-string
+a, b = 15, 4
+print(f"{a} + {b} = {a + b}")
+print(f"{a} × {b} = {a * b}")
+
+# จัดรูปแบบตัวเลข
+pi = 3.14159265
+print(f"π ≈ {pi:.2f}")        # 2 ตำแหน่งทศนิยม
+print(f"π ≈ {pi:.5f}")        # 5 ตำแหน่งทศนิยม
+
+salary = 35000
+print(f"เงินเดือน: {salary:,} บาท")   # ใส่ comma คั่นหลักพัน
+
+score = 85.5
+print(f"คะแนน: {score:>8.1f}")  # จัดชิดขวา ความกว้าง 8
+
+# วิธีเก่า (ยังใช้ได้ แต่ f-string แนะนำกว่า)
+print("ชื่อ: %s, อายุ: %d" % (name, age))
+print("เกรด: {:.2f}".format(gpa))</code></pre>
+      </div>
+
+      <!-- Section 8: input() -->
+      <div class="section-title">🔹 การรับข้อมูล — input()</div>
+
+      <div class="theory-box">
+        <h3>ฟังก์ชัน input()</h3>
+        <p>ฟังก์ชัน <code>input()</code> ใช้รับข้อมูลจากผู้ใช้ผ่านแป้นพิมพ์ โดยจะหยุดรอจนกว่าผู้ใช้จะกด Enter <strong>สำคัญมาก:</strong> <code>input()</code> คืนค่าเป็น <code>str</code> เสมอ ไม่ว่าผู้ใช้จะพิมพ์ตัวเลขหรือข้อความ ดังนั้นหากต้องการใช้ในการคำนวณต้องแปลงชนิดข้อมูลก่อน</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># input() คืนค่าเป็น str เสมอ
+# ตัวอย่างที่ผิด (จะเกิด TypeError ถ้าผู้ใช้กรอกตัวเลข)
+# age = input("กรอกอายุ: ")
+# print(age + 5)   # ERROR! ไม่สามารถบวก str กับ int ได้
+
+# ตัวอย่างที่ถูกต้อง
+# age = int(input("กรอกอายุ: "))
+# print(age + 5)   # ถูกต้อง
+
+# เนื่องจากในเบราว์เซอร์ input() ไม่สามารถรับ input จริงๆ ได้
+# ในตัวอย่างนี้เราจำลองด้วยการกำหนดค่าตรงๆ
+name = "สมหมาย"              # ปกติ: name = input("กรอกชื่อ: ")
+age = 21                     # ปกติ: age = int(input("กรอกอายุ: "))
+height = 1.68                # ปกติ: height = float(input("กรอกส่วนสูง (เมตร): "))
+
+print(f"สวัสดี คุณ{name}!")
+print(f"อายุ: {age} ปี")
+print(f"ส่วนสูง: {height:.2f} เมตร")
+print(f"BMI จะคำนวณได้เมื่อทราบน้ำหนักด้วย")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ตัวดำเนินการและ f-string</span>
+        </div>
+        <textarea># ทดลองตัวดำเนินการต่างๆ
+a, b = 10, 3
+
+print("=== ตัวดำเนินการคณิตศาสตร์ ===")
+print(f"{a} + {b} = {a + b}")
+print(f"{a} - {b} = {a - b}")
+print(f"{a} * {b} = {a * b}")
+print(f"{a} / {b} = {a / b:.4f}")
+print(f"{a} // {b} = {a // b}")
+print(f"{a} % {b} = {a % b}")
+print(f"{a} ** {b} = {a ** b}")
+
+print("\n=== f-string จัดรูปแบบ ===")
+pi = 3.14159265
+salary = 45000.5
+print(f"pi = {pi:.3f}")
+print(f"เงินเดือน: {salary:,.2f} บาท")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Practical example -->
+      <div class="section-title">🔹 ตัวอย่างโปรแกรมจริง: คำนวณ BMI</div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># โปรแกรมคำนวณ BMI (Body Mass Index)
+# BMI = น้ำหนัก(kg) / ส่วนสูง(m)²
+# (จำลอง input ด้วยค่าตรงๆ เพื่อทดสอบ)
+
+name = "สมชาย"
+weight = 70.0    # กิโลกรัม  (int(input("น้ำหนัก(kg): ")))
+height = 1.75    # เมตร      (float(input("ส่วนสูง(m): ")))
+
+bmi = weight / (height ** 2)
+
+print("=" * 35)
+print(f"  ผลการคำนวณ BMI ของ: {name}")
+print("=" * 35)
+print(f"  น้ำหนัก  : {weight:.1f} kg")
+print(f"  ส่วนสูง  : {height:.2f} m")
+print(f"  BMI      : {bmi:.2f}")
+print("=" * 35)
+
+if bmi < 18.5:
+    category = "น้ำหนักน้อยกว่าเกณฑ์"
+elif bmi < 25.0:
+    category = "น้ำหนักปกติ"
+elif bmi < 30.0:
+    category = "น้ำหนักเกิน"
+else:
+    category = "อ้วน"
+
+print(f"  สถานะ    : {category}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - คำนวณ BMI</span>
+        </div>
+        <textarea># แก้ไขค่า weight และ height แล้วรันดูผล
+name = "คุณ"
+weight = 65.0    # น้ำหนัก (kg)
+height = 1.70    # ส่วนสูง (m)
+
+bmi = weight / (height ** 2)
+
+print("=" * 35)
+print(f"  ผลการคำนวณ BMI ของ: {name}")
+print("=" * 35)
+print(f"  น้ำหนัก  : {weight:.1f} kg")
+print(f"  ส่วนสูง  : {height:.2f} m")
+print(f"  BMI      : {bmi:.2f}")
+print("=" * 35)
+
+if bmi < 18.5:
+    category = "น้ำหนักน้อยกว่าเกณฑ์"
+elif bmi < 25.0:
+    category = "น้ำหนักปกติ"
+elif bmi < 30.0:
+    category = "น้ำหนักเกิน"
+else:
+    category = "อ้วน"
+
+print(f"  สถานะ    : {category}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <div class="section-title">🔹 คำถามทบทวน</div>
+
+      <div class="theory-box">
+        <h3>คำถามทบทวนบทที่ 3</h3>
+        <ol>
+          <li>อธิบายความแตกต่างระหว่างตัวดำเนินการ <code>/</code> และ <code>//</code> ใน Python พร้อมยกตัวอย่างที่ผลลัพธ์แตกต่างกัน และบอกว่าแต่ละอย่างเหมาะกับสถานการณ์ใด</li>
+          <li>ผลลัพธ์ของนิพจน์ต่อไปนี้คืออะไร? อธิบายตามลำดับความสำคัญของตัวดำเนินการ: <code>3 + 4 * 2 - 1</code>, <code>2 ** 3 + 1</code>, <code>10 % 3 + 1</code></li>
+          <li>ทำไม <code>input()</code> จึงคืนค่าเป็น <code>str</code> เสมอ? จะเกิดอะไรขึ้นถ้าเราใช้ค่านั้นในการคำนวณโดยไม่แปลงชนิดข้อมูล? จงเขียนโค้ดแสดงปัญหาและวิธีแก้</li>
+          <li>จงเขียนโปรแกรม Python ที่รับรัศมีของวงกลม แล้วคำนวณและแสดงผล: พื้นที่วงกลม (π r²) และเส้นรอบวง (2π r) โดยใช้ f-string จัดรูปแบบผลลัพธ์ให้แสดงทศนิยม 4 ตำแหน่ง</li>
+          <li>อธิบายความแตกต่างระหว่าง <code>and</code> และ <code>or</code> พร้อมสร้างตาราง Truth Table สำหรับแต่ละตัว และยกตัวอย่างสถานการณ์จริงที่ใช้แต่ละตัว</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="ch02-datatypes.html">
+          <span>← บทก่อนหน้า</span>
+          <strong>ชนิดข้อมูลและตัวแปร</strong>
+        </a>
+        <a href="ch04-conditions.html" class="next">
+          <span>บทถัดไป →</span>
+          <strong>คำสั่งเงื่อนไข</strong>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" integrity="sha384-b4IZetZNE8bVncsQqlcH4ZZFC58BslGU2LVj47xUtIMOw72axMESbPe8spBylXnd" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

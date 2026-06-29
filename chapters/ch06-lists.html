@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 6: List / Array - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html" class="active"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>List / Array</span></div>
+    </div>
+    <div class="content">
+
+      <!-- Chapter Header -->
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 6</div>
+        <h1>List / Array</h1>
+        <p>เรียนรู้การจัดการข้อมูลหลายค่าในตัวแปรเดียวด้วย List ของ Python — โครงสร้างข้อมูลที่ใช้บ่อยที่สุดในการเขียนโปรแกรม</p>
+        <div class="clo-list">
+          <span class="clo-badge clo3">CLO3: เขียนโปรแกรมจัดการข้อมูลด้วย List ได้</span>
+        </div>
+      </div>
+
+      <!-- Section 1: List คืออะไร -->
+      <h2 class="section-title">📦 1. List คืออะไร?</h2>
+      <div class="theory-box">
+        <p><strong>List</strong> คือโครงสร้างข้อมูลที่ใช้เก็บข้อมูลหลายค่าในตัวแปรเดียว โดยเรียงลำดับกันและสามารถแก้ไขได้ (mutable)</p>
+        <p>ในภาษาอื่น เช่น C หรือ Java จะเรียกว่า <strong>Array</strong> แต่ใน Python จะเรียกว่า <strong>List</strong> ซึ่งมีความยืดหยุ่นมากกว่า เพราะสามารถเก็บข้อมูลต่างชนิดกันในตัวเดียวกันได้</p>
+        <ul>
+          <li>เก็บข้อมูลหลายค่าเรียงลำดับ (ordered)</li>
+          <li>สามารถเปลี่ยนแปลงค่าได้ (mutable)</li>
+          <li>อนุญาตให้มีค่าซ้ำกัน (allow duplicates)</li>
+          <li>เข้าถึงข้อมูลด้วย index เริ่มจาก 0</li>
+          <li>รองรับข้อมูลหลายชนิดในตัวเดียว (mixed types)</li>
+        </ul>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">💡 ทำไมต้องใช้ List?</div>
+        <p>แทนที่จะสร้างตัวแปร <code>score1</code>, <code>score2</code>, <code>score3</code> ... จนถึง <code>score100</code> เราสามารถเก็บทุกคะแนนไว้ใน List เดียวชื่อ <code>scores</code> แล้วใช้ index เข้าถึงแต่ละค่าได้ ทำให้โค้ดสั้น อ่านง่าย และจัดการได้สะดวกยิ่งขึ้น</p>
+      </div>
+
+      <!-- Section 2: การสร้าง List -->
+      <h2 class="section-title">🔨 2. การสร้าง List</h2>
+      <div class="theory-box">
+        <p>สร้าง List ได้หลายวิธี:</p>
+        <ul>
+          <li>ใช้วงเล็บเหลี่ยม <code>[]</code> — วิธีที่นิยมที่สุด</li>
+          <li>ใช้ฟังก์ชัน <code>list()</code> — แปลงจากข้อมูลประเภทอื่น</li>
+          <li>List เปล่า <code>[]</code> — สร้างก่อนแล้วค่อยเพิ่มข้อมูลภายหลัง</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># List ของผลไม้ (String)
+fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง"]
+
+# List ของตัวเลข (Integer)
+numbers = [1, 2, 3, 4, 5]
+
+# List แบบผสมชนิดข้อมูล (Mixed Types)
+mixed = [1, "hello", 3.14, True, None]
+
+# List เปล่า
+empty_list = []
+
+# สร้างจาก list()
+chars = list("Python")    # ['P', 'y', 't', 'h', 'o', 'n']
+from_range = list(range(1, 6))  # [1, 2, 3, 4, 5]
+
+print(fruits)
+print(numbers)
+print(mixed)
+print(chars)
+print(from_range)</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — การสร้าง List</span>
+        </div>
+        <textarea>
+# ลองสร้าง List ต่าง ๆ
+fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+print("ผลไม้:", fruits)
+print("ตัวเลข:", numbers)
+print("แบบผสม:", mixed)
+print("จำนวนผลไม้:", len(fruits))
+
+# สร้างจาก range
+from_range = list(range(1, 11))
+print("1 ถึง 10:", from_range)</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 3: การเข้าถึง element -->
+      <h2 class="section-title">🎯 3. การเข้าถึง Element (Indexing &amp; Slicing)</h2>
+      <div class="theory-box">
+        <p>ใช้ <strong>index</strong> ในวงเล็บเหลี่ยมเพื่อเข้าถึงสมาชิกใน List</p>
+        <ul>
+          <li><strong>Positive index</strong>: นับจากซ้ายเริ่มที่ 0 เช่น <code>list[0]</code>, <code>list[1]</code></li>
+          <li><strong>Negative index</strong>: นับจากขวาเริ่มที่ -1 เช่น <code>list[-1]</code> คือตัวสุดท้าย</li>
+          <li><strong>Slicing</strong>: <code>list[start:end:step]</code> ดึงข้อมูลหลายค่าพร้อมกัน</li>
+        </ul>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>0</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ค่า</td>
+            <td>"แอปเปิล"</td>
+            <td>"กล้วย"</td>
+            <td>"ส้ม"</td>
+            <td>"มะม่วง"</td>
+          </tr>
+          <tr>
+            <td>Negative Index</td>
+            <td>-4</td>
+            <td>-3</td>
+            <td>-2</td>
+            <td>-1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง", "สับปะรด"]
+
+# Positive index
+print(fruits[0])   # แอปเปิล (ตัวแรก)
+print(fruits[2])   # ส้ม (ตัวที่ 3)
+
+# Negative index
+print(fruits[-1])  # สับปะรด (ตัวสุดท้าย)
+print(fruits[-2])  # มะม่วง (ตัวรองสุดท้าย)
+
+# Slicing [start:end] — ไม่รวม end
+print(fruits[1:3])   # ['กล้วย', 'ส้ม']
+print(fruits[:3])    # ['แอปเปิล', 'กล้วย', 'ส้ม'] (จากต้นถึง index 2)
+print(fruits[2:])    # ['ส้ม', 'มะม่วง', 'สับปะรด'] (จาก index 2 ถึงท้าย)
+
+# Slicing พร้อม step
+print(fruits[::2])   # ['แอปเปิล', 'ส้ม', 'สับปะรด'] (ทุก 2 ตัว)
+print(fruits[::-1])  # กลับลำดับทั้งหมด</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — Indexing &amp; Slicing</span>
+        </div>
+        <textarea>
+fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง", "สับปะรด"]
+
+print("=== Indexing ===")
+print(f"fruits[0]  = {fruits[0]}")
+print(f"fruits[-1] = {fruits[-1]}")
+print(f"fruits[2]  = {fruits[2]}")
+
+print("\n=== Slicing ===")
+print(f"fruits[1:3]  = {fruits[1:3]}")
+print(f"fruits[:3]   = {fruits[:3]}")
+print(f"fruits[2:]   = {fruits[2:]}")
+print(f"fruits[::2]  = {fruits[::2]}")
+print(f"fruits[::-1] = {fruits[::-1]}")  # กลับลำดับ</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 4: การแก้ไข List -->
+      <h2 class="section-title">✏️ 4. การแก้ไข List</h2>
+      <div class="theory-box">
+        <p>List ใน Python เป็น <strong>mutable</strong> หมายความว่าสามารถแก้ไข เพิ่ม หรือลบสมาชิกได้หลังจากสร้างแล้ว</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>วิธี</th><th>คำอธิบาย</th><th>ตัวอย่าง</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>list[i] = val</code></td><td>เปลี่ยนค่าที่ index i</td><td><code>fruits[0] = "ชมพู่"</code></td></tr>
+          <tr><td><code>append(val)</code></td><td>เพิ่มค่าที่ท้าย List</td><td><code>fruits.append("ลิ้นจี่")</code></td></tr>
+          <tr><td><code>insert(i, val)</code></td><td>แทรกค่าที่ตำแหน่ง i</td><td><code>fruits.insert(1, "มะละกอ")</code></td></tr>
+          <tr><td><code>remove(val)</code></td><td>ลบค่าที่ระบุ (ค่าแรกที่พบ)</td><td><code>fruits.remove("กล้วย")</code></td></tr>
+          <tr><td><code>pop(i)</code></td><td>ลบและคืนค่าที่ index i (ไม่ระบุ = ตัวสุดท้าย)</td><td><code>fruits.pop()</code></td></tr>
+          <tr><td><code>del list[i]</code></td><td>ลบค่าที่ index i</td><td><code>del fruits[0]</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">fruits = ["แอปเปิล", "กล้วย", "ส้ม"]
+print("เริ่มต้น:", fruits)
+
+# เปลี่ยนค่า
+fruits[0] = "ชมพู่"
+print("หลังเปลี่ยน [0]:", fruits)
+
+# เพิ่มที่ท้าย
+fruits.append("มะม่วง")
+print("หลัง append:", fruits)
+
+# แทรกที่ตำแหน่ง 1
+fruits.insert(1, "มะละกอ")
+print("หลัง insert:", fruits)
+
+# ลบด้วยชื่อ
+fruits.remove("ส้ม")
+print("หลัง remove:", fruits)
+
+# ลบตัวสุดท้าย
+popped = fruits.pop()
+print(f"pop ได้: {popped}, เหลือ: {fruits}")
+
+# ลบด้วย del
+del fruits[0]
+print("หลัง del [0]:", fruits)</code></pre>
+      </div>
+
+      <!-- Section 5: เมธอดของ List -->
+      <h2 class="section-title">🛠️ 5. เมธอดของ List</h2>
+      <div class="theory-box">
+        <p>Python มีเมธอด (method) สำเร็จรูปมากมายสำหรับจัดการ List</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>เมธอด</th><th>คำอธิบาย</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>sort()</code></td><td>เรียงลำดับ List (ascending โดยปริยาย)</td></tr>
+          <tr><td><code>sort(reverse=True)</code></td><td>เรียงลำดับจากมากไปน้อย</td></tr>
+          <tr><td><code>reverse()</code></td><td>กลับลำดับ List</td></tr>
+          <tr><td><code>index(val)</code></td><td>หา index ของค่าที่ระบุ</td></tr>
+          <tr><td><code>count(val)</code></td><td>นับจำนวนครั้งที่ค่าปรากฏ</td></tr>
+          <tr><td><code>copy()</code></td><td>สำเนา List (shallow copy)</td></tr>
+          <tr><td><code>clear()</code></td><td>ลบสมาชิกทั้งหมด</td></tr>
+          <tr><td><code>extend(list2)</code></td><td>ต่อ List อื่นเข้ามา</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">scores = [85, 72, 90, 68, 95, 85, 78]
+
+print("ต้นฉบับ:", scores)
+print(f"index ของ 90: {scores.index(90)}")
+print(f"นับจำนวน 85: {scores.count(85)}")
+
+# เรียงลำดับ
+scores.sort()
+print("หลัง sort:", scores)
+
+scores.sort(reverse=True)
+print("sort จากมากไปน้อย:", scores)
+
+# กลับลำดับ
+scores.reverse()
+print("หลัง reverse:", scores)
+
+# สำเนา
+copy_scores = scores.copy()
+copy_scores.append(100)
+print("ต้นฉบับ:", scores)    # ไม่เปลี่ยน
+print("สำเนา:", copy_scores) # เปลี่ยนเฉพาะสำเนา</code></pre>
+      </div>
+
+      <!-- Section 6: การวนซ้ำใน List -->
+      <h2 class="section-title">🔄 6. การวนซ้ำใน List</h2>
+      <div class="theory-box">
+        <p>สามารถวนซ้ำผ่านสมาชิกใน List ได้หลายวิธี:</p>
+        <ul>
+          <li><code>for item in list</code> — วนผ่านค่าแต่ละตัว</li>
+          <li><code>for i, item in enumerate(list)</code> — ได้ทั้ง index และค่า</li>
+          <li><code>for i in range(len(list))</code> — ใช้เมื่อต้องการ index</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง"]
+
+# วิธีที่ 1: for loop ธรรมดา
+print("=== วิธีที่ 1 ===")
+for fruit in fruits:
+    print(fruit)
+
+# วิธีที่ 2: enumerate (ได้ทั้ง index และค่า)
+print("\n=== วิธีที่ 2: enumerate ===")
+for i, fruit in enumerate(fruits):
+    print(f"{i+1}. {fruit}")
+
+# วิธีที่ 3: range + len
+print("\n=== วิธีที่ 3: range+len ===")
+for i in range(len(fruits)):
+    print(f"fruits[{i}] = {fruits[i]}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-3">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — วนซ้ำและจัดการ List</span>
+        </div>
+        <textarea>
+scores = [85, 92, 78, 96, 88, 74, 91]
+
+# แสดงคะแนนพร้อมลำดับ
+print("=== คะแนนนักศึกษา ===")
+for i, score in enumerate(scores, 1):
+    grade = "A" if score >= 90 else "B" if score >= 80 else "C" if score >= 70 else "D"
+    print(f"นักศึกษาที่ {i}: {score} คะแนน (เกรด {grade})")
+
+# สรุปสถิติ
+print(f"\nจำนวนนักศึกษา: {len(scores)} คน")
+print(f"คะแนนสูงสุด:   {max(scores)}")
+print(f"คะแนนต่ำสุด:   {min(scores)}")
+print(f"คะแนนเฉลี่ย:   {sum(scores)/len(scores):.2f}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-3')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-3')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 7: List Comprehension -->
+      <h2 class="section-title">⚡ 7. List Comprehension</h2>
+      <div class="theory-box">
+        <p><strong>List Comprehension</strong> คือวิธีสร้าง List ใหม่จาก iterable ในบรรทัดเดียว ทำให้โค้ดกระชับและอ่านง่าย</p>
+        <p>รูปแบบ: <code>[expression for item in iterable if condition]</code></p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># แบบปกติ (หลายบรรทัด)
+squares_normal = []
+for x in range(1, 6):
+    squares_normal.append(x ** 2)
+print("แบบปกติ:", squares_normal)
+
+# แบบ List Comprehension (บรรทัดเดียว)
+squares = [x**2 for x in range(1, 6)]
+print("Comprehension:", squares)  # [1, 4, 9, 16, 25]
+
+# พร้อมเงื่อนไข (if)
+evens = [x for x in range(1, 21) if x % 2 == 0]
+print("เลขคู่:", evens)
+
+# แปลงชนิดข้อมูล
+words = ["hello", "world", "python"]
+upper_words = [w.upper() for w in words]
+print("ตัวพิมพ์ใหญ่:", upper_words)
+
+# กรองข้อมูล
+scores = [85, 45, 92, 38, 76, 55, 98]
+passing = [s for s in scores if s >= 60]
+print("คะแนนผ่าน (>=60):", passing)</code></pre>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 เคล็ดลับ</div>
+        <p>ใช้ List Comprehension เมื่อโค้ดอ่านง่าย แต่หากมีเงื่อนไขซับซ้อนหลายชั้น ควรใช้ for loop ธรรมดาจะอ่านง่ายกว่า</p>
+      </div>
+
+      <!-- Section 8: Nested List -->
+      <h2 class="section-title">🗂️ 8. List ซ้อน (Nested List)</h2>
+      <div class="theory-box">
+        <p><strong>Nested List</strong> คือ List ที่มี List อื่นเป็นสมาชิก ใช้แทน 2D array หรือ matrix ในคณิตศาสตร์</p>
+        <p>เข้าถึงด้วย double index: <code>matrix[row][col]</code></p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># Matrix 3x3
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# เข้าถึงค่า
+print(f"matrix[0][0] = {matrix[0][0]}")  # 1 (แถวที่ 0, คอลัมน์ที่ 0)
+print(f"matrix[1][2] = {matrix[1][2]}")  # 6 (แถวที่ 1, คอลัมน์ที่ 2)
+print(f"matrix[2][1] = {matrix[2][1]}")  # 8
+
+# วนซ้ำ matrix
+print("\n=== แสดง Matrix ===")
+for row in matrix:
+    for val in row:
+        print(val, end="\t")
+    print()
+
+# คะแนนนักศึกษา 3 คน, 3 วิชา
+student_scores = [
+    [85, 90, 78],   # นักศึกษาที่ 1
+    [72, 88, 95],   # นักศึกษาที่ 2
+    [91, 76, 83],   # นักศึกษาที่ 3
+]
+names = ["สมชาย", "สมหญิง", "สมศักดิ์"]
+
+for i, (name, scores) in enumerate(zip(names, student_scores)):
+    avg = sum(scores) / len(scores)
+    print(f"{name}: {scores} เฉลี่ย = {avg:.1f}")</code></pre>
+      </div>
+
+      <!-- Section 9: การค้นหาใน List -->
+      <h2 class="section-title">🔍 9. การค้นหาใน List</h2>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">fruits = ["แอปเปิล", "กล้วย", "ส้ม", "มะม่วง", "กล้วย"]
+
+# ตรวจสอบว่ามีอยู่ใน List หรือไม่ (in operator)
+print("กล้วย" in fruits)      # True
+print("ลิ้นจี่" in fruits)    # False
+print("ส้ม" not in fruits)    # False
+
+# หา index ของค่า
+print(fruits.index("ส้ม"))    # 2
+print(fruits.index("กล้วย"))  # 1 (หาตัวแรกที่พบ)
+
+# นับจำนวนครั้ง
+print(fruits.count("กล้วย")) # 2
+
+# ค้นหาด้วย loop
+search = "มะม่วง"
+for i, fruit in enumerate(fruits):
+    if fruit == search:
+        print(f"พบ '{search}' ที่ index {i}")</code></pre>
+      </div>
+
+      <!-- Section 10: ฟังก์ชันพื้นฐาน -->
+      <h2 class="section-title">📊 10. ฟังก์ชันที่ใช้กับ List</h2>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python">scores = [85, 92, 78, 96, 88, 74, 91]
+
+print(f"จำนวนสมาชิก:  len()    = {len(scores)}")
+print(f"ค่าสูงสุด:    max()    = {max(scores)}")
+print(f"ค่าต่ำสุด:    min()    = {min(scores)}")
+print(f"ผลรวม:        sum()    = {sum(scores)}")
+print(f"เฉลี่ย:                = {sum(scores)/len(scores):.2f}")
+print(f"เรียงลำดับ:   sorted() = {sorted(scores)}")    # ไม่แก้ต้นฉบับ
+print(f"กลับลำดับ:   sorted(reverse=True) = {sorted(scores, reverse=True)}")
+print(f"ต้นฉบับยังคงเดิม: {scores}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-4">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python — โปรแกรมเต็ม: จัดการรายชื่อนักศึกษา</span>
+        </div>
+        <textarea>
+# โปรแกรมจัดการคะแนนนักศึกษา
+students = ["สมชาย", "สมหญิง", "สมศักดิ์", "วิมล", "ประภา"]
+scores   = [85, 92, 78, 96, 88]
+
+print("=" * 40)
+print("    ผลการเรียนนักศึกษา")
+print("=" * 40)
+
+for i, (name, score) in enumerate(zip(students, scores), 1):
+    if score >= 90:
+        grade = "A"
+    elif score >= 80:
+        grade = "B"
+    elif score >= 70:
+        grade = "C"
+    else:
+        grade = "D"
+    print(f"{i}. {name:<10} {score:>3} คะแนน  เกรด {grade}")
+
+print("-" * 40)
+print(f"คะแนนสูงสุด:  {max(scores)} ({students[scores.index(max(scores))]})")
+print(f"คะแนนต่ำสุด:  {min(scores)} ({students[scores.index(min(scores))]})")
+print(f"คะแนนเฉลี่ย: {sum(scores)/len(scores):.2f}")
+
+# List Comprehension: กรองผู้ได้ A
+top = [students[i] for i, s in enumerate(scores) if s >= 90]
+print(f"\nนักศึกษาเกรด A: {top}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-4')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-4')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <h2 class="section-title">❓ คำถามทบทวน</h2>
+      <div class="box box-warn">
+        <div class="box-title">คำถามทบทวนบทที่ 6</div>
+        <ol>
+          <li>List แตกต่างจาก Array ในภาษา C หรือ Java อย่างไร? และ List ใน Python มีคุณสมบัติพิเศษอะไรบ้าง?</li>
+          <li>กำหนด <code>nums = [10, 20, 30, 40, 50]</code> จงบอกผลลัพธ์ของ <code>nums[1:4]</code>, <code>nums[-2]</code>, และ <code>nums[::-1]</code></li>
+          <li><code>remove()</code> และ <code>pop()</code> ต่างกันอย่างไร? เมื่อไรควรใช้แต่ละแบบ?</li>
+          <li>จงเขียน List Comprehension เพื่อสร้าง List ของเลขคี่ตั้งแต่ 1 ถึง 20</li>
+          <li>Nested List คืออะไร? จงเขียนโค้ดสร้าง matrix 2x3 และแสดงผลทุกค่า</li>
+        </ol>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-nav">
+        <a href="ch05-loops.html">← บทที่ 5: การวนซ้ำ</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

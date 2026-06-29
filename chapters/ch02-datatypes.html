@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 2: ชนิดข้อมูลและตัวแปร - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html" class="active"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>ชนิดข้อมูลและตัวแปร</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 2</div>
+        <h1>ชนิดข้อมูลและตัวแปร</h1>
+        <p>เรียนรู้การใช้งานตัวแปร ชนิดข้อมูลพื้นฐานของ Python ได้แก่ int, float, str, bool และ None รวมถึงการแปลงชนิดข้อมูล เพื่อสร้างพื้นฐานที่แข็งแกร่งสำหรับการเขียนโปรแกรม</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Variables -->
+      <div class="section-title">🔹 ตัวแปร (Variable)</div>
+
+      <div class="theory-box">
+        <h3>ตัวแปรคืออะไร?</h3>
+        <p><strong>ตัวแปร (Variable)</strong> คือพื้นที่ในหน่วยความจำ (Memory) ที่ใช้สำหรับเก็บข้อมูลชั่วคราวระหว่างที่โปรแกรมกำลังทำงาน เราสามารถตั้งชื่อให้กับตัวแปรเพื่อเรียกใช้ข้อมูลนั้นได้ในภายหลัง เปรียบเสมือนกล่องที่มีป้ายชื่อติดอยู่ ซึ่งเราสามารถนำของใส่ไว้ในกล่องและดึงออกมาใช้ได้ตามต้องการ</p>
+        <p>ใน Python การกำหนดค่าให้ตัวแปรทำด้วยเครื่องหมาย <code>=</code> (เครื่องหมายกำหนดค่า ไม่ใช่เครื่องหมายเท่ากับทางคณิตศาสตร์)</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>กฎการตั้งชื่อตัวแปร (Naming Rules)</h3>
+        <ul>
+          <li>ต้องขึ้นต้นด้วยตัวอักษร (a-z, A-Z) หรือเครื่องหมาย underscore (_)</li>
+          <li>ตัวถัดไปอาจเป็นตัวอักษร ตัวเลข หรือ underscore ก็ได้</li>
+          <li><strong>ห้าม</strong>มีช่องว่าง (space) ในชื่อตัวแปร</li>
+          <li><strong>ห้าม</strong>ใช้คำสงวน (Keywords) ของ Python เช่น <code>if</code>, <code>for</code>, <code>while</code>, <code>print</code></li>
+          <li>Python แยกตัวพิมพ์เล็ก-ใหญ่ (Case-sensitive): <code>name</code> กับ <code>Name</code> คือตัวแปรคนละตัว</li>
+          <li>แนะนำใช้รูปแบบ snake_case: เช่น <code>student_name</code>, <code>total_score</code></li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่างชื่อตัวแปรที่ถูกต้อง
+name = "สมชาย"
+age = 20
+_score = 95.5
+student_id = "6501001"
+
+# ตัวอย่างชื่อตัวแปรที่ผิด (จะเกิด SyntaxError)
+# 1name = "ผิด"       # ขึ้นต้นด้วยตัวเลขไม่ได้
+# my name = "ผิด"    # มีช่องว่างไม่ได้
+# if = 5             # ใช้ keyword ไม่ได้
+
+# Python แยกตัวพิมพ์เล็ก-ใหญ่
+myVar = 10
+myvar = 20
+MyVar = 30
+print(myVar, myvar, MyVar)  # 10 20 30 (คนละตัวแปรกัน!)</code></pre>
+      </div>
+
+      <!-- Section 2: Data Types overview -->
+      <div class="section-title">🔹 ชนิดข้อมูลพื้นฐาน (Basic Data Types)</div>
+
+      <p>Python มีชนิดข้อมูลพื้นฐานที่สำคัญ 5 ชนิด ดังตาราง:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ชนิดข้อมูล</th>
+            <th>คำอธิบาย</th>
+            <th>ตัวอย่าง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>int</code></td>
+            <td>จำนวนเต็ม (Integer) ไม่มีทศนิยม</td>
+            <td><code>10, -5, 0, 2024</code></td>
+          </tr>
+          <tr>
+            <td><code>float</code></td>
+            <td>จำนวนทศนิยม (Floating-point)</td>
+            <td><code>3.14, -2.5, 1.0</code></td>
+          </tr>
+          <tr>
+            <td><code>str</code></td>
+            <td>ข้อความหรือสตริง (String)</td>
+            <td><code>"สวัสดี", 'Hello'</code></td>
+          </tr>
+          <tr>
+            <td><code>bool</code></td>
+            <td>ค่าความจริง (Boolean): True หรือ False</td>
+            <td><code>True, False</code></td>
+          </tr>
+          <tr>
+            <td><code>None</code></td>
+            <td>ค่าว่าง ไม่มีค่า (Null value)</td>
+            <td><code>None</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 3: int -->
+      <div class="section-title">🔹 int (จำนวนเต็ม)</div>
+
+      <div class="theory-box">
+        <h3>ชนิดข้อมูล int</h3>
+        <p>ชนิดข้อมูล <strong>int</strong> (Integer) ใช้เก็บจำนวนเต็ม ทั้งบวกและลบ รวมถึงศูนย์ ใน Python 3 ตัวแปร int สามารถเก็บค่าได้ไม่จำกัดขนาด (ขึ้นอยู่กับหน่วยความจำของเครื่อง) ซึ่งต่างจากภาษาอื่นที่มักมีขีดจำกัด</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่าง int
+age = 21
+temperature = -5
+year = 2024
+big_number = 1_000_000  # ใช้ _ คั่นหลักพันได้ (อ่านง่ายขึ้น)
+
+print(age)           # 21
+print(temperature)   # -5
+print(big_number)    # 1000000
+
+# การคำนวณกับ int
+a = 17
+b = 5
+print(a + b)    # 22
+print(a - b)    # 12
+print(a * b)    # 85
+print(a // b)   # 3  (หารเอาจำนวนเต็ม)
+print(a % b)    # 2  (เศษจากการหาร)
+print(a ** 2)   # 289 (17 ยกกำลัง 2)</code></pre>
+      </div>
+
+      <!-- Section 4: float -->
+      <div class="section-title">🔹 float (จำนวนทศนิยม)</div>
+
+      <div class="theory-box">
+        <h3>ชนิดข้อมูล float</h3>
+        <p>ชนิดข้อมูล <strong>float</strong> ใช้เก็บจำนวนที่มีทศนิยม หรือจำนวนที่เขียนในรูปแบบ Scientific Notation เช่น <code>1.5e3</code> (หมายถึง 1500.0) ควรระวังความแม่นยำของ float เพราะคอมพิวเตอร์เก็บค่า float ด้วยระบบเลขฐานสอง ซึ่งอาจเกิดความคลาดเคลื่อนเล็กน้อยได้</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่าง float
+height = 1.75
+pi = 3.14159
+temperature = -12.5
+avogadro = 6.022e23  # 6.022 × 10²³
+
+print(height)       # 1.75
+print(pi)           # 3.14159
+print(avogadro)     # 6.022e+23
+
+# ความแม่นยำของ float (ระวัง!)
+result = 0.1 + 0.2
+print(result)           # 0.30000000000000004 (ไม่ใช่ 0.3 พอดี!)
+print(round(result, 2)) # 0.3 (ใช้ round() แก้ปัญหาได้)
+
+# การหารปกติได้ผลเป็น float เสมอ
+print(10 / 3)   # 3.3333333333333335
+print(10 / 2)   # 5.0 (ไม่ใช่ 5)</code></pre>
+      </div>
+
+      <div class="box box-warn">
+        <div class="box-title">⚠️ ระวัง</div>
+        การหารด้วย <code>/</code> ใน Python 3 จะได้ผลเป็น float เสมอ แม้ว่าผลลัพธ์จะเป็นจำนวนเต็มก็ตาม เช่น <code>10 / 2</code> ได้ <code>5.0</code> ไม่ใช่ <code>5</code> หากต้องการผลเป็น int ให้ใช้ <code>//</code> แทน
+      </div>
+
+      <!-- Section 5: str -->
+      <div class="section-title">🔹 str (สตริง)</div>
+
+      <div class="theory-box">
+        <h3>ชนิดข้อมูล str (String)</h3>
+        <p>ชนิดข้อมูล <strong>str</strong> ใช้เก็บข้อความหรือลำดับของตัวอักษร สามารถใช้เครื่องหมายคำพูดเดี่ยว (<code>'</code>) หรือคู่ (<code>"</code>) ครอบข้อความได้ทั้งคู่ สำหรับข้อความหลายบรรทัดใช้เครื่องหมายคำพูดสามชั้น (<code>'''</code> หรือ <code>"""</code>)</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่าง str
+name = "สุรเชษฐ์"
+university = 'มหาวิทยาลัยนราธิวาสราชนครินทร์'
+quote = "เขากล่าวว่า 'สวัสดี'"    # ใช้ " ครอบ ' ข้างในได้
+
+# สตริงหลายบรรทัด
+address = """123 ถนนหลัก
+ตำบลกะลุวอ
+อำเภอเมือง
+จังหวัดนราธิวาส"""
+
+print(name)
+print(university)
+print(address)
+
+# การต่อสตริง (Concatenation)
+first = "สวัสดี"
+second = " โลก"
+combined = first + second
+print(combined)    # สวัสดี โลก
+
+# การทำซ้ำสตริง
+line = "-" * 20
+print(line)        # --------------------
+
+# ความยาวของสตริง
+print(len(name))   # จำนวนตัวอักษร</code></pre>
+      </div>
+
+      <!-- Section 6: bool -->
+      <div class="section-title">🔹 bool (บูลีน)</div>
+
+      <div class="theory-box">
+        <h3>ชนิดข้อมูล bool (Boolean)</h3>
+        <p>ชนิดข้อมูล <strong>bool</strong> มีค่าได้เพียงสองค่าเท่านั้น คือ <code>True</code> (จริง) และ <code>False</code> (เท็จ) ต้องเขียนขึ้นต้นด้วยตัวพิมพ์ใหญ่เสมอ ใช้งานบ่อยในการตรวจสอบเงื่อนไข bool จริงๆ แล้วเป็น subclass ของ int โดย True = 1 และ False = 0</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่าง bool
+is_student = True
+has_passed = False
+is_morning = True
+
+print(is_student)    # True
+print(has_passed)    # False
+
+# bool จากการเปรียบเทียบ
+age = 18
+print(age >= 18)     # True
+print(age > 20)      # False
+print(age == 18)     # True
+print(age != 18)     # False
+
+# bool คือ int
+print(True + True)   # 2
+print(True + False)  # 1
+print(int(True))     # 1
+print(int(False))    # 0</code></pre>
+      </div>
+
+      <!-- Section 7: None -->
+      <div class="section-title">🔹 None (ค่าว่าง)</div>
+
+      <div class="theory-box">
+        <h3>ชนิดข้อมูล None</h3>
+        <p><strong>None</strong> ใช้แทนการไม่มีค่า หรือค่าที่ยังไม่ถูกกำหนด คล้ายกับ <code>null</code> ในภาษาอื่น มักใช้เมื่อต้องการประกาศตัวแปรแต่ยังไม่มีค่า หรือเมื่อฟังก์ชันไม่ส่งค่ากลับ</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่าง None
+result = None
+print(result)           # None
+print(type(result))     # <class 'NoneType'>
+
+# ตรวจสอบว่าเป็น None หรือไม่ (ใช้ is ไม่ใช้ ==)
+if result is None:
+    print("ยังไม่มีผลลัพธ์")
+else:
+    print(f"ผลลัพธ์คือ: {result}")</code></pre>
+      </div>
+
+      <!-- Section 8: type() -->
+      <div class="section-title">🔹 การตรวจสอบชนิดข้อมูล — type()</div>
+
+      <p>Python มีฟังก์ชันในตัว <code>type()</code> ที่ใช้ตรวจสอบว่าตัวแปรนั้นเป็นชนิดข้อมูลอะไร มีประโยชน์มากในการดีบักโปรแกรม</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตรวจสอบชนิดข้อมูลด้วย type()
+name = "สุรเชษฐ์"
+age = 25
+height = 1.75
+is_student = True
+nothing = None
+
+print(type(name))       # <class 'str'>
+print(type(age))        # <class 'int'>
+print(type(height))     # <class 'float'>
+print(type(is_student)) # <class 'bool'>
+print(type(nothing))    # <class 'NoneType'>
+
+# isinstance() ตรวจสอบแบบยืดหยุ่นกว่า
+print(isinstance(age, int))    # True
+print(isinstance(age, float))  # False
+print(isinstance(True, int))   # True (bool เป็น subclass ของ int)</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ชนิดข้อมูลและ type()</span>
+        </div>
+        <textarea># ทดลองตรวจสอบชนิดข้อมูลต่างๆ
+name = "สุรเชษฐ์"
+age = 25
+height = 1.75
+is_student = True
+nothing = None
+
+print("name:", name, "| type:", type(name))
+print("age:", age, "| type:", type(age))
+print("height:", height, "| type:", type(height))
+print("is_student:", is_student, "| type:", type(is_student))
+print("nothing:", nothing, "| type:", type(nothing))
+
+# ลองเพิ่มตัวแปรของตัวเองที่นี่
+my_var = 42
+print("my_var:", my_var, "| type:", type(my_var))</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Section 9: Type Conversion -->
+      <div class="section-title">🔹 การแปลงชนิดข้อมูล (Type Conversion)</div>
+
+      <div class="theory-box">
+        <h3>การแปลงชนิดข้อมูล (Type Casting)</h3>
+        <p>บางครั้งเราต้องการเปลี่ยนชนิดข้อมูลจากชนิดหนึ่งไปเป็นอีกชนิดหนึ่ง Python มีฟังก์ชันในตัวสำหรับทำสิ่งนี้ เรียกว่า <strong>Type Conversion</strong> หรือ <strong>Type Casting</strong></p>
+        <ul>
+          <li><code>int(x)</code> — แปลง x ให้เป็นจำนวนเต็ม</li>
+          <li><code>float(x)</code> — แปลง x ให้เป็นจำนวนทศนิยม</li>
+          <li><code>str(x)</code> — แปลง x ให้เป็นสตริง</li>
+          <li><code>bool(x)</code> — แปลง x ให้เป็น bool</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># แปลงชนิดข้อมูล
+
+# str → int
+x = "42"
+y = int(x)
+print(y + 8)         # 50 (ถ้าไม่แปลง จะเกิด TypeError)
+
+# float → int (ตัดทศนิยมทิ้ง ไม่ปัด)
+pi = 3.99
+print(int(pi))       # 3 (ไม่ปัดขึ้นเป็น 4)
+
+# int → float
+num = 5
+print(float(num))    # 5.0
+
+# int/float → str
+score = 95.5
+text = str(score)
+print(text + " คะแนน")    # 95.5 คะแนน
+
+# แปลงค่าต่างๆ เป็น bool
+print(bool(0))       # False
+print(bool(1))       # True
+print(bool(-5))      # True (ทุกตัวเลขที่ไม่ใช่ 0 = True)
+print(bool(""))      # False (string ว่าง = False)
+print(bool("abc"))   # True
+
+# input() คืนค่าเป็น str เสมอ จึงต้องแปลงก่อนใช้คำนวณ
+# num = int(input("กรอกตัวเลข: "))  # แปลง str เป็น int</code></pre>
+      </div>
+
+      <div class="box box-warn">
+        <div class="box-title">⚠️ ระวัง</div>
+        ไม่สามารถแปลงสตริงที่ไม่ใช่ตัวเลขให้เป็น int หรือ float ได้ เช่น <code>int("hello")</code> จะเกิด <code>ValueError</code> ควรตรวจสอบข้อมูลให้แน่ใจก่อนแปลงเสมอ
+      </div>
+
+      <!-- Section 10: Constants -->
+      <div class="section-title">🔹 ค่าคงที่ (Constant)</div>
+
+      <div class="theory-box">
+        <h3>ค่าคงที่ใน Python</h3>
+        <p>Python ไม่มีคีย์เวิร์ดสำหรับประกาศค่าคงที่โดยตรง แต่ตามแนวปฏิบัติมาตรฐาน (PEP 8) นิยมตั้งชื่อตัวแปรที่ใช้เป็นค่าคงที่ด้วยตัวพิมพ์ใหญ่ทั้งหมด (ALL_CAPS) โดยใช้ underscore คั่นคำ เพื่อบอกให้โปรแกรมเมอร์คนอื่นรู้ว่าไม่ควรเปลี่ยนค่านี้</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ค่าคงที่ (ตามแนวปฏิบัติ ALL_CAPS)
+PI = 3.14159265358979
+MAX_SCORE = 100
+MIN_AGE = 18
+COURSE_CODE = "07-034-205"
+GRAVITY = 9.81  # m/s²
+
+# ใช้ค่าคงที่ในการคำนวณ
+radius = 5
+area = PI * radius ** 2
+print(f"พื้นที่วงกลมรัศมี {radius} = {area:.2f}")
+
+# ข้อมูลนักศึกษา
+student_name = "สมชาย ใจดี"
+student_score = 88
+
+if student_score <= MAX_SCORE:
+    print(f"{student_name} ได้คะแนน {student_score}/{MAX_SCORE}")</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - การแปลงชนิดข้อมูลและค่าคงที่</span>
+        </div>
+        <textarea># ทดลองแปลงชนิดข้อมูล
+PI = 3.14159
+radius = 7
+
+# คำนวณพื้นที่วงกลม
+area = PI * radius ** 2
+print(f"รัศมี: {radius}")
+print(f"พื้นที่: {area:.4f}")
+
+# แปลงชนิดข้อมูล
+x = "123"
+y = int(x) + 77
+print(f"'{x}' + 77 = {y}")
+
+score = 98.6
+print(f"คะแนน: {score} → int: {int(score)} → str: '{str(score)}'")
+
+# bool ของค่าต่างๆ
+values = [0, 1, -5, "", "hello", None]
+for v in values:
+    print(f"bool({repr(v)}) = {bool(v)}")</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 เคล็ดลับ: Multiple Assignment</div>
+        Python อนุญาตให้กำหนดค่าหลายตัวแปรพร้อมกันในบรรทัดเดียว เช่น
+        <code>x, y, z = 1, 2, 3</code> หรือ <code>a = b = c = 0</code>
+        นอกจากนี้ยังสามารถสลับค่าตัวแปรได้สั้นๆ ด้วย <code>a, b = b, a</code>
+      </div>
+
+      <!-- Review Questions -->
+      <div class="section-title">🔹 คำถามทบทวน</div>
+
+      <div class="theory-box">
+        <h3>คำถามทบทวนบทที่ 2</h3>
+        <ol>
+          <li>ตัวแปรใน Python คืออะไร? จงอธิบายกฎการตั้งชื่อตัวแปร และยกตัวอย่างชื่อตัวแปรที่ถูกต้องและไม่ถูกต้องอย่างละ 3 ตัวอย่าง</li>
+          <li>ชนิดข้อมูลพื้นฐาน 5 ชนิดของ Python คืออะไรบ้าง? จงอธิบายและยกตัวอย่างค่าของแต่ละชนิด</li>
+          <li>ทำไม <code>0.1 + 0.2</code> ใน Python จึงไม่เท่ากับ <code>0.3</code> พอดี? และมีวิธีแก้ไขอย่างไร?</li>
+          <li>จงเขียนโค้ด Python ที่รับตัวเลขเป็น str แล้วแปลงเป็น int และ float จากนั้นแสดงผลลัพธ์และชนิดข้อมูลของแต่ละตัว</li>
+          <li>ค่าใดบ้างที่เมื่อแปลงเป็น bool จะได้ <code>False</code>? จงยกตัวอย่างอย่างน้อย 5 ค่า และอธิบายว่าทำไมจึงเป็นเช่นนั้น</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="ch01-intro.html">
+          <span>← บทก่อนหน้า</span>
+          <strong>แนะนำการเขียนโปรแกรม</strong>
+        </a>
+        <a href="ch03-operators-io.html" class="next">
+          <span>บทถัดไป →</span>
+          <strong>ตัวดำเนินการและ Input/Output</strong>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" integrity="sha384-b4IZetZNE8bVncsQqlcH4ZZFC58BslGU2LVj47xUtIMOw72axMESbPe8spBylXnd" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>

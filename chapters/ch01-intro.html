@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บทที่ 1: แนะนำการเขียนโปรแกรม - 07-034-205</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" rel="stylesheet" integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07" crossorigin="anonymous">
+  <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90"></div>
+
+  <aside id="sidebar">
+    <div class="logo">
+      <h1>07-034-205</h1>
+      <p>หลักการเขียนโปรแกรมคอมพิวเตอร์</p>
+    </div>
+    <nav>
+      <div class="nav-section">หน้าหลัก</div>
+      <a href="../index.html"><span class="icon">🏠</span> หน้าแรก</a>
+      <div class="nav-section">บทเรียน</div>
+      <a href="ch01-intro.html" class="active"><span class="icon">1</span> แนะนำการเขียนโปรแกรม</a>
+      <a href="ch02-datatypes.html"><span class="icon">2</span> ชนิดข้อมูลและตัวแปร</a>
+      <a href="ch03-operators-io.html"><span class="icon">3</span> ตัวดำเนินการและ I/O</a>
+      <a href="ch04-conditions.html"><span class="icon">4</span> คำสั่งเงื่อนไข</a>
+      <a href="ch05-loops.html"><span class="icon">5</span> การวนซ้ำ</a>
+      <a href="ch06-lists.html"><span class="icon">6</span> List / Array</a>
+    </nav>
+  </aside>
+
+  <div id="main">
+    <div id="topbar">
+      <button id="menu-toggle">☰</button>
+      <div class="breadcrumb">บทเรียน › <span>แนะนำการเขียนโปรแกรม</span></div>
+    </div>
+    <div class="content">
+
+      <div class="chapter-header">
+        <div class="ch-num">บทที่ 1</div>
+        <h1>แนะนำการเขียนโปรแกรม</h1>
+        <p>ทำความเข้าใจพื้นฐานของการเขียนโปรแกรม ภาษา Python วงจรการพัฒนาโปรแกรม ผังงาน และอัลกอริทึม เพื่อเตรียมความพร้อมสำหรับการเขียนโปรแกรมจริง</p>
+        <div class="clo-list">
+          <span class="clo-badge clo1">CLO1</span>
+          <span class="clo-badge clo2">CLO2</span>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <div class="section-title">🔹 โปรแกรมคอมพิวเตอร์คืออะไร</div>
+
+      <div class="theory-box">
+        <h3>โปรแกรมคอมพิวเตอร์ (Computer Program)</h3>
+        <p><strong>โปรแกรมคอมพิวเตอร์</strong> คือชุดคำสั่ง (Instructions) ที่เขียนขึ้นในลำดับที่ถูกต้อง เพื่อสั่งให้คอมพิวเตอร์ทำงานตามที่ต้องการ คอมพิวเตอร์เป็นเพียงเครื่องจักร ไม่สามารถคิดเองได้ ต้องการคำสั่งที่ชัดเจนทุกขั้นตอน ผู้ที่เขียนคำสั่งเหล่านี้เรียกว่า <strong>โปรแกรมเมอร์ (Programmer)</strong></p>
+      </div>
+
+      <p>ในชีวิตประจำวัน เราใช้โปรแกรมคอมพิวเตอร์อยู่ตลอดเวลา เช่น แอปพลิเคชันบนโทรศัพท์มือถือ เว็บไซต์ ระบบธนาคารออนไลน์ เกมคอมพิวเตอร์ และโปรแกรมต่างๆ บนคอมพิวเตอร์ ทุกสิ่งเหล่านี้ล้วนเป็นผลลัพธ์จากการเขียนโปรแกรม</p>
+
+      <div class="theory-box">
+        <h3>ภาษาโปรแกรม (Programming Language)</h3>
+        <p><strong>ภาษาโปรแกรม</strong> คือภาษาที่มนุษย์ใช้ในการสื่อสารกับคอมพิวเตอร์ มีหลายภาษาให้เลือกใช้ตามความเหมาะสม เช่น Python, Java, C++, JavaScript, R เป็นต้น แต่ละภาษามีจุดเด่นและการใช้งานที่แตกต่างกัน</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>Python คืออะไร และทำไมจึงนิยมใช้?</h3>
+        <p><strong>Python</strong> เป็นภาษาโปรแกรมระดับสูง (High-level Language) ที่ถูกสร้างขึ้นโดย Guido van Rossum และเปิดตัวครั้งแรกในปี ค.ศ. 1991 โดยมีจุดเด่นที่สำคัญ ดังนี้</p>
+        <ul>
+          <li><strong>อ่านง่าย (Readable):</strong> ไวยากรณ์ของ Python ออกแบบให้ใกล้เคียงกับภาษาอังกฤษ ทำให้เข้าใจง่ายแม้แต่ผู้เริ่มต้น</li>
+          <li><strong>เขียนน้อย ได้มาก (Concise):</strong> โค้ด Python มักสั้นกว่าภาษาอื่นๆ เช่น Java หรือ C++ อย่างมาก</li>
+          <li><strong>ใช้ได้หลากหลาย (Versatile):</strong> ใช้ได้ทั้งพัฒนาเว็บ, วิทยาศาสตร์ข้อมูล, ปัญญาประดิษฐ์, การทำงานอัตโนมัติ และอื่นๆ</li>
+          <li><strong>ชุมชนขนาดใหญ่ (Large Community):</strong> มีไลบรารีและเอกสารช่วยเหลือมากมาย หาความช่วยเหลือได้ง่าย</li>
+          <li><strong>ฟรีและโอเพ่นซอร์ส (Free and Open-source):</strong> ไม่มีค่าใช้จ่ายในการใช้งาน</li>
+        </ul>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">ℹ️ Python ในโลกจริง</div>
+        บริษัทชั้นนำระดับโลก เช่น Google, Netflix, Instagram, Spotify และ NASA ล้วนใช้ Python ในการพัฒนาซอฟต์แวร์ นอกจากนี้ Python ยังเป็นภาษาที่นิยมมากที่สุดในสาขา Machine Learning และ Data Science
+      </div>
+
+      <!-- Section 2 -->
+      <div class="section-title">🔹 วงจรการพัฒนาโปรแกรม (Program Development Cycle)</div>
+
+      <p>การพัฒนาโปรแกรมไม่ได้เริ่มต้นด้วยการเขียนโค้ดทันที แต่ต้องผ่านขั้นตอนต่างๆ อย่างเป็นระบบ วงจรการพัฒนาโปรแกรมประกอบด้วย 5 ขั้นตอนหลัก ดังนี้</p>
+
+      <div class="theory-box">
+        <h3>ขั้นที่ 1: วิเคราะห์ปัญหา (Problem Analysis)</h3>
+        <p>ทำความเข้าใจปัญหาให้ชัดเจนก่อน ต้องตอบคำถามว่า ต้องการอะไร (Input คืออะไร), ต้องการผลลัพธ์แบบไหน (Output คืออะไร), และมีข้อจำกัดอะไรบ้าง ขั้นตอนนี้สำคัญมาก เพราะถ้าเข้าใจปัญหาผิด โปรแกรมที่เขียนออกมาก็จะแก้ปัญหาผิดด้วย</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>ขั้นที่ 2: ออกแบบ (Design)</h3>
+        <p>วางแผนวิธีแก้ปัญหาโดยใช้เครื่องมือต่างๆ เช่น ผังงาน (Flowchart) หรือ Pseudocode เพื่อให้เห็นภาพรวมของโปรแกรมก่อนเขียนโค้ดจริง การออกแบบที่ดีจะช่วยให้การเขียนโค้ดรวดเร็วและถูกต้องมากขึ้น</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>ขั้นที่ 3: เขียนโค้ด (Coding)</h3>
+        <p>แปลงการออกแบบให้กลายเป็นโค้ดโปรแกรมโดยใช้ภาษาที่เลือก ในรายวิชานี้เราใช้ Python การเขียนโค้ดที่ดีควรมีความคิดเห็น (Comment) อธิบายการทำงาน และตั้งชื่อตัวแปรให้สื่อความหมาย</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>ขั้นที่ 4: ทดสอบ (Testing)</h3>
+        <p>ทดสอบโปรแกรมด้วยข้อมูลที่หลากหลาย ทั้งข้อมูลปกติ ข้อมูลขอบเขต (Edge Cases) และข้อมูลผิดพลาด เพื่อตรวจหาข้อผิดพลาด (Bug) และแก้ไขให้โปรแกรมทำงานได้ถูกต้องในทุกกรณี</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>ขั้นที่ 5: บำรุงรักษา (Maintenance)</h3>
+        <p>หลังจากโปรแกรมถูกนำไปใช้งานแล้ว ยังต้องมีการดูแลรักษา แก้ไขข้อผิดพลาดที่พบในภายหลัง และอาจเพิ่มฟังก์ชันใหม่ตามความต้องการที่เปลี่ยนแปลงไป</p>
+      </div>
+
+      <div class="box box-tip">
+        <div class="box-title">💡 เคล็ดลับ</div>
+        นักศึกษาหลายคนมักข้ามขั้นตอนการวิเคราะห์และออกแบบ แล้วรีบเขียนโค้ดทันที ซึ่งมักทำให้เสียเวลามากกว่า เพราะต้องแก้ไขปัญหามากมายในภายหลัง ลองคิดและวางแผนก่อนเสมอ!
+      </div>
+
+      <!-- Section 3 -->
+      <div class="section-title">🔹 ผังงาน (Flowchart)</div>
+
+      <p>ผังงาน (Flowchart) คือภาพกราฟิกที่แสดงขั้นตอนการทำงานของอัลกอริทึมหรือโปรแกรม โดยใช้สัญลักษณ์มาตรฐานสากล ช่วยให้เข้าใจการไหลของข้อมูลและการตัดสินใจได้ง่ายขึ้น</p>
+
+      <div class="theory-box">
+        <h3>สัญลักษณ์ผังงานมาตรฐาน</h3>
+        <ul>
+          <li><strong>วงรี (Oval/Terminal):</strong> แสดงจุดเริ่มต้น (Start) และจุดสิ้นสุด (End) ของโปรแกรม</li>
+          <li><strong>สี่เหลี่ยมผืนผ้า (Rectangle/Process):</strong> แสดงการประมวลผล เช่น การคำนวณ การกำหนดค่า</li>
+          <li><strong>ขนมเปียกปูน (Diamond/Decision):</strong> แสดงการตัดสินใจ มีทางออก 2 ทาง คือ ใช่ (Yes) และ ไม่ใช่ (No)</li>
+          <li><strong>สี่เหลี่ยมมีเส้นขนาน (Parallelogram/I/O):</strong> แสดงการรับข้อมูล (Input) หรือแสดงผลลัพธ์ (Output)</li>
+          <li><strong>ลูกศร (Arrow):</strong> แสดงทิศทางการไหลของการทำงาน</li>
+        </ul>
+      </div>
+
+      <p>ตัวอย่างผังงานการหาค่าสูงสุดของสองจำนวน (a และ b):</p>
+
+      <div class="flowchart-container">
+        <svg width="320" height="380" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow1" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+            </marker>
+          </defs>
+          <!-- Start oval -->
+          <ellipse cx="160" cy="35" rx="55" ry="22" fill="#1e3a5f" stroke="#1e3a5f"/>
+          <text x="160" y="40" text-anchor="middle" fill="white" font-size="13" font-family="Sarabun">เริ่มต้น</text>
+          <!-- Arrow down -->
+          <line x1="160" y1="57" x2="160" y2="80" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <!-- Input box -->
+          <polygon points="75,80 245,80 230,115 90,115" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="160" y="102" text-anchor="middle" fill="#1e3a5f" font-size="12" font-family="Sarabun">รับค่า a และ b</text>
+          <!-- Arrow down -->
+          <line x1="160" y1="115" x2="160" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <!-- Decision diamond -->
+          <polygon points="160,140 250,185 160,230 70,185" fill="white" stroke="#e67e22" stroke-width="2"/>
+          <text x="160" y="189" text-anchor="middle" fill="#e67e22" font-size="12" font-family="Sarabun">a &gt; b ?</text>
+          <!-- Yes label left -->
+          <text x="95" y="218" text-anchor="middle" fill="#27ae60" font-size="11" font-family="Sarabun">ใช่</text>
+          <!-- No label right -->
+          <text x="225" y="218" text-anchor="middle" fill="#e74c3c" font-size="11" font-family="Sarabun">ไม่ใช่</text>
+          <!-- Arrow Yes - go left -->
+          <line x1="70" y1="185" x2="30" y2="185" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <line x1="30" y1="185" x2="30" y2="265" stroke="#64748b" stroke-width="2"/>
+          <line x1="30" y1="265" x2="65" y2="265" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <!-- Print a box -->
+          <polygon points="60,248 155,248 145,283 70,283" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="107" y="270" text-anchor="middle" fill="#1e3a5f" font-size="12" font-family="Sarabun">แสดงผล a</text>
+          <!-- Arrow No - go right -->
+          <line x1="250" y1="185" x2="290" y2="185" stroke="#64748b" stroke-width="2"/>
+          <line x1="290" y1="185" x2="290" y2="265" stroke="#64748b" stroke-width="2"/>
+          <line x1="290" y1="265" x2="255" y2="265" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <!-- Print b box -->
+          <polygon points="165,248 260,248 250,283 175,283" fill="white" stroke="#1e3a5f" stroke-width="2"/>
+          <text x="213" y="270" text-anchor="middle" fill="#1e3a5f" font-size="12" font-family="Sarabun">แสดงผล b</text>
+          <!-- Arrows to end -->
+          <line x1="107" y1="283" x2="107" y2="330" stroke="#64748b" stroke-width="2"/>
+          <line x1="107" y1="330" x2="150" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <line x1="213" y1="283" x2="213" y2="330" stroke="#64748b" stroke-width="2"/>
+          <line x1="213" y1="330" x2="172" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrow1)"/>
+          <!-- End oval -->
+          <ellipse cx="160" cy="352" rx="55" ry="22" fill="#1e3a5f" stroke="#1e3a5f"/>
+          <text x="160" y="357" text-anchor="middle" fill="white" font-size="13" font-family="Sarabun">สิ้นสุด</text>
+        </svg>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="section-title">🔹 อัลกอริทึม (Algorithm)</div>
+
+      <div class="theory-box">
+        <h3>อัลกอริทึม (Algorithm) คืออะไร?</h3>
+        <p><strong>อัลกอริทึม</strong> คือขั้นตอนการแก้ปัญหาที่มีลำดับชัดเจน แน่นอน และมีจุดสิ้นสุด ทุกโปรแกรมคอมพิวเตอร์มีอัลกอริทึมเป็นพื้นฐาน อัลกอริทึมที่ดีต้องมีคุณสมบัติดังนี้</p>
+        <ul>
+          <li><strong>มีขอบเขต (Finiteness):</strong> ต้องสิ้นสุดในที่สุด ไม่ทำงานไปเรื่อยๆ ไม่หยุด</li>
+          <li><strong>ชัดเจน (Definiteness):</strong> แต่ละขั้นตอนต้องชัดเจน ไม่คลุมเครือ</li>
+          <li><strong>มี Input:</strong> อาจมีข้อมูลนำเข้า 0 หรือมากกว่า</li>
+          <li><strong>มี Output:</strong> ต้องมีผลลัพธ์อย่างน้อย 1 อย่าง</li>
+          <li><strong>มีประสิทธิภาพ (Effectiveness):</strong> แต่ละขั้นตอนต้องทำได้จริงในเวลาจำกัด</li>
+        </ul>
+      </div>
+
+      <p>ตัวอย่าง อัลกอริทึมบวกเลขสองจำนวน (เขียนแบบ Pseudocode):</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Pseudocode</span>
+        </div>
+        <pre><code class="language-plaintext">อัลกอริทึม: หาผลรวมของสองจำนวน
+Input: จำนวน a และ b
+Output: ผลรวมของ a และ b
+
+ขั้นที่ 1: เริ่มต้น
+ขั้นที่ 2: รับค่า a
+ขั้นที่ 3: รับค่า b
+ขั้นที่ 4: คำนวณ sum = a + b
+ขั้นที่ 5: แสดงผล sum
+ขั้นที่ 6: สิ้นสุด</code></pre>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="section-title">🔹 ติดตั้งและเริ่มใช้ Python</div>
+
+      <div class="theory-box">
+        <h3>การติดตั้ง Python</h3>
+        <p>สามารถดาวน์โหลด Python ได้ฟรีจากเว็บไซต์ทางการ <strong>python.org</strong> เลือกเวอร์ชันล่าสุดของ Python 3 ตามระบบปฏิบัติการที่ใช้ (Windows, macOS, Linux)</p>
+      </div>
+
+      <div class="theory-box">
+        <h3>เครื่องมือสำหรับเขียน Python</h3>
+        <ul>
+          <li><strong>Python IDLE:</strong> โปรแกรมตัวแก้ไขโค้ดพื้นฐานที่มาพร้อมกับ Python เหมาะสำหรับผู้เริ่มต้น</li>
+          <li><strong>VS Code (Visual Studio Code):</strong> โปรแกรมแก้ไขโค้ดขั้นสูง ฟรี มีส่วนเสริม Python ที่ทรงพลัง แนะนำสำหรับการเรียนในรายวิชานี้</li>
+          <li><strong>PyCharm:</strong> IDE เฉพาะสำหรับ Python มีฟีเจอร์ครบครัน มีรุ่นฟรี (Community Edition)</li>
+          <li><strong>Jupyter Notebook:</strong> เหมาะสำหรับการทำงานด้าน Data Science และการทดลองโค้ด</li>
+        </ul>
+      </div>
+
+      <div class="theory-box">
+        <h3>วิธีรันโปรแกรม Python</h3>
+        <p>หลังจากเขียนโค้ดในไฟล์ชื่อ <code>hello.py</code> แล้ว สามารถรันได้โดยพิมพ์คำสั่งใน Terminal หรือ Command Prompt:</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Terminal</span>
+        </div>
+        <pre><code class="language-bash">python hello.py
+# หรือบน macOS/Linux อาจใช้
+python3 hello.py</code></pre>
+      </div>
+
+      <div class="box box-warn">
+        <div class="box-title">⚠️ ระวัง</div>
+        ตรวจสอบให้แน่ใจว่าติดตั้ง Python 3 ไม่ใช่ Python 2 เพราะทั้งสองเวอร์ชันมีความแตกต่างกัน ในรายวิชานี้เราใช้ Python 3 เท่านั้น สามารถตรวจสอบเวอร์ชันได้ด้วยคำสั่ง <code>python --version</code>
+      </div>
+
+      <!-- Section 6 -->
+      <div class="section-title">🔹 โปรแกรมแรก: Hello World</div>
+
+      <p>ตามธรรมเนียมของโลกการเขียนโปรแกรม โปรแกรมแรกที่นักเรียนมักเขียนคือโปรแกรม "Hello, World!" ซึ่งเป็นโปรแกรมที่แสดงข้อความบนหน้าจอ ใน Python สามารถทำได้ง่ายมากด้วยคำสั่งเพียงบรรทัดเดียว</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># โปรแกรมแรกของฉัน
+print("Hello, World!")
+print("สวัสดีโลก!")
+print("ยินดีต้อนรับสู่การเขียนโปรแกรม Python")
+
+# สามารถแสดงตัวเลขได้ด้วย
+print(2024)
+print(3.14)
+
+# แสดงหลายค่าในบรรทัดเดียว
+print("ชื่อ:", "สมชาย", "อายุ:", 20)</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-1">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - Hello World</span>
+        </div>
+        <textarea># แก้ไขและรันโค้ดนี้ได้เลย
+print("Hello, World!")
+print("สวัสดีโลก!")
+print("ยินดีต้อนรับสู่การเขียนโปรแกรม Python")
+print()
+print("ชื่อ:", "สมชาย", "อายุ:", 20)</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-1')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-1')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <div class="box box-info">
+        <div class="box-title">ℹ️ เครื่องหมาย # ใน Python</div>
+        บรรทัดที่ขึ้นต้นด้วยเครื่องหมาย <code>#</code> เรียกว่า <strong>Comment</strong> Python จะไม่ประมวลผลบรรทัดนั้น ใช้เขียนอธิบายโค้ดเพื่อให้คนอื่น (หรือตัวเองในอนาคต) เข้าใจได้ง่ายขึ้น ถือเป็นนิสัยที่ดีมากในการเขียนโปรแกรม
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          <span class="lang-tag">Python</span>
+        </div>
+        <pre><code class="language-python"># ตัวอย่างการใช้ print() หลายรูปแบบ
+print("=" * 30)           # แสดง = 30 ตัว
+print("  ยินดีต้อนรับ  ")
+print("=" * 30)
+print()                   # บรรทัดว่าง
+print("วิชา:", "07-034-205")
+print("ผู้สอน:", "อ.ดร.สุรเชษฐ์ สังขพันธ์")
+print("=" * 30)</code></pre>
+      </div>
+
+      <div class="py-runner" id="runner-2">
+        <div class="py-runner-header">
+          <span class="runner-title">ลองเขียนโค้ด Python - ตกแต่งผลลัพธ์</span>
+        </div>
+        <textarea># ลองทดสอบการแสดงผลในรูปแบบต่างๆ
+print("=" * 30)
+print("  ยินดีต้อนรับ  ")
+print("=" * 30)
+print()
+print("วิชา:", "07-034-205")
+print("ผู้สอน:", "อ.ดร.สุรเชษฐ์ สังขพันธ์")
+print("=" * 30)</textarea>
+        <div class="run-controls">
+          <button class="btn-run" onclick="runPython('runner-2')" disabled>▶ Run</button>
+          <button class="btn-clear" onclick="clearRunner('runner-2')">🗑 Clear Output</button>
+        </div>
+        <div class="py-output empty">ผลลัพธ์จะแสดงที่นี่...</div>
+        <div class="pyodide-status">⏳ กำลังโหลด Python runtime...</div>
+      </div>
+
+      <!-- Review Questions -->
+      <div class="section-title">🔹 คำถามทบทวน</div>
+
+      <div class="theory-box">
+        <h3>คำถามทบทวนบทที่ 1</h3>
+        <ol>
+          <li>โปรแกรมคอมพิวเตอร์คืออะไร และมีความแตกต่างจากอัลกอริทึมอย่างไร? จงอธิบายพร้อมยกตัวอย่าง</li>
+          <li>วงจรการพัฒนาโปรแกรม (Program Development Cycle) มีกี่ขั้นตอน และแต่ละขั้นตอนทำอะไรบ้าง? ขั้นตอนใดที่นักศึกษาคิดว่าสำคัญที่สุด เพราะอะไร?</li>
+          <li>ผังงาน (Flowchart) มีสัญลักษณ์มาตรฐานอะไรบ้าง? จงเขียนผังงานสำหรับอัลกอริทึมที่รับตัวเลข 3 จำนวน แล้วหาค่าเฉลี่ย</li>
+          <li>Python มีข้อดีอะไรบ้างเมื่อเทียบกับภาษาโปรแกรมอื่นๆ? และ Python เหมาะกับงานประเภทใดบ้าง?</li>
+          <li>จงเขียนโปรแกรม Python ที่แสดงชื่อ-นามสกุล รหัสนักศึกษา และชื่อสาขาวิชาของตนเองออกหน้าจอ โดยจัดรูปแบบให้สวยงาม</li>
+        </ol>
+      </div>
+
+      <div class="page-nav">
+        <a href="../index.html">
+          <span>← กลับหน้าแรก</span>
+          <strong>หน้าแรก</strong>
+        </a>
+        <a href="ch02-datatypes.html" class="next">
+          <span>บทถัดไป →</span>
+          <strong>ชนิดข้อมูลและตัวแปร</strong>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" integrity="sha384-b4IZetZNE8bVncsQqlcH4ZZFC58BslGU2LVj47xUtIMOw72axMESbPe8spBylXnd" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/pyrunner.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>
